@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Movlix - <?php echo $page_name?></title>
+    <title>Camagru - <?php echo $page_name?></title>
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/nav.css">
 	<link rel="stylesheet" href="css/footer.css">

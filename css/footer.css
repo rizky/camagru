@@ -3,11 +3,8 @@ footer {
 	display: flex;
 	height: 46px;
 	align-items: center;
-	border: 1px solid rgba(238,238,238 ,1);
-	border-radius: 5px;
-	color: rgba(117,117,117 ,1);
-	box-shadow: 5px 10px 20px -20px rgba(85,172,238 ,1);
 	margin-bottom: 30px;
+	color: #757575;
 }
 footer div{
 	margin-left: auto;
