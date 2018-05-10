@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    image: php:7.0-apache
+    environment:
+      - ALLOW_OVERRIDE=true
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - .:/var/www/html/
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+#docker-compose up
