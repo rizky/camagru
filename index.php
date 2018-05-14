@@ -1,11 +1,14 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="en">
-	<?php $page_name="Home"; include('components/header.php'); ?>
-	<body class="wrapper">
-		<?php include('components/nav.php'); ?>
-		<main class="landing">
-		</main>
-		<?php include('components/footer.php'); ?>
-	</body>
-</html>
+<?php
+
+    session_start();
+
+    function __autoload($name) {
+        require_once(str_replace('\\', '/', $name).'.class.php');
+    }
+
+    $app = new \app\Ponps;
+    $app->setRoute($_SERVER['REQUEST_URI']);
+    $app->setMethod($_SERVER['REQUEST_METHOD']);
+    $app->setPrefix('');
+    require_once('app/route/route.php');
+    $app->run();
