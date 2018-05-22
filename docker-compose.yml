@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: php:7.0-apache
+    image: rizkyario/42-camagru
     environment:
       - ALLOW_OVERRIDE=true
     ports:
@@ -11,13 +11,14 @@ services:
       - db
     volumes:
       - .:/var/www/html/
+    environment:
+      XDEBUG_CONFIG: remote_host=10.0.1.4
 
   db:
-    image: mysql
+    image: mysql:5.5.59
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
-
-#docker-compose up
+  #docker-compose up
