@@ -5,9 +5,10 @@ class View
 	protected $view;
 	public $params;
 
-	public function __construct($view)
+	public function __construct($view, $params)
 	{
 		$this->view = $view;
+		$this->params = $params;
 	}
 
 	public function render()

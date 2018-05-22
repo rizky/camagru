@@ -10,6 +10,6 @@ class Controller
 
 	protected function view($view, $params = [])
 	{
-		return new View($view);
+		return new View($view, $params);
 	}
 }
