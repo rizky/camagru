@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Controller
+class Photos extends Controller
 {
 	protected $user;
 	protected $view;
@@ -8,11 +8,11 @@ class Home extends Controller
 	public function __construct()
 	{
 		$this->user = $this->model('User');
-		$this->view = $this->view('Home');
 	}
 
-	public function index($name = '')
+	public function showAll($name = '')
 	{
+		$this->view = $this->view('Photos/showAll');
 		$this->user->name = $name;
 		$this->view->params = ['user' => $this->user];
 		$this->view->render();
