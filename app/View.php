@@ -1,4 +1,5 @@
 <?php
+require_once 'Template.php';
 
 class View
 {
@@ -13,7 +14,7 @@ class View
 
 	public function render()
 	{
-		$params = $this->params;
-		require_once 'app/views/' . $this->view . '.php';
+		$params['session'] = $_SESSION;
+        new Template($this->view, $this->params);
 	}
 }

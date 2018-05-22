@@ -12,9 +12,9 @@ class Photos extends Controller
 
 	public function showAll($name = '')
 	{
-		$this->view = $this->view('Photos/showAll');
+		$this->view = $this->view('photos/showAll');
 		$this->user->name = $name;
-		$this->view->params = ['user' => $this->user];
+		$this->view->params = ['user' => (array)$this->user];
 		$this->view->render();
 	}
 }

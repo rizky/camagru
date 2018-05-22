@@ -1,1 +1,0 @@
-Hello <?=$params['user']->name?>
