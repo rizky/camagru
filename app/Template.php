@@ -143,6 +143,8 @@ Class Template
 			}
 			if ($var !== NULL)
 				$this->final = preg_replace('/{{' . $matches[1][$k] . '}}/', $var, $this->final);
+			else
+				$this->final = preg_replace('/{{' . $matches[1][$k] . '}}/', '', $this->final);
 		}
 	}
 

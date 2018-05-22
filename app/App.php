@@ -1,6 +1,8 @@
 <?php
-require_once 'Controller.php';
 require_once 'View.php';
+require_once 'Controller.php';
+require_once 'ORM.php';
+
 
 class App
 {
@@ -11,7 +13,10 @@ class App
 	public function __construct()
 	{
 		$url = $this->parse_url();
-		
+		require_once 'app/models/User.php';
+		$user = User::Login('admin', 'admin');
+		if ($user instanceof User)
+			$_SESSION['user'] = (array)($user);
 		if (file_exists('app/controllers/' . $url[0] . '.php'))
 		{
 			$this->controller = $url[0];

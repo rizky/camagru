@@ -14,4 +14,16 @@ class User
 	{
 		return sha1("c4m4gru" . $username . $password);
 	}
+
+	static public function login($username, $password)
+	{
+		$user = ORM::getInstance()->findOne('user', array('username' => $username, 'password' => User::encrypt_password($username, $password)));
+		if ($user instanceof User) {
+			if (empty($user->tokenValidated))
+				return $user;
+			else
+				return 1;
+		}
+		return (NULL);
+	}
 }
