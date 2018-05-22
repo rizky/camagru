@@ -7,6 +7,11 @@ class Camera extends Controller
 
 	public function __construct()
 	{
-		$this->user = $this->model('User');
+	}
+
+	public function index()
+	{
+		$this->view = $this->view('camera/index');
+		$this->view->render();
 	}
 }

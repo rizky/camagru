@@ -14,7 +14,7 @@ class App
 		
 		if (file_exists('app/controllers/' . $url[0] . '.php'))
 		{
-			$controller = $url[0];
+			$this->controller = $url[0];
 			unset($url[0]);
 		}
 		require_once 'app/controllers/' . $this->controller . '.php';
@@ -22,7 +22,6 @@ class App
 		if (isset($url[1]) && method_exists($this->controller, $url[1]))
 		{
 			$this->method = $url[1];
-			$this->controller = $controller;
 			unset($url[1]);
 		}
 		$this->params = $url ? array_values($url) : [];
