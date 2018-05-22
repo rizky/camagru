@@ -95,7 +95,7 @@ ul {
 	width: 100px;
 }
 
-.nav_account ul:hover ul {
+.nav_account ul:hover {
 	opacity: 1;
 	height: auto;
 }
