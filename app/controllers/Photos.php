@@ -10,11 +10,17 @@ class Photos extends Controller
 		$this->user = $this->model('User');
 	}
 
-	public function showAll($name = '')
+	public function index($name = '')
 	{
-		$this->view = $this->view('photos/showAll');
+		$this->view = $this->view('photos/index');
 		$this->user->name = $name;
 		$this->view->params = ['user' => (array)$this->user];
+		$this->view->render();
+	}
+
+	public function show($id = '')
+	{
+		$this->view = $this->view('photos/show');
 		$this->view->render();
 	}
 }

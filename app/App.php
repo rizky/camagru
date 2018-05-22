@@ -4,8 +4,8 @@ require_once 'View.php';
 
 class App
 {
-	protected $controller = 'Photos';
-	protected $method = 'showAll';
+	protected $controller = 'photos';
+	protected $method = 'index';
 	protected $params = [];
 
 	public function __construct()
