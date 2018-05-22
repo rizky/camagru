@@ -10,10 +10,10 @@ class Photos extends Controller
 		$this->user = $this->model('User');
 	}
 
-	public function index($name = '')
+	public function index($id = '')
 	{
 		$this->view = $this->view('photos/index');
-		$this->user->name = $name;
+		$this->user->id = $id;
 		$this->view->params = ['user' => (array)$this->user];
 		$this->view->render();
 	}
