@@ -4,11 +4,11 @@
 <div class="row">
 	<h1>Registration</h1>
 	<form action="/account/register" method="POST">
-		<input type="text" name="username" placeholder="Username" value="">
+		<input type="text" name="username" placeholder="Username" value="{{post.username}}">
 		<input type="password" name="password" placeholder="Password" class="">
 		<input type="password" name="password2" placeholder="Retype Password" class="">
-		<input type="email" name="email" placeholder="Email" value="">
-		<input type="text" name="name" placeholder="First Name" value="">
+		<input type="email" name="email" placeholder="Email" value="{{post.email}}">
+		<input type="text" name="name" placeholder="Name" value="{{post.name}}">
 		<button type="submit" class="btn btn-default">Register</button>
 		<input type="hidden" name="from" value="register">
 		<input type="hidden" name="success" value="login">

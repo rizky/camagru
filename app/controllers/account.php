@@ -14,20 +14,15 @@ class Account extends Controller
 
 	public function index()
 	{
-		if ($this->user)
-		{
-			$this->view = $this->view('account/index');
-			$this->view->render();
-		}
-		else
-			$this->login();
+		if ($this->user == NULL)
+			$this->redirect('/account/login');
+		$this->view = $this->view('account/index');
+		$this->view->render();
 	}
 
 	public function login()
 	{
-		if ($this->method === 'GET')
-			$this->view = $this->view('account/login');
-		else
+		if ($this->method === 'POST')
 		{
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)
@@ -35,9 +30,8 @@ class Account extends Controller
 				$_SESSION['user'] = (array)($user);
 				$this->redirect('/photo/show');
 			}
-			else
-				$this->view = $this->view('account/login');
 		}
+		$this->view = $this->view('account/login');
 		$this->view->render();
 	}
 

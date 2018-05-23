@@ -27,11 +27,8 @@ class Photos extends Controller
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		else
-		{
-			$this->view = $this->view('photos/show');
-			$this->view->params = ['user' => (array)$this->user];
-		}
+		$this->view = $this->view('photos/show');
+		$this->view->params = ['user' => (array)$this->user];
 		$this->view->render();
 	}
 }
