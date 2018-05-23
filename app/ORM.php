@@ -28,7 +28,7 @@ class ORM
 
 	public function findOne($table, $where)
 	{
-		$req = "SELECT * FROM " . $table . " WHERE 1 = 1";
+		$req = "SELECT * FROM " . $table . " WHERE deleted = false";
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		$statment = $this->PDOInstance->prepare($req);
@@ -41,7 +41,7 @@ class ORM
 
 	public function findAll($table, $where, $order = null, $limit = null)
 	{
-		$req = "SELECT * FROM " . $table . " WHERE 1 = 1";
+		$req = "SELECT * FROM " . $table . " WHERE deleted = false";
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		if (!empty($order))
@@ -123,7 +123,7 @@ class ORM
 	}
 
 	public function count($table, $where){
-		$req = "SELECT count(*) FROM " . $table . " WHERE 1 = 1";
+		$req = "SELECT count(*) FROM " . $table . " WHERE deleted = false";
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		$statment = $this->PDOInstance->prepare($req);
@@ -141,6 +141,14 @@ class ORM
 			return ($this->insert($table, $fields, $value));
 		else
 			return ($this->update($table, $fields, $value));
+	}
+
+	public function delete_s($table, $id)
+	{
+		$req = 'UPDATE '.$table.' SET deleted = true WHERE id = :id';
+		$statment = $this->PDOInstance->prepare($req);
+		$statment->bindValue(':id', $id);
+		$statment->execute();
 	}
 
 	public function delete($table, $id)

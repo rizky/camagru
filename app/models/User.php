@@ -10,7 +10,7 @@ class User
 	public $tokenLost;
 
 
-	static private function encrypt_password($username, $password)
+	static public function encrypt_password($username, $password)
 	{
 		return sha1("c4m4gru" . $username . $password);
 	}
