@@ -2,6 +2,13 @@
 
 class Controller
 {
+	protected $method = 'GET';
+	public function __construct()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST')
+			$this->method = 'POST';
+	}
+
 	protected function model($model)
 	{
 		require_once 'app/models/' . $model . '.php';

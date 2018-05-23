@@ -12,7 +12,7 @@ services:
     volumes:
       - .:/var/www/html/
     environment:
-      XDEBUG_CONFIG: remote_host=10.100.2.12
+      XDEBUG_CONFIG: remote_host=10.100.7.61
 
   db:
     image: mysql:5.5.59

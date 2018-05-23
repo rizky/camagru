@@ -7,6 +7,7 @@ class Account extends Controller
 
 	public function __construct()
 	{
+		parent::__construct();
 		if (isset($_SESSION['user']))
 			$this->user = (object)$_SESSION['user'];
 	}
@@ -24,7 +25,20 @@ class Account extends Controller
 
 	public function login()
 	{
-		$this->view = $this->view('account/login');
+		if ($this->method === 'GET')
+			$this->view = $this->view('account/login');
+		else
+		{
+			$user = $this->model('User');
+			$user = User::Login($_POST['username'], $_POST['password']);
+			if ($user instanceof User)
+			{
+				$_SESSION['user'] = (array)($user);
+				$this->view = $this->view('photos/index');
+			}
+			else
+				$this->view = $this->view('account/login');
+		}
 		$this->view->render();
 	}
 
