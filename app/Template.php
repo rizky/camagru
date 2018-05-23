@@ -116,18 +116,21 @@ Class Template
 					$var = NULL;
 			}
 			if ($var !== NULL) {
-				foreach ($var as $k3 => $v3) {
-					if (is_array($v3)) {
-						preg_match('/{{' . $matchesFor[3][$k]. '.(.*?)}}/', $matchesFor[4][$k], $option);
-						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k]. '.(.*?)}}/', $var[$k3][$option[1]], $matchesFor[4][$k]);
-					} else {
-						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k] . '}}/', $v3, $matchesFor[4][$k]);
+				foreach ($var as $k3 => $v3)
+				{
+					if (is_array($v3))
+					{
+						$htmlFor .= $matchesFor[4][$k];
+						foreach ($v3 as $k4 => $v4)
+							$htmlFor = preg_replace('/{{' . $matchesFor[3][$k]. '.' .$k4 . '}}/', $v4, $htmlFor);
 					}
+					else
+						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k] . '}}/', $v3, $matchesFor[4][$k]);
 				}
 				$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', $htmlFor, $this->final);
 			}
 			else
-			$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', '', $this->final);
+				$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', '', $this->final);
 		}
 	}
 
