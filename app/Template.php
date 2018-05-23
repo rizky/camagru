@@ -16,8 +16,8 @@ Class Template
 		$this->addTemplate();
 		$this->addInclude();
 		$this->merge();
-		// $this->addIf();
-		// $this->addIfn();
+		$this->addIf();
+		$this->addIfn();
 		// $this->addFor();
 		$this->addValue();
 		echo $this->final;
@@ -62,7 +62,7 @@ Class Template
 	private function addIf()
 	{
 		$i = 0;
-		$this->final = preg_replace_callback('/{\%IF /s', '\app\Template::incrementIf', $this->final);
+		$this->final = preg_replace_callback('/{\%IF /s', 'Template::incrementIf', $this->final);
 		preg_match_all('/{\%IF (.*?) (.*?)}(.*?){\%END}/s', $this->final, $matchesIf);
 		foreach ($matchesIf[2] as $k => $v) {
 			$v_exp = explode(".", $v);
@@ -83,7 +83,7 @@ Class Template
 	private function addIfn()
 	{
 		$i = 0;
-		$this->final = preg_replace_callback('/{\%IFN /s', '\app\Template::incrementIfn', $this->final);
+		$this->final = preg_replace_callback('/{\%IFN /s', 'Template::incrementIfn', $this->final);
 		preg_match_all('/{\%IFN (.*?) (.*?)}(.*?){\%END}/s', $this->final, $matchesIf);
 		foreach ($matchesIf[2] as $k => $v) {
 			$v_exp = explode(".", $v);
@@ -103,7 +103,7 @@ Class Template
 
 	private function addFor()
 	{
-		$this->final = preg_replace_callback('/{\*FOR /s', '\app\Template::incrementFor', $this->final);
+		$this->final = preg_replace_callback('/{\*FOR /s', 'Template::incrementFor', $this->final);
 		preg_match_all('/{\*FOR (.*?) (.*?) AS (.*?)}(.*?){\*END}/s', $this->final, $matchesFor);
 		foreach ($matchesFor[2] as $k => $v) {
 			$htmlFor = "";

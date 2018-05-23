@@ -7,7 +7,8 @@ class Photos extends Controller
 
 	public function __construct()
 	{
-		$this->user = $this->model('User');
+		if (isset($_SESSION['user']))
+			$this->user = (object)$_SESSION['user'];
 	}
 
 	public function index($id = '')

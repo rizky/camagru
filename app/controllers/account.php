@@ -7,11 +7,13 @@ class Account extends Controller
 
 	public function __construct()
 	{
+		if (isset($_SESSION['user']))
+			$this->user = (object)$_SESSION['user'];
 	}
 
 	public function index($user = '')
 	{
-		if ($user != '')
+		if ($this->user)
 		{
 			$this->view = $this->view('account/index');
 			$this->view->render();
@@ -29,6 +31,13 @@ class Account extends Controller
 	public function register()
 	{
 		$this->view = $this->view('account/register');
+		$this->view->render();
+	}
+
+	public function logout()
+	{
+		unset($_SESSION['user']);
+		$this->view = $this->view('photos/index');
 		$this->view->render();
 	}
 }

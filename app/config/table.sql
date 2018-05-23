@@ -17,7 +17,7 @@ USE `camagru` ;
 -- Table `camagru`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camagru`.`user` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
