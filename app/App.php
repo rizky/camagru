@@ -1,9 +1,4 @@
 <?php
-require_once 'View.php';
-require_once 'Controller.php';
-require_once 'ORM.php';
-
-
 class App
 {
 	protected $controller = 'photos';
