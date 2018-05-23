@@ -12,7 +12,7 @@ class Account extends Controller
 			$this->user = (object)$_SESSION['user'];
 	}
 
-	public function index($user = '')
+	public function index()
 	{
 		if ($this->user)
 		{
@@ -33,7 +33,7 @@ class Account extends Controller
 			if ($user instanceof User)
 			{
 				$_SESSION['user'] = (array)($user);
-				$this->view = $this->view('photos/index');
+				$this->redirect('/photo/show');
 			}
 			else
 				$this->view = $this->view('account/login');

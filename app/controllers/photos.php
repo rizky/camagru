@@ -11,7 +11,7 @@ class Photos extends Controller
 			$this->user = (object)$_SESSION['user'];
 	}
 
-	public function index($id = '')
+	public function index()
 	{
 		$this->view = $this->view('photos/index');
 		$this->view->render();
@@ -23,14 +23,13 @@ class Photos extends Controller
 		$this->view->render();
 	}
 
-	public function user($id = '')
+	public function user()
 	{
 		if ($this->user == NULL)
-			$this->view = $this->view('account/login');
+			$this->redirect('/account/login');
 		else
 		{
 			$this->view = $this->view('photos/show');
-			$this->user->id = $id;
 			$this->view->params = ['user' => (array)$this->user];
 		}
 		$this->view->render();

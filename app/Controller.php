@@ -13,4 +13,10 @@ class Controller
 	{
 		return new View($view, $params);
 	}
+
+	protected function redirect($url)
+	{
+		header('Location: ' . $url);
+		exit;
+	}
 }
