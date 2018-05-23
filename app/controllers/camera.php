@@ -13,6 +13,8 @@ class Camera extends Controller
 
 	public function index()
 	{
+		if ($this->user == NULL)
+			$this->redirect('/account/login');
 		$this->view = $this->view('camera/index');
 		$this->view->render();
 	}
