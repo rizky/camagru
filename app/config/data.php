@@ -25,6 +25,30 @@ $photo = new Photo(array(
 	'likes' => 100));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
 
+$photo = new Photo(array(
+	'user' => (array)$user,
+	'url' => 'http://timetravelblonde.com/wp-content/uploads/2017/03/Screenshot_2017-03-16-14-39-29-e1489737224349-836x1024.png',
+	'likes' => 100));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
+$photo = new Photo(array(
+	'user' => (array)$user,
+	'url' => 'https://www.piknikdong.com/wp-content/uploads/2017/12/Kampung-Pelangi-Semarang-Yang-Instagramable.jpg',
+	'likes' => 100));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
+$photo = new Photo(array(
+	'user' => (array)$user,
+	'url' => 'https://www.ngetren.co.id/wp-content/uploads/2018/01/Motel-Mexicola-seminyak-bali.jpg',
+	'likes' => 100));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
+$photo = new Photo(array(
+	'user' => (array)$user,
+	'url' => 'https://thespaces.com/wp-content/uploads/2018/04/monochrome-cj-hendry-brooklyn-exhibition-colour-rooms-new-york-usa_3.jpg',
+	'likes' => 100));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
 $user = new User(
 	array(
 		'username' => 'deleted_admin',
