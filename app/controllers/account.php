@@ -35,6 +35,15 @@ class Account extends Controller
 		$this->view->render();
 	}
 
+	public function profile()
+	{
+		if ($this->user == NULL)
+			$this->redirect('/account/login');
+		$this->view = $this->view('photos/show');
+		$this->view->params = ['user' => (array)$this->user];
+		$this->view->render();
+	}
+
 	public function register()
 	{
 		$this->view = $this->view('account/register');

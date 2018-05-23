@@ -22,13 +22,4 @@ class Photos extends Controller
 		$this->view = $this->view('photos/show');
 		$this->view->render();
 	}
-
-	public function user()
-	{
-		if ($this->user == NULL)
-			$this->redirect('/account/login');
-		$this->view = $this->view('photos/show');
-		$this->view->params = ['user' => (array)$this->user];
-		$this->view->render();
-	}
 }

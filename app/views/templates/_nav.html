@@ -7,27 +7,25 @@
 			</a>
 		</li>
 		<li>
-			<a href="/photos/user/{{session.user.id}}">
-				<i class="fa fa-image"></i>
-				<span class="nav-text">Gallery</span>
-			</a>
-		</li>
-		<li class="nav_logo">Camagru</li>
-		<li>
 			<a href="/camera">
 				<i class="fa fa-camera"></i>
 				<span class="nav-text">Camera</span>
 			</a>
 		</li>
+		<li class="nav_logo">Camagru</li>
+		<li class="nav_spacing">
+			<!-- Spacing -->
+		</li>
 		<li class="nav_account">
 			{%IF session.user}
-			<a href="/account">
+			<a href="/account/profile">
 				<span><i class="fa fa-user-circle-o"></i>
 					<span class="nav-text">{{session.user.name}}</span>
 				</span>
 			</a>
 			<ul class="ani">
-				<li><a href="/account">Manage</a></li>
+				<li><a href="/account/profile">Profile</a></li>
+				<li><a href="/account/settings">Settings</a></li>
 				<li><a href="/account/logout">Logout</a></li>
 			</ul>
 			{%END}

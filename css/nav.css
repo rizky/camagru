@@ -51,8 +51,11 @@ ul {
 	.nav_logo {
 		display: none;
 	}
+	.nav_spacing {
+		display: none;
+	}
 	.nav {
-		grid-template: 1fr / 1fr 1fr 1fr 1fr;
+		grid-template: 1fr / 1fr 1fr 1fr;
 	}
 }
 
@@ -69,8 +72,11 @@ ul {
 	.nav_logo {
 		display: none;
 	}
+	.nav_spacing {
+		display: none;
+	}
 	.nav {
-		grid-template: 1fr / 1fr 1fr 1fr 1fr;
+		grid-template: 1fr / 1fr 1fr 1fr;
 	}
 }
 
