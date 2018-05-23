@@ -51,8 +51,11 @@ ul {
 	.nav_logo {
 		display: none;
 	}
+	.nav_spacing {
+		display: none;
+	}
 	.nav {
-		grid-template: 1fr / 1fr 1fr 1fr 1fr;
+		grid-template: 1fr / 1fr 1fr 1fr;
 	}
 }
 
@@ -69,8 +72,11 @@ ul {
 	.nav_logo {
 		display: none;
 	}
+	.nav_spacing {
+		display: none;
+	}
 	.nav {
-		grid-template: 1fr / 1fr 1fr 1fr 1fr;
+		grid-template: 1fr / 1fr 1fr 1fr;
 	}
 }
 
@@ -88,6 +94,7 @@ ul {
 	background-color: #fff;
 	margin-top: 10px;
 	margin-left: -48px;
+	width: 168px;
 }
 
 .nav_account ul ul li {
@@ -95,7 +102,7 @@ ul {
 	width: 100px;
 }
 
-.nav_account ul:hover ul {
+.nav_account ul:hover {
 	opacity: 1;
 	height: auto;
 }

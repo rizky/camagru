@@ -2,14 +2,21 @@
 
 class Controller
 {
-	protected function model($model)
+	protected $method = 'GET';
+	public function __construct()
 	{
-		require_once 'app/models/' . $model . '.php';
-		return new $model();
+		if ($_SERVER['REQUEST_METHOD'] === 'POST')
+			$this->method = 'POST';
 	}
 
 	protected function view($view, $params = [])
 	{
 		return new View($view, $params);
+	}
+
+	protected function redirect($url)
+	{
+		header('Location: ' . $url);
+		exit;
 	}
 }

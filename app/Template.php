@@ -16,9 +16,9 @@ Class Template
 		$this->addTemplate();
 		$this->addInclude();
 		$this->merge();
-		// $this->addIf();
-		// $this->addIfn();
-		// $this->addFor();
+		$this->addIf();
+		$this->addIfn();
+		$this->addFor();
 		$this->addValue();
 		echo $this->final;
 	}
@@ -62,7 +62,7 @@ Class Template
 	private function addIf()
 	{
 		$i = 0;
-		$this->final = preg_replace_callback('/{\%IF /s', '\app\Template::incrementIf', $this->final);
+		$this->final = preg_replace_callback('/{\%IF /s', 'Template::incrementIf', $this->final);
 		preg_match_all('/{\%IF (.*?) (.*?)}(.*?){\%END}/s', $this->final, $matchesIf);
 		foreach ($matchesIf[2] as $k => $v) {
 			$v_exp = explode(".", $v);
@@ -83,7 +83,7 @@ Class Template
 	private function addIfn()
 	{
 		$i = 0;
-		$this->final = preg_replace_callback('/{\%IFN /s', '\app\Template::incrementIfn', $this->final);
+		$this->final = preg_replace_callback('/{\%IFN /s', 'Template::incrementIfn', $this->final);
 		preg_match_all('/{\%IFN (.*?) (.*?)}(.*?){\%END}/s', $this->final, $matchesIf);
 		foreach ($matchesIf[2] as $k => $v) {
 			$v_exp = explode(".", $v);
@@ -103,7 +103,7 @@ Class Template
 
 	private function addFor()
 	{
-		$this->final = preg_replace_callback('/{\*FOR /s', '\app\Template::incrementFor', $this->final);
+		$this->final = preg_replace_callback('/{\*FOR /s', 'Template::incrementFor', $this->final);
 		preg_match_all('/{\*FOR (.*?) (.*?) AS (.*?)}(.*?){\*END}/s', $this->final, $matchesFor);
 		foreach ($matchesFor[2] as $k => $v) {
 			$htmlFor = "";
@@ -116,16 +116,21 @@ Class Template
 					$var = NULL;
 			}
 			if ($var !== NULL) {
-				foreach ($var as $k3 => $v3) {
-					if (is_array($v3)) {
-						preg_match('/{{' . $matchesFor[3][$k]. '.(.*?)}}/', $matchesFor[4][$k], $option);
-						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k]. '.(.*?)}}/', $var[$k3][$option[1]], $matchesFor[4][$k]);
-					} else {
-						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k] . '}}/', $v3, $matchesFor[4][$k]);
+				foreach ($var as $k3 => $v3)
+				{
+					if (is_array($v3))
+					{
+						$htmlFor .= $matchesFor[4][$k];
+						foreach ($v3 as $k4 => $v4)
+							$htmlFor = preg_replace('/{{' . $matchesFor[3][$k]. '.' .$k4 . '}}/', $v4, $htmlFor);
 					}
+					else
+						$htmlFor .= preg_replace('/{{' . $matchesFor[3][$k] . '}}/', $v3, $matchesFor[4][$k]);
 				}
 				$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', $htmlFor, $this->final);
 			}
+			else
+				$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', '', $this->final);
 		}
 	}
 
@@ -136,6 +141,7 @@ Class Template
 			$v_exp = explode(".", $v);
 			$var = $this->params;
 			foreach ($v_exp as $v2) {
+				$var = (array)$var;
 				if (isset($var[$v2]))
 					$var = $var[$v2];
 				else
@@ -143,6 +149,8 @@ Class Template
 			}
 			if ($var !== NULL)
 				$this->final = preg_replace('/{{' . $matches[1][$k] . '}}/', $var, $this->final);
+			else
+				$this->final = preg_replace('/{{' . $matches[1][$k] . '}}/', '', $this->final);
 		}
 	}
 

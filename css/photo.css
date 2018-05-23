@@ -1,0 +1,42 @@
+.photos {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.photo {
+	display: inline-grid;
+	grid-auto-rows: min-content;
+	align-items: center;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #eeeeee;
+	color: #757575;
+	background-color: white;
+	grid-gap: 1em;
+}
+
+.photo .far, .photo .fas{
+	font-size: 1.2em;
+	padding-right: 0.5em;
+}
+
+.photo img {
+    width: 300px;
+	height: 300px;
+}
+
+.photo .user {
+	font-weight: bold;
+}
+
+.photo .hidden {
+	display: none;
+}
+
+@media screen and (max-width: 500px) {
+	.photo img {
+		width: 380px;
+		height: 380px;
+	}
+}

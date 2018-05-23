@@ -10,35 +10,27 @@ html {
 }
 a {
 	text-decoration: none;
+	color: #757575;
 }
 header, footer {
 	height: 30px;
 	z-index: 10;
 }
+
 main {
 	flex: 1;
 	display: flex;
 	justify-content: center;
 	padding-top: 60px;
 	padding-bottom: 5px;
+	flex-direction: row;
 }
 
-main.landing {
-	flex-direction: column;
-	justify-content: center;
-}
-main.login {
-	align-items: center;
-	flex-direction: column;
-}
-main.register {
-	align-items: center;
-	flex-direction: column;
-}
-main.register form {
+main form {
     display: flex;
     flex-direction: column;
 }
-main.register form * {
+
+main form * {
     margin: 5px;
 }

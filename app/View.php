@@ -14,7 +14,9 @@ class View
 
 	public function render()
 	{
-		$params['session'] = $_SESSION;
+		$this->params['session'] = $_SESSION;
+		$this->params['get'] = $_GET;
+		$this->params['post'] = $_POST;
         new Template($this->view, $this->params);
 	}
 }

@@ -6,27 +6,39 @@
 				<span class="nav-text">Home</span>
 			</a>
 		</li>
+		<li class="nav_spacing">
+				<!-- Spacing -->
+			</li>		<li class="nav_logo">Camagru</li>
 		<li>
-			<a href="/Photos/{{user.name}}">
-				<i class="fa fa-image"></i>
-				<span class="nav-text">Gallery</span>
-			</a>
-		</li>
-		<li class="nav_logo">Camagru</li>
-		<li>
-			<a href="/Camera">
+			<a href="/camera">
 				<i class="fa fa-camera"></i>
 				<span class="nav-text">Camera</span>
 			</a>
 		</li>
 		<li class="nav_account">
-			<span><i class="fa fa-user-circle-o"></i>
-				<span class="nav-text">Account</span>
-			</span>
+			{%IF session.user}
+			<a href="/account/">
+				<span><i class="fas fa-user-circle"></i>
+					<span class="nav-text">{{session.user.name}}</span>
+				</span>
+			</a>
 			<ul class="ani">
-				<li><a href="/Login">Login</a></li>
-				<li><a href="/Register">Register</a></li>
+				<li><a href="/account/">Profile</a></li>
+				<li><a href="/account/settings">Settings</a></li>
+				<li><a href="/account/logout">Logout</a></li>
 			</ul>
+			{%END}
+			{%IFN session.user}
+			<a href="/account">
+				<span><i class="fa fa-user-circle-o"></i>
+					<span class="nav-text">Account</span>
+				</span>
+			</a>	
+            <ul class="ani">
+				<li><a href="/account/login">Login</a></li>
+				<li><a href="/account/register">Register</a></li>
+			</ul>
+       		{%END}
 		</li>
 	</ul>
 </header>
