@@ -138,6 +138,7 @@ Class Template
 			$v_exp = explode(".", $v);
 			$var = $this->params;
 			foreach ($v_exp as $v2) {
+				$var = (array)$var;
 				if (isset($var[$v2]))
 					$var = $var[$v2];
 				else

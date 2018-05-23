@@ -27,7 +27,7 @@ class Account extends Controller
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)
 			{
-				$_SESSION['user'] = (array)($user);
+				$_SESSION['user'] = ($user);
 				$this->redirect('/photo/show');
 			}
 		}
@@ -40,7 +40,7 @@ class Account extends Controller
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
 		$this->view = $this->view('photos/show');
-		$this->view->params = ['user' => (array)$this->user];
+		$this->view->params = ['user' => $this->user];
 		$this->view->render();
 	}
 
