@@ -11,10 +11,18 @@ class Photos extends Controller
 			$this->user = (object)$_SESSION['user'];
 	}
 
-	public function index()
+	public function index($id = '')
 	{
-		$photos = Photo::find();
-		$this->view = $this->view('photos/index', array('photos' => $photos));
+		if ($id == '')
+		{
+			$photos = Photo::find();
+			$this->view = $this->view('photos/index', array('photos' => $photos));
+		}
+		else
+		{
+			$photos = Photo::find(array ('id' => $id));
+			$this->view = $this->view('photos/index', array('photos' => $photos));
+		}
 		$this->view->render();
 	}
 

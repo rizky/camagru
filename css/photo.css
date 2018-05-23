@@ -16,7 +16,7 @@
 	grid-gap: 1em;
 }
 
-.photo .fa {
+.photo .far, .photo .fas{
 	font-size: 1.2em;
 	padding-right: 0.5em;
 }
@@ -24,6 +24,14 @@
 .photo img {
     width: 300px;
 	height: 300px;
+}
+
+.photo .user {
+	font-weight: bold;
+}
+
+.photo .hidden {
+	display: none;
 }
 
 @media screen and (max-width: 500px) {

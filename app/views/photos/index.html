@@ -8,18 +8,23 @@
 	{*FOR photos AS s}
 	<div class="photo">
 		<a href="/account/{{s.user_id}}">
-			<i class="fa fa-user-circle-o"></i>
-			<span>{{s.user_name}}</span>
+			<i class="fas fa-user-circle"></i>
+			<span class="user">{{s.user_username}}</span>
 		</a>
 		<a href="/photos/{{s.id}}">
 			<div><img src="{{s.url}}"></div>
 		</a>
 		<div>
-			<i class="fa fa-heart"></i>
-			<i class="fa fa-comment"></i>
+			<i class="far fa-heart"></i>
+			<i class="far fa-comment"></i>
 		</div>
 		<span>{{s.likes}} likes</span>
-		<span>{{s.comment_preview}}</span>
+		<div class="{{s.description_v}}">
+			<a href="/account/{{s.user_id}}">
+				<span class="user">{{s.user_username}}</span>
+			</a>
+			<span>{{s.description}}</span>
+		</div>
 		<span>{{s.time_elapse}}</span>
 		<span>Add a comment...</span>
 	</div>

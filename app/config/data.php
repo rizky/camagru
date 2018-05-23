@@ -11,6 +11,7 @@ $user->id = ORM::getInstance()->store('user', get_object_vars($user));
 
 $photo = new Photo(array(
 	'user' => $user->id,
+	'description' => 'cosmos cubic wall',
 	'url' => 'https://media-cdn.tripadvisor.com/media/photo-s/10/3e/20/12/instagram-able-spot.jpg',
 	'likes' => 243));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
@@ -39,24 +40,28 @@ $user->id = ORM::getInstance()->store('user', get_object_vars($user));
 
 $photo = new Photo(array(
 	'user' => $user->id,
+	'description' => 'pinky think thank toe',
 	'url' => 'https://thespaces.com/wp-content/uploads/2018/04/monochrome-cj-hendry-brooklyn-exhibition-colour-rooms-new-york-usa_3.jpg',
 	'likes' => 100));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
 
 $photo = new Photo(array(
 	'user' => $user->id,
+	'description' => 'raining color',
 	'url' => 'https://i2.wp.com/www.dametraveler.com/wp-content/uploads/2017/09/ATL-spots.jpg',
 	'likes' => 223));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
 
 $photo = new Photo(array(
 	'user' => $user->id,
+	'description' => 'summer is malibu',
 	'url' => 'http://timetravelblonde.com/wp-content/uploads/2017/03/Screenshot_2017-03-16-14-39-29-e1489737224349-836x1024.png',
 	'likes' => 543));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
 
 $photo = new Photo(array(
 	'user' => $user->id,
+	'description' => 'stairway to the rainbow',
 	'url' => 'https://www.piknikdong.com/wp-content/uploads/2017/12/Kampung-Pelangi-Semarang-Yang-Instagramable.jpg',
 	'likes' => 221));
 $photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
