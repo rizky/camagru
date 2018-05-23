@@ -1,15 +1,27 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}{#END}
 {#BODY}
-<div class="row">
+<div class="photos">
 	{%IFN photos}
 	<h5>No Photo</h5>
 	{%END}
 	{*FOR photos AS s}
 	<div class="photo">
+		<a href="/account/{{s.user_id}}">
+			<i class="fa fa-user-circle-o"></i>
+			<span>{{s.user_name}}</span>
+		</a>
 		<a href="/photos/{{s.id}}">
 			<div><img src="{{s.url}}"></div>
 		</a>
+		<div>
+			<i class="fa fa-heart"></i>
+			<i class="fa fa-comment"></i>
+		</div>
+		<span>{{s.likes}} likes</span>
+		<span>{{s.comment_preview}}</span>
+		<span>{{s.time_elapse}}</span>
+		<span>Add a comment...</span>
 	</div>
 	{*END}
 </div>

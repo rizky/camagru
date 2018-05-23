@@ -10,6 +10,7 @@ html {
 }
 a {
 	text-decoration: none;
+	color: black;
 }
 header, footer {
 	height: 30px;
@@ -32,10 +33,4 @@ main form {
 
 main form * {
     margin: 5px;
-}
-
-.row {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 }

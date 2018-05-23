@@ -12,11 +12,14 @@ class Account extends Controller
 			$this->user = (object)$_SESSION['user'];
 	}
 
-	public function index()
+	public function index($id = '')
 	{
-		if ($this->user == NULL)
+		if ($this->user !== NULL && $id == '')
+			$id = $this->user->id;
+		if ($id == '')
 			$this->redirect('/account/login');
-		$this->view = $this->view('account/index');
+		$photos = Photo::find(array('user' => $id));
+		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
 	}
 
@@ -32,15 +35,6 @@ class Account extends Controller
 			}
 		}
 		$this->view = $this->view('account/login');
-		$this->view->render();
-	}
-
-	public function profile()
-	{
-		if ($this->user == NULL)
-			$this->redirect('/account/login');
-		$photos = ORM::getInstance()->findAll('photo', array('user' => $this->user->id), array('createdAt', 'DESC'), []);
-		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
 	}
 

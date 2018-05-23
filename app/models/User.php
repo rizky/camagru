@@ -36,6 +36,18 @@ class User
 		return (NULL);
 	}
 
+	static public function find($id)
+	{
+		$user = ORM::getInstance()->findOne('user', array('id' => $id));
+		if ($user instanceof User) {
+			if (empty($user->tokenValidated))
+				return $user;
+			else
+				return 1;
+		}
+		return (NULL);
+	}
+
 	public function delete()
 	{
 		$user = ORM::getInstance()->findOne('user', array('username' => $this->username));

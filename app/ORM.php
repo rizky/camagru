@@ -31,12 +31,12 @@ class ORM
 		$req = "SELECT * FROM " . $table . " WHERE deleted = false";
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
-		$statment = $this->PDOInstance->prepare($req);
+		$statement = $this->PDOInstance->prepare($req);
 		foreach ($where as $k => $v)
-			$statment->bindValue(':' . $k, $v);
-		$statment->setFetchMode(\PDO::FETCH_CLASS, ucfirst($table));
-		$statment->execute();
-		return $statment->fetch(\PDO::FETCH_CLASS);
+			$statement->bindValue(':' . $k, $v);
+		$statement->setFetchMode(\PDO::FETCH_CLASS, ucfirst($table));
+		$statement->execute();
+		return $statement->fetch(\PDO::FETCH_CLASS);
 	}
 
 	public function findAll($table, $where, $order = null, $limit = null)
@@ -48,20 +48,20 @@ class ORM
 			$req .= " ORDER BY ".$order[0]." ".$order[1];
 		if (!empty($limit))
 			$req .= " LIMIT ".$limit[0].",".$limit[1];
-		$statment = $this->PDOInstance->prepare($req);
+		$statement = $this->PDOInstance->prepare($req);
 		foreach ($where as $k => $v)
-			$statment->bindValue(':' . $k, $v);
-		$statment->execute();
-		return $statment->fetchAll(\PDO::FETCH_ASSOC);
+			$statement->bindValue(':' . $k, $v);
+		$statement->execute();
+		return $statement->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	private function getFields($table)
 	{
-		$statment = $this->PDOInstance->prepare("SELECT column_name FROM information_schema.columns WHERE table_schema = :base AND table_name = :table");
-		$statment->bindValue(':table', $table);
-		$statment->bindValue(':base', $this->sqlDB);
-		$statment->execute();
-		return ($statment->fetchAll(\PDO::FETCH_COLUMN));
+		$statement = $this->PDOInstance->prepare("SELECT column_name FROM information_schema.columns WHERE table_schema = :base AND table_name = :table");
+		$statement->bindValue(':table', $table);
+		$statement->bindValue(':base', $this->sqlDB);
+		$statement->execute();
+		return ($statement->fetchAll(\PDO::FETCH_COLUMN));
 	}
 
 	private function insert($table, $fields, $value)
@@ -78,16 +78,16 @@ class ORM
 			}
 		}
 		$req = 'INSERT INTO '.$table.' ('.rtrim($req_field, ', ').') VALUES ('.rtrim($req_value, ', ').')';
-		$statment = $this->PDOInstance->prepare($req);
+		$statement = $this->PDOInstance->prepare($req);
 		foreach ($value as $k => $v)
 		{
 			if (in_array($k, $fields))
 			{
-				$statment->bindValue(':' . $k, $v);
+				$statement->bindValue(':' . $k, $v);
 			}
 		}
 		try{
-			$statment->execute();
+			$statement->execute();
 		} catch(\Exception $e) {
 			echo "<pre>";
 			echo $req;
@@ -109,16 +109,16 @@ class ORM
 			}
 		}
 		$req = 'UPDATE '.$table.' SET '.rtrim($req_field, ', ').' WHERE id = :id';
-		$statment = $this->PDOInstance->prepare($req);
+		$statement = $this->PDOInstance->prepare($req);
 		foreach ($value as $k => $v)
 		{
 			if (in_array($k, $fields))
 			{
-				$statment->bindValue(':' . $k, $v);
+				$statement->bindValue(':' . $k, $v);
 			}
 		}
-		$statment->bindValue(':id', $value['id']);
-		$statment->execute();
+		$statement->bindValue(':id', $value['id']);
+		$statement->execute();
 		return (true);
 	}
 
@@ -126,11 +126,11 @@ class ORM
 		$req = "SELECT count(*) FROM " . $table . " WHERE deleted = false";
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
-		$statment = $this->PDOInstance->prepare($req);
+		$statement = $this->PDOInstance->prepare($req);
 		foreach ($where as $k => $v)
-			$statment->bindValue(':' . $k, $v);
-		$statment->execute();
-		$tmp = $statment->fetch();
+			$statement->bindValue(':' . $k, $v);
+		$statement->execute();
+		$tmp = $statement->fetch();
 		return $tmp[0];
 	}
 
@@ -146,16 +146,16 @@ class ORM
 	public function delete_s($table, $id)
 	{
 		$req = 'UPDATE '.$table.' SET deleted = true WHERE id = :id';
-		$statment = $this->PDOInstance->prepare($req);
-		$statment->bindValue(':id', $id);
-		$statment->execute();
+		$statement = $this->PDOInstance->prepare($req);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
 	}
 
 	public function delete($table, $id)
 	{
 		$req = 'DELETE FROM '.$table.' WHERE id = :id';
-		$statment = $this->PDOInstance->prepare($req);
-		$statment->bindValue(':id', $id);
-		$statment->execute();
+		$statement = $this->PDOInstance->prepare($req);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
 	}
 }

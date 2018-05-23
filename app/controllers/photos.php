@@ -13,7 +13,7 @@ class Photos extends Controller
 
 	public function index()
 	{
-		$photos = ORM::getInstance()->findAll('photo', [], array('createdAt', 'DESC'), []);
+		$photos = Photo::find();
 		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
 	}
