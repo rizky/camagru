@@ -2,7 +2,17 @@
 {#SCRIPT}{#END}
 {#BODY}
 <div class="row">
-	This is Account Register <br/>
-	Hello {{session.user.name}}
+	<h1>Registration</h1>
+	<form action="/account/register" method="POST">
+		<input type="text" name="username" placeholder="Username" value="">
+		<input type="password" name="password" placeholder="Password" class="">
+		<input type="password" name="password2" placeholder="Retype Password" class="">
+		<input type="email" name="email" placeholder="Email" value="">
+		<input type="text" name="name" placeholder="First Name" value="">
+		<button type="submit" class="btn btn-default">Register</button>
+		<input type="hidden" name="from" value="register">
+		<input type="hidden" name="success" value="login">
+		<p>Already registered? <a href="/account/login">Login</a></p>
+	</form>
 </div>
 {#END}
