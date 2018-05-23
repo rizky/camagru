@@ -21,18 +21,22 @@
 		</li>
 		<li class="nav_account">
 			{%IF session.user}
-			<span><i class="fa fa-user-circle-o"></i>
-				<span class="nav-text">{{session.user.name}}</span>
-			</span>
+			<a href="/account">
+				<span><i class="fa fa-user-circle-o"></i>
+					<span class="nav-text">{{session.user.name}}</span>
+				</span>
+			</a>
 			<ul class="ani">
 				<li><a href="/account">Manage</a></li>
 				<li><a href="/account/logout">Logout</a></li>
 			</ul>
 			{%END}
 			{%IFN session.user}
-			<span><i class="fa fa-user-circle-o"></i>
-				<span class="nav-text">Account</span>
-			</span>
+			<a href="/account">
+				<span><i class="fa fa-user-circle-o"></i>
+					<span class="nav-text">Account</span>
+				</span>
+			</a>	
             <ul class="ani">
 				<li><a href="/account/login">Login</a></li>
 				<li><a href="/account/register">Register</a></li>
