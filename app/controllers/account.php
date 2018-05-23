@@ -29,7 +29,6 @@ class Account extends Controller
 			$this->view = $this->view('account/login');
 		else
 		{
-			$user = $this->model('User');
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)
 			{

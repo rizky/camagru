@@ -1,4 +1,6 @@
 <?php
 session_start();
-require_once './app/App.php';
-$app = new App();
+set_include_path(implode(PATH_SEPARATOR, array(get_include_path(), './app', './app/models', './app/controllers')));
+spl_autoload_register();
+
+$app = new App;
