@@ -27,7 +27,7 @@ class Account extends Controller
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)
 			{
-				$_SESSION['user'] = ($user);
+				$_SESSION['user'] = (array)($user);
 				$this->redirect('/photo/show');
 			}
 		}
@@ -39,8 +39,8 @@ class Account extends Controller
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		$this->view = $this->view('photos/show');
-		$this->view->params = ['user' => $this->user];
+		$photos = ORM::getInstance()->findAll('photo', array('user' => $this->user->id), array('createdAt', 'DESC'), []);
+		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
 	}
 

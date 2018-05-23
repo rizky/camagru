@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camagru`.`photo` (
   `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(255) NOT NULL,
+  `user` INT(10) zerofill NOT NULL,
   `url` VARCHAR(255) NOT NULL,
   `likes` INT(10) DEFAULT 0,
   `comments` INT(10) DEFAULT 0,
