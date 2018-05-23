@@ -6,9 +6,11 @@
 	<h5>No Photo</h5>
 	{%END}
 	{*FOR photos AS s}
-	<a href="/photos/{{s.id}}">
-		<div><img src="{{s.url}}"></div>
-	</a>
+	<div class="photo">
+		<a href="/photos/{{s.id}}">
+			<div><img src="{{s.url}}"></div>
+		</a>
+	</div>
 	{*END}
 </div>
 {#END}

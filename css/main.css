@@ -29,6 +29,13 @@ main form {
     display: flex;
     flex-direction: column;
 }
+
 main form * {
     margin: 5px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
