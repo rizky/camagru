@@ -46,8 +46,6 @@ CREATE TABLE IF NOT EXISTS `camagru`.`photo` (
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
   `deleted` BIT(1) NOT NULL DEFAULT 0,
-  `tokenValidated` VARCHAR(100) NULL,
-  `tokenLost` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;

@@ -13,6 +13,18 @@ $user = new User(
 	);
 $user->id = ORM::getInstance()->store('user', get_object_vars($user));
 
+$photo = new Photo(array(
+		'user' => (array)$user,
+		'url' => 'https://media-cdn.tripadvisor.com/media/photo-s/10/3e/20/12/instagram-able-spot.jpg',
+		'likes' => 200));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
+$photo = new Photo(array(
+	'user' => (array)$user,
+	'url' => 'https://i2.wp.com/www.dametraveler.com/wp-content/uploads/2017/09/ATL-spots.jpg',
+	'likes' => 100));
+$photo->id = ORM::getInstance()->store('photo', get_object_vars($photo));
+
 $user = new User(
 	array(
 		'username' => 'deleted_admin',
@@ -23,6 +35,8 @@ $user = new User(
 );
 $user->id = ORM::getInstance()->store('user', get_object_vars($user));
 $user->delete();
+
+
 
 echo "Done !<br><br>";
 echo "<a href='/'>Back to Home</a>";

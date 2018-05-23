@@ -18,7 +18,7 @@ Class Template
 		$this->merge();
 		$this->addIf();
 		$this->addIfn();
-		// $this->addFor();
+		$this->addFor();
 		$this->addValue();
 		echo $this->final;
 	}
@@ -126,6 +126,8 @@ Class Template
 				}
 				$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', $htmlFor, $this->final);
 			}
+			else
+			$this->final = preg_replace('/{\*FOR ' . $matchesFor[1][$k] . ' (.*?) AS (.*?)}(.*?){\*END}/s', '', $this->final);
 		}
 	}
 

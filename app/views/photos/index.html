@@ -2,7 +2,13 @@
 {#SCRIPT}{#END}
 {#BODY}
 <div class="row">
-	This is Photos <br/>
-	Hello {{session.user.name}}
+	{%IFN photos}
+	<h5>No Photo</h5>
+	{%END}
+	{*FOR photos AS s}
+	<a href="{{s.url}}">
+		<div><img src="{{s.url}}"></div>
+	</a>
+	{*END}
 </div>
 {#END}
