@@ -31,7 +31,7 @@ class Account extends Controller
 			if ($user instanceof User)
 			{
 				$_SESSION['user'] = (array)($user);
-				$this->redirect('/photo/show');
+				$this->redirect('/');
 			}
 		}
 		$this->view = $this->view('account/login');
@@ -47,7 +47,6 @@ class Account extends Controller
 	public function logout()
 	{
 		unset($_SESSION['user']);
-		$this->view = $this->view('photos/index');
-		$this->view->render();
+		$this->redirect('/');
 	}
 }
