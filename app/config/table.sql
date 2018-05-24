@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `camagru`.`photo` (
   `user` VARCHAR(45) NOT NULL,
   `url` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
-  `likes` INT(10) DEFAULT 0,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
   `deleted` BIT(1) NOT NULL DEFAULT 0,
@@ -57,6 +56,20 @@ CREATE TABLE IF NOT EXISTS `camagru`.`comment` (
   `user` VARCHAR(45) NOT NULL,
   `photo` INT(10) zerofill NOT NULL,
   `message` VARCHAR(255) NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL,
+  `deleted` BIT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `camagru`.`like`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `camagru`.`like` (
+  `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(45) NOT NULL,
+  `photo` INT(10) zerofill NOT NULL,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
   `deleted` BIT(1) NOT NULL DEFAULT 0,

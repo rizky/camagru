@@ -8,7 +8,7 @@ class Camera extends Controller
 	public function __construct()
 	{
 		if (isset($_SESSION['user']))
-			$this->user = (object)$_SESSION['user'];
+			$this->user = unserialize($_SESSION['user']);
 	}
 
 	public function index()

@@ -7,10 +7,12 @@
 		<div><img src="{{photo.url}}"></div>
 	</a>
 	<div>
-		<i class="far fa-heart"></i>
+		<a href="/photos/like/{{photo.id}}">
+			<i class="{{photo.like_logo}} fa-heart"></i>
+		</a>
 		<i onclick="focusComment('comment_text_{{photo.id}}')" class="far fa-comment"></i>
 	</div>
-	<span class="{{photo.likes_v}}">{{photo.likes}} likes</span>
+	<span class="{{photo.likes_v}}">{{photo.likes}}</span>
 	<div class="{{photo.description_v}}">
 		<a href="/account/{{photo.user_username}}">
 			<span class="user">{{photo.user_username}}</span>

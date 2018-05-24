@@ -70,4 +70,10 @@ class User
 	{
 		$comment->insert($this, $photo);
 	}
+
+	public function like($photo)
+	{
+		$like = new Like;
+		$like->insert($this, $photo);
+	}
 }

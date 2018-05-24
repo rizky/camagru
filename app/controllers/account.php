@@ -9,7 +9,7 @@ class Account extends Controller
 	{
 		parent::__construct();
 		if (isset($_SESSION['user']))
-			$this->user = (object)$_SESSION['user'];
+			$this->user = unserialize($_SESSION['user']);
 	}
 
 	public function index($username = '')
@@ -30,7 +30,7 @@ class Account extends Controller
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)
 			{
-				$_SESSION['user'] = (array)($user);
+				$_SESSION['user'] = serialize($user);
 				$this->redirect('/');
 			}
 		}
