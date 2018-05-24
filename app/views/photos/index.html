@@ -9,39 +9,5 @@
 </script>
 {#END}
 {#BODY}
-<div class="photos">
-	{%IFN photos}
-	<h5>No Photo</h5>
-	{%END}
-	{*FOR photos AS s}
-	<div class="photo">
-		<a href="/account/{{s.user_id}}">
-			<i class="fas fa-user-circle"></i>
-			<span class="user">{{s.user_username}}</span>
-		</a>
-		<a href="/photos/{{s.id}}">
-			<div><img src="{{s.url}}"></div>
-		</a>
-		<div>
-			<i class="far fa-heart"></i>
-			<i onclick="focusComment('comment_text_{{s.id}}')" class="far fa-comment"></i>
-		</div>
-		<span class="{{s.likes_v}}">{{s.likes}} likes</span>
-		<div class="{{s.description_v}}">
-			<a href="/account/{{s.user_id}}">
-				<span class="user">{{s.user_username}}</span>
-			</a>
-			<span>{{s.description}}</span>
-		</div>
-		<div>
-			<span class="time_text">{{s.time_elapse}}</span>
-			<hr>
-		</div>
-		<div>
-			<textarea id="comment_text_{{s.id}}" placeholder="Add a comment..." class="comment_text" rows="1"></textarea>
-			<i class="fa fa-ellipsis-v" style="float: right;"></i>
-		</div>
-	</div>
-	{*END}
-</div>
+{#INCLUDE:photos/_photos}
 {#END}

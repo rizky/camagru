@@ -14,8 +14,8 @@ Class Template
 		$this->final = '';
 		$this->html = file_get_contents("app/views/" . $this->view . '.html');
 		$this->addTemplate();
-		$this->addInclude();
 		$this->merge();
+		$this->addInclude();
 		$this->addIf();
 		$this->addIfn();
 		$this->addFor();
