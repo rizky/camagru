@@ -16,9 +16,14 @@
 	grid-gap: 0.5em;
 }
 
-.photo .far, .photo .fas{
+.photo .far, .photo .fas {
 	font-size: 1.2em;
 	padding-right: 0.5em;
+	cursor: pointer;
+}
+
+.photo .fa {
+	cursor: pointer;
 }
 
 .photo img {

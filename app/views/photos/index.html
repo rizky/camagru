@@ -1,5 +1,13 @@
 {TEMPLATE}templates/layout{END}
-{#SCRIPT}{#END}
+{#SCRIPT}
+<script>
+	function focusComment(id) {
+		var commentObj = document.getElementById(id)
+		commentObj.focus();
+		return false;
+	}
+</script>
+{#END}
 {#BODY}
 <div class="photos">
 	{%IFN photos}
@@ -16,7 +24,7 @@
 		</a>
 		<div>
 			<i class="far fa-heart"></i>
-			<i class="far fa-comment"></i>
+			<i onclick="focusComment('comment_text_{{s.id}}')" class="far fa-comment"></i>
 		</div>
 		<span class="{{s.likes_v}}">{{s.likes}} likes</span>
 		<div class="{{s.description_v}}">
@@ -30,7 +38,7 @@
 			<hr>
 		</div>
 		<div>
-			<textarea placeholder="Add a comment..." class="comment_text" rows="1"></textarea>
+			<textarea id="comment_text_{{s.id}}" placeholder="Add a comment..." class="comment_text" rows="1"></textarea>
 			<i class="fa fa-ellipsis-v" style="float: right;"></i>
 		</div>
 	</div>
