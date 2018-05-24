@@ -12,13 +12,13 @@ class Account extends Controller
 			$this->user = (object)$_SESSION['user'];
 	}
 
-	public function index($id = '')
+	public function index($username = '')
 	{
-		if ($this->user !== NULL && $id == '')
-			$id = $this->user->id;
-		if ($id == '')
+		if ($this->user !== NULL && $username == '')
+			$username = $this->user->username;
+		if ($username == '')
 			$this->redirect('/account/login');
-		$photos = Photo::find(array('user' => $id));
+		$photos = Photo::find(array('user' => $username));
 		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
 	}

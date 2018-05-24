@@ -6,20 +6,15 @@ class Photo
 	public $user;
 	public $url;
 	public $likes;
-	public $comments;
 	public $description;
-	public $comments_preview;
 	public $time_elapse;
 
 	public function __construct(array $params = [])
 	{
-		array_key_exists('id', $params) ? $this->id = $params['id'] : 0;
 		array_key_exists('user', $params) ? $this->user = $params['user'] : 0;
 		array_key_exists('url', $params) ? $this->url = $params['url'] : 0;
 		array_key_exists('likes', $params) ? $this->likes = $params['likes'] : 0;
-		array_key_exists('comments', $params) ? $this->email = $params['comments'] : 0;
 		array_key_exists('description', $params) ? $this->description = $params['description'] : 0;
-		array_key_exists('comments_preview', $params) ? $this->comments_preview = $params['comments_preview'] : 0;
 	}
 
 	static public function find(array $params = [])
@@ -27,15 +22,29 @@ class Photo
 		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), []);
 		foreach ($photos as &$p)
 		{
-			$user = USER::find($p['user']);
+			$user = USER::get(array('username' => $p['user']));
 			$p['user_name'] = $user->name;
 			$p['user_id'] = $user->id;
 			$p['user_username'] = $user->username;
 			$p['description_v'] = ($p['description'] == NULL) ? 'hidden' : 'show';
 			$p['likes_v'] = ($p['likes'] == 0) ? 'hidden' : 'show';
 			$p['time_elapse'] = Photo::time_elapsed_string($p['createdAt']);
+			$comments = Comment::find(array('photo' => $p['id']));
+			$p['comment_preview_v'] = count($comments) == 0 ? 'hidden' : 'show';
+			if (count($comments) > 0)
+			{
+				$p['comment_preview_username'] =  $comments[0]['user'];
+				$p['comment_preview_message'] =  $comments[0]['message'];
+			}
+			$p['comment_more_v'] = count($comments) <= 1 ? 'hidden' : 'show';
+			$p['comment_count'] = count($comments);
 		}
 		return $photos;
+	}
+
+	public function insert()
+	{
+		$this->id = ORM::getInstance()->store('photo', get_object_vars($this));
 	}
 
 	static private function time_elapsed_string($datetime, $full = false)

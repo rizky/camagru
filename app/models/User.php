@@ -29,21 +29,21 @@ class User
 		$user = ORM::getInstance()->findOne('user', array('username' => $username, 'password' => User::encrypt_password($username, $password)));
 		if ($user instanceof User) {
 			if (empty($user->tokenValidated))
-				return $user;
+				return ($user);
 			else
-				return 1;
+				return (-1);
 		}
 		return (NULL);
 	}
 
-	static public function find($id)
+	static public function get(array $params=[])
 	{
-		$user = ORM::getInstance()->findOne('user', array('id' => $id));
+		$user = ORM::getInstance()->findOne('user', $params);
 		if ($user instanceof User) {
 			if (empty($user->tokenValidated))
-				return $user;
+				return ($user);
 			else
-				return 1;
+				return (-1);
 		}
 		return (NULL);
 	}
@@ -53,6 +53,11 @@ class User
 		$user = ORM::getInstance()->findOne('user', array('username' => $this->username));
 		if ($user instanceof User)
 			return ORM::getInstance()->delete_s('user', $user->id);
-		return false;
+		return (false);
+	}
+
+	public function insert()
+	{
+		$this->id = ORM::getInstance()->store('user', get_object_vars($this));
 	}
 }

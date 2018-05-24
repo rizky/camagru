@@ -1,5 +1,5 @@
 <div class="photo">
-	<a href="/account/{{photo.user_id}}">
+	<a href="/account/{{photo.user_username}}">
 		<i class="fas fa-user-circle"></i>
 		<span class="user">{{photo.user_username}}</span>
 	</a>
@@ -12,10 +12,21 @@
 	</div>
 	<span class="{{photo.likes_v}}">{{photo.likes}} likes</span>
 	<div class="{{photo.description_v}}">
-		<a href="/account/{{photo.user_id}}">
+		<a href="/account/{{photo.user_username}}">
 			<span class="user">{{photo.user_username}}</span>
 		</a>
 		<span>{{photo.description}}</span>
+	</div>
+	<div class="{{photo.comment_more_v}}">
+		<a href="/photos/{{photo.id}}">
+			<span class="time_text">view all {{photo.comment_count}} comments</span>
+		</a>
+	</div>
+	<div class="{{photo.comment_preview_v}}">
+		<a href="/account/{{photo.comment_preview_username}}">
+			<span class="user">{{photo.comment_preview_username}}</span>
+		</a>
+		<span>{{photo.comment_preview_message}}</span>
 	</div>
 	<div>
 		<span class="time_text">{{photo.time_elapse}}</span>
