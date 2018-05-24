@@ -43,8 +43,8 @@ class Photo
 		$p['comment_preview_v'] = count($comments) == 0 ? 'hidden' : 'show';
 		if (count($comments) > 0)
 		{
-			$p['comment_preview_username'] =  $comments[0]['user'];
-			$p['comment_preview_message'] =  $comments[0]['message'];
+			$p['comment_preview_username'] =  $comments[count($comments) - 1]['user'];
+			$p['comment_preview_message'] =  $comments[count($comments) - 1]['message'];
 		}
 		$p['comment_more_v'] = count($comments) <= 1 ? 'hidden' : 'show';
 		$p['comment_count'] = count($comments);
@@ -61,8 +61,9 @@ class Photo
 		return $photos;
 	}
 
-	public function insert()
+	public function insert(User $user)
 	{
+		$this->user = $user->username;
 		$this->id = ORM::getInstance()->store('photo', get_object_vars($this));
 	}
 

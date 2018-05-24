@@ -60,4 +60,14 @@ class User
 	{
 		$this->id = ORM::getInstance()->store('user', get_object_vars($this));
 	}
+
+	public function insert_photo(Photo $photo)
+	{
+		$photo->insert($this);
+	}
+
+	public function insert_comment(Photo $photo, Comment $comment)
+	{
+		$comment->insert($this, $photo);
+	}
 }

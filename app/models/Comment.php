@@ -22,14 +22,16 @@ class Comment
 		return false;
 	}
 
-	public function insert()
+	public function insert(User $user, Photo $photo)
 	{
+		$this->user = $user->username;
+		$this->photo = $photo->id;
 		$this->id = ORM::getInstance()->store('comment', get_object_vars($this));
 	}
 
 	static public function find(array $params = [])
 	{
-		$comments = ORM::getInstance()->findAll('comment', $params, array('createdAt', 'DESC'), []);
+		$comments = ORM::getInstance()->findAll('comment', $params, array('createdAt', 'ASC'), []);
 		return $comments;
 	}
 }
