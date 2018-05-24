@@ -17,27 +17,46 @@ class Photo
 		array_key_exists('description', $params) ? $this->description = $params['description'] : 0;
 	}
 
+	static public function get(array $params=[])
+	{
+		$photo = ORM::getInstance()->findOne('photo', $params);
+		if ($photo instanceof Photo)
+		{
+			$photo = Photo::populate((array)$photo);
+			return ($photo);
+		}
+		else
+			return (-1);
+		return (NULL);
+	}
+
+	static private function populate($p)
+	{
+		$user = USER::get(array('username' => $p['user']));
+		$p['user_name'] = $user->name;
+		$p['user_id'] = $user->id;
+		$p['user_username'] = $user->username;
+		$p['description_v'] = ($p['description'] == NULL) ? 'hidden' : 'show';
+		$p['likes_v'] = ($p['likes'] == 0) ? 'hidden' : 'show';
+		$p['time_elapse'] = Photo::time_elapsed_string($p['createdAt']);
+		$comments = Comment::find(array('photo' => $p['id']));
+		$p['comment_preview_v'] = count($comments) == 0 ? 'hidden' : 'show';
+		if (count($comments) > 0)
+		{
+			$p['comment_preview_username'] =  $comments[0]['user'];
+			$p['comment_preview_message'] =  $comments[0]['message'];
+		}
+		$p['comment_more_v'] = count($comments) <= 1 ? 'hidden' : 'show';
+		$p['comment_count'] = count($comments);
+		return $p;
+	}
+
 	static public function find(array $params = [])
 	{
 		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), []);
 		foreach ($photos as &$p)
 		{
-			$user = USER::get(array('username' => $p['user']));
-			$p['user_name'] = $user->name;
-			$p['user_id'] = $user->id;
-			$p['user_username'] = $user->username;
-			$p['description_v'] = ($p['description'] == NULL) ? 'hidden' : 'show';
-			$p['likes_v'] = ($p['likes'] == 0) ? 'hidden' : 'show';
-			$p['time_elapse'] = Photo::time_elapsed_string($p['createdAt']);
-			$comments = Comment::find(array('photo' => $p['id']));
-			$p['comment_preview_v'] = count($comments) == 0 ? 'hidden' : 'show';
-			if (count($comments) > 0)
-			{
-				$p['comment_preview_username'] =  $comments[0]['user'];
-				$p['comment_preview_message'] =  $comments[0]['message'];
-			}
-			$p['comment_more_v'] = count($comments) <= 1 ? 'hidden' : 'show';
-			$p['comment_count'] = count($comments);
+			$p = Photo::populate($p);
 		}
 		return $photos;
 	}

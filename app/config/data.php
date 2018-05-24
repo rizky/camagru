@@ -67,9 +67,9 @@ $comment = new Comment(array(
 	'message' => 'nice pic!'));
 $comment->insert();
 $comment = new Comment(array(
-	'user' => $admin->username,
+	'user' => $user->username,
 	'photo' => $photo->id,
-	'message' => 'nice pic!!'));
+	'message' => 'thanks!!'));
 $comment->insert();
 
 $photo = new Photo(array(

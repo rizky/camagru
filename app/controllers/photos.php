@@ -20,15 +20,10 @@ class Photos extends Controller
 		}
 		else
 		{
-			$photos = Photo::find(array ('id' => $id));
-			$this->view = $this->view('photos/index', array('photos' => $photos));
+			$photo = Photo::get(array ('id' => $id));
+			$comments = Comment::find(array ('photo' => $photo['id']));
+			$this->view = $this->view('photos/show', array('photo' => $photo, 'comments' => $comments));
 		}
-		$this->view->render();
-	}
-
-	public function show($id = '')
-	{
-		$this->view = $this->view('photos/show');
 		$this->view->render();
 	}
 }

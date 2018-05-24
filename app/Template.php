@@ -26,10 +26,14 @@ Class Template
 	private function addInclude()
 	{
 		preg_match_all('/{#INCLUDE:(.*?)}/s', $this->final, $matchesFinal);
-		foreach ($matchesFinal[1] as $k => $v)
+		while (count($matchesFinal[1]) > 0)
 		{
-			$include = file_get_contents("app/views/" . $v . '.html');
-			$this->final = preg_replace("/{#INCLUDE:" . preg_quote($v, '/') . "}/", $include, $this->final);
+			foreach ($matchesFinal[1] as $k => $v)
+			{
+				$include = file_get_contents("app/views/" . $v . '.html');
+				$this->final = preg_replace("/{#INCLUDE:" . preg_quote($v, '/') . "}/", $include, $this->final);
+			}
+			preg_match_all('/{#INCLUDE:(.*?)}/s', $this->final, $matchesFinal);
 		}
 	}
 

@@ -17,17 +17,24 @@
 		</a>
 		<span>{{photo.description}}</span>
 	</div>
-	<div class="{{photo.comment_more_v}}">
-		<a href="/photos/{{photo.id}}">
-			<span class="time_text">view all {{photo.comment_count}} comments</span>
-		</a>
-	</div>
-	<div class="{{photo.comment_preview_v}}">
-		<a href="/account/{{photo.comment_preview_username}}">
-			<span class="user">{{photo.comment_preview_username}}</span>
-		</a>
-		<span>{{photo.comment_preview_message}}</span>
-	</div>
+	{%IFN comments}
+		<div class="{{photo.comment_more_v}}">
+			<a href="/photos/{{photo.id}}">
+				<span class="time_text">view all {{photo.comment_count}} comments</span>
+			</a>
+		</div>
+		<div class="{{photo.comment_preview_v}}">
+			<a href="/account/{{photo.comment_preview_username}}">
+				<span class="user">{{photo.comment_preview_username}}</span>
+			</a>
+			<span>{{photo.comment_preview_message}}</span>
+		</div>
+	{%END}
+	{%IF comments}
+		{*FOR comments AS comment}
+			{#INCLUDE:photos/_comment}
+		{*END}
+	{%END}
 	<div>
 		<span class="time_text">{{photo.time_elapse}}</span>
 		<hr>
