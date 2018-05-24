@@ -1,12 +1,6 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}
-	<script>
-		function focusComment(id) {
-			var commentObj = document.getElementById(id)
-			commentObj.focus();
-			return false;
-		}
-	</script>
+{#INCLUDE:photos/_script}
 {#END}
 {#BODY}
 	<div class="photos">

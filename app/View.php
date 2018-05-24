@@ -15,7 +15,8 @@ class View
 	public function render()
 	{
 		$this->params['session'] = $_SESSION;
-		$this->params['session']['user'] = (array)unserialize($_SESSION['user']);
+		if (isset($_SESSION['user']))
+			$this->params['session']['user'] = (array)unserialize($_SESSION['user']);
 		$this->params['get'] = $_GET;
 		$this->params['post'] = $_POST;
         new Template($this->view, $this->params);

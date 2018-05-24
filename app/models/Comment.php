@@ -9,6 +9,7 @@ class Comment
 
 	public function __construct(array $params = [])
 	{
+		array_key_exists('id', $params) ? $this->id = $params['id'] : 0;
 		array_key_exists('user', $params) ? $this->user = $params['user'] : 0;
 		array_key_exists('photo', $params) ? $this->photo = $params['photo'] : 0;
 		array_key_exists('message', $params) ? $this->message = $params['message'] : 0;
@@ -29,9 +30,19 @@ class Comment
 		$this->id = ORM::getInstance()->store('comment', get_object_vars($this));
 	}
 
+	static public function ownedBy($user)
+	{
+		if (isset($_SESSION['user']))
+			$current_user = unserialize($_SESSION['user']);
+		return 	($user != $current_user->username) ? 'hidden' : 'show';
+	}
+
 	static public function find(array $params = [])
 	{
 		$comments = ORM::getInstance()->findAll('comment', $params, array('createdAt', 'ASC'), []);
+		
+		foreach ($comments as &$c)
+			$c['delete_v'] = Comment::ownedBy($c['user'] );
 		return $comments;
 	}
 }

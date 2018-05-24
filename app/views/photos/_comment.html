@@ -1,6 +1,11 @@
-<div>
+<div class="comment" id="comment_{{comment.id}}">
 	<a href="/account/{{comment.user}}">
 		<span class="user">{{comment.user}}</span>
 	</a>
-	<span>{{comment.message}}</span>
+	<span style="width: 96%;">{{comment.message}}</span>
+	<div
+		onclick="deleteComment('{{comment.id}}')" 
+		class="{{comment.delete_v}}" style="float: right; opacity: 0.3;">
+		<i class="fa fa-times"></i>
+	</div>
 </div>

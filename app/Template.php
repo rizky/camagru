@@ -19,7 +19,7 @@ Class Template
 		$this->addIf();
 		$this->addIfn();
 		$this->addFor();
-		$this->addValue();
+		// $this->addValue();
 		echo $this->final;
 	}
 

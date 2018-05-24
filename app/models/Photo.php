@@ -5,14 +5,12 @@ class Photo
 	public $id;
 	public $user;
 	public $url;
-	public $description;
 	public $time_elapse;
 
 	public function __construct(array $params = [])
 	{
 		array_key_exists('user', $params) ? $this->user = $params['user'] : 0;
 		array_key_exists('url', $params) ? $this->url = $params['url'] : 0;
-		array_key_exists('description', $params) ? $this->description = $params['description'] : 0;
 	}
 
 	static public function get(array $params=[])
@@ -66,21 +64,25 @@ class Photo
 		$p['user_name'] = $user->name;
 		$p['user_id'] = $user->id;
 		$p['user_username'] = $user->username;
-		$p['description_v'] = ($p['description'] == NULL) ? 'hidden' : 'show';
 		$likes = Like::find(array('photo' => $p['id']));
 		$p['likes'] = Photo::like_text($likes);
 		$p['like_logo'] = Like::is_user_like($likes) ? 'fas' : 'far';
 		$p['likes_v'] = (count($likes) == 0) ? 'hidden' : 'show';
 		$p['time_elapse'] = Photo::time_elapsed_string($p['createdAt']);
 		$comments = Comment::find(array('photo' => $p['id']));
-		$p['comment_preview_v'] = count($comments) == 0 ? 'hidden' : 'show';
-		if (count($comments) > 0)
-		{
-			$p['comment_preview_username'] =  $comments[count($comments) - 1]['user'];
-			$p['comment_preview_message'] =  $comments[count($comments) - 1]['message'];
-		}
-		$p['comment_more_v'] = count($comments) <= 1 ? 'hidden' : 'show';
-		$p['comment_count'] = count($comments);
+		$comment_nbr = count($comments);
+		$p['description_id'] = $comment_nbr > 0 ? $comments[0]['id'] : 0;
+		$p['description_username'] = $comment_nbr > 0 ?  $comments[0]['user'] : 0;
+		$p['description_message'] = $comment_nbr > 0 ?  $comments[0]['message'] : 0;
+		$p['description_delete_v'] = $comment_nbr > 0 ?   Comment::ownedBy($p['description_username']) : 0;
+		$p['description_v'] = ($p['description_message'] == NULL) ? 'hidden' : 'show';
+		$p['comment_id'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['id'] : 0;
+		$p['comment_username'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['user'] : 0;
+		$p['comment_message'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['message'] : 0;
+		$p['comment_delete_v'] = $comment_nbr > 1 ? Comment::ownedBy($p['comment_username']) : 0;
+		$p['comment_v'] = $comment_nbr <= 1 ? 'hidden' : 'show';
+		$p['comment_more_v'] = $comment_nbr <= 2 ? 'hidden' : 'show';
+		$p['comment_count'] = $comment_nbr;
 		return $p;
 	}
 

@@ -1,0 +1,26 @@
+<script>
+	function focusComment(id) {
+		var commentObj = document.getElementById(id)
+		commentObj.focus();
+		return false;
+	}
+	function deleteComment(id) {
+		var xhr = new XMLHttpRequest();
+		var comment = document.getElementById('comment_' + id);
+	
+		if (confirm("Do you really want to delete this comment?"))
+		{
+			xhr.open('POST', '/comments/delete');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				if (xhr.status === 200)
+				{
+					comment.parentNode.removeChild(comment);
+				}
+				else
+					alert('Request failed.  Returned status of ' + xhr.status);
+			};
+			xhr.send(encodeURI('comment=' + id));
+		}
+	}
+</script>
