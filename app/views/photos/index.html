@@ -9,5 +9,12 @@
 </script>
 {#END}
 {#BODY}
-{#INCLUDE:photos/_photos}
+<div class="photos">
+	{%IFN photos}
+	<h5>No Photo</h5>
+	{%END}
+	{*FOR photos AS s}
+	{#INCLUDE:photos/_photo}
+	{*END}
+</div>
 {#END}
