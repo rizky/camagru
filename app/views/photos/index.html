@@ -18,15 +18,21 @@
 			<i class="far fa-heart"></i>
 			<i class="far fa-comment"></i>
 		</div>
-		<span>{{s.likes}} likes</span>
+		<span class="{{s.likes_v}}">{{s.likes}} likes</span>
 		<div class="{{s.description_v}}">
 			<a href="/account/{{s.user_id}}">
 				<span class="user">{{s.user_username}}</span>
 			</a>
 			<span>{{s.description}}</span>
 		</div>
-		<span>{{s.time_elapse}}</span>
-		<span>Add a comment...</span>
+		<div>
+			<span class="time_text">{{s.time_elapse}}</span>
+			<hr>
+		</div>
+		<div>
+			<textarea placeholder="Add a comment..." class="comment_text" rows="1"></textarea>
+			<i class="fa fa-ellipsis-v" style="float: right;"></i>
+		</div>
 	</div>
 	{*END}
 </div>

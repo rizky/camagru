@@ -10,7 +10,6 @@ class Photo
 	public $description;
 	public $comments_preview;
 	public $time_elapse;
-	public $createdAt;
 
 	public function __construct(array $params = [])
 	{
@@ -33,6 +32,7 @@ class Photo
 			$p['user_id'] = $user->id;
 			$p['user_username'] = $user->username;
 			$p['description_v'] = ($p['description'] == NULL) ? 'hidden' : 'show';
+			$p['likes_v'] = ($p['likes'] == 0) ? 'hidden' : 'show';
 			$p['time_elapse'] = Photo::time_elapsed_string($p['createdAt']);
 		}
 		return $photos;
@@ -43,10 +43,8 @@ class Photo
 		$now = new DateTime;
 		$ago = new DateTime($datetime);
 		$diff = $now->diff($ago);
-	
 		$diff->w = floor($diff->d / 7);
 		$diff->d -= $diff->w * 7;
-	
 		$string = array(
 			'y' => 'year',
 			'm' => 'month',
@@ -56,14 +54,13 @@ class Photo
 			'i' => 'minute',
 			's' => 'second',
 		);
-		foreach ($string as $k => &$v) {
-			if ($diff->$k) {
+		foreach ($string as $k => &$v)
+		{
+			if ($diff->$k)
 				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-			} else {
+			else
 				unset($string[$k]);
-			}
 		}
-	
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? implode(', ', $string) . ' ago' : 'just now';
 	}

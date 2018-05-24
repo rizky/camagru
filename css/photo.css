@@ -13,7 +13,7 @@
 	border: 1px solid #eeeeee;
 	color: #757575;
 	background-color: white;
-	grid-gap: 1em;
+	grid-gap: 0.5em;
 }
 
 .photo .far, .photo .fas{
@@ -39,4 +39,24 @@
 		width: 380px;
 		height: 380px;
 	}
+}
+
+.comment_text {
+	width: 96%;
+	outline: none; 
+	font-size: 1em;
+	padding: 0px;
+	border-width: 0px;
+	height: 100%;
+	resize: none;
+}
+
+.time_text {
+	opacity: 0.6;
+	font-size: 0.8em;
+}
+
+.photo hr {
+	width: 100%;
+	opacity: 0.2;
 }
