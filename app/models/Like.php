@@ -55,6 +55,20 @@ class Like
 		return $likes;
 	}
 
+	static public function is_user_like($likes)
+	{
+		$result = 0;
+		foreach ($likes as $like)
+		{
+			if (Like::ownedBy($like['user']) == 'show')
+			{
+				$like['user'] = 'you';
+				return (1);
+			}
+		}
+		return (0);
+	}
+
 	static public function ownedBy($user)
 	{
 		if (isset($_SESSION['user']))
