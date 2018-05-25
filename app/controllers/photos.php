@@ -15,7 +15,8 @@ class Photos extends Controller
 		{
 			$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 			$photos = Photo::find([], $offset);
-			$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset));
+			$more_v = count($photos) == 0 ? 'hidden' : 'show';
+			$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset, 'more_v' => $more_v));
 		}
 		else
 		{
