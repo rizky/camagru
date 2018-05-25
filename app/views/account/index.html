@@ -1,8 +1,14 @@
 {TEMPLATE}templates/layout{END}
-{#SCRIPT}{#END}
+{#SCRIPT}
+{#INCLUDE:photos/_script}
+{#END}
 {#BODY}
-<div class="row">
-	This is Account Index <br/>
-	Hello {{session.user.name}}
-</div>
+	<div class="photos">
+		{%IFN photos}
+			<h5>No Photo</h5>
+		{%END}
+		{*FOR photos AS photo}
+			{#INCLUDE:photos/_photo}
+		{*END}
+	</div>
 {#END}
