@@ -4,6 +4,10 @@ class setup extends Controller
 {
 	protected $view;
 
+	public function __construct()
+	{
+	}
+
 	public function index()
 	{
 		$message = "Remove all data and recreate database!";
@@ -12,6 +16,8 @@ class setup extends Controller
 
 	public function db()
 	{
+		if (isset($_SESSION['user']))
+			unset($_SESSION['user']);
 		require_once('database.php');
 		$DB_DSN = 'mysql:host=db';
 		$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);

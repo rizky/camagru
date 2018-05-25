@@ -4,6 +4,7 @@ class Controller
 {
 	protected $method = 'GET';
 	protected $user;
+	protected $view;
 
 	public function __construct()
 	{
@@ -11,6 +12,8 @@ class Controller
 			$this->method = 'POST';
 		if (isset($_SESSION['user']))
 			$this->user = unserialize($_SESSION['user']);
+		if (ORM::testConnection() == false)
+			$this->redirect('/setup');
 	}
 
 	public function view($view, $params = [])

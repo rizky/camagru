@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `camagru`.`user` (
   `name` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `subscribed` BIT(1) NOT NULL DEFAULT 1,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
   `deleted` BIT(1) NOT NULL DEFAULT 0,
