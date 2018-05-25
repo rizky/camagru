@@ -2,20 +2,17 @@
 
 class Camera extends Controller
 {
-	protected $user;
 	protected $view;
 
 	public function __construct()
 	{
-		if (isset($_SESSION['user']))
-			$this->user = unserialize($_SESSION['user']);
+		parent::__construct();
 	}
 
 	public function index()
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		$this->view = $this->view('camera/index');
-		$this->view->render();
+		$this->view = $this->view('camera/index')->render();
 	}
 }

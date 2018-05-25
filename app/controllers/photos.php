@@ -2,13 +2,11 @@
 
 class Photos extends Controller
 {
-	protected $user;
 	protected $view;
 
 	public function __construct()
 	{
-		if (isset($_SESSION['user']))
-			$this->user = unserialize($_SESSION['user']);
+		parent::__construct();
 	}
 
 	public function index($id = '')

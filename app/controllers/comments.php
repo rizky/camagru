@@ -2,13 +2,11 @@
 
 class Comments extends Controller
 {
-	protected $user;
 	protected $view;
 
 	public function __construct()
 	{
-		if (isset($_SESSION['user']))
-			$this->user = unserialize($_SESSION['user']);
+		parent::__construct();
 	}
 
 	public function delete()
@@ -24,7 +22,6 @@ class Comments extends Controller
 	{
 		if (!isset($_POST['comment']) || !isset($_POST['user']) || !isset($_POST['photo']))
 			$this->redirect('/');
-		
 		$user = USER::get(array('username' => $_POST['user']));
 		$photo = Photo::get(array ('id' => $_POST['photo']));
 		$user->insert_comment($photo, $_POST['comment']);

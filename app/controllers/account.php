@@ -2,14 +2,11 @@
 
 class Account extends Controller
 {
-	protected $user;
 	protected $view;
 
 	public function __construct()
 	{
 		parent::__construct();
-		if (isset($_SESSION['user']))
-			$this->user = unserialize($_SESSION['user']);
 	}
 
 	public function index($username = '')
@@ -34,14 +31,12 @@ class Account extends Controller
 				$this->redirect('/');
 			}
 		}
-		$this->view = $this->view('account/login');
-		$this->view->render();
+		$this->view('account/login')->render();
 	}
 
 	public function register()
 	{
-		$this->view = $this->view('account/register');
-		$this->view->render();
+		$this->view('account/register')->render();
 	}
 
 	public function logout()
