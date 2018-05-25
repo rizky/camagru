@@ -58,9 +58,9 @@ class User
 			if (empty($user->tokenValidated))
 				return ($user);
 			else
-				return (-1);
+				return (NULL);
 		}
-		return (-1);
+		return (NULL);
 	}
 
 	public function delete()

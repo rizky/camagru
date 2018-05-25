@@ -23,7 +23,7 @@ class Photo
 			return ($photo);
 		}
 		else
-			return (-1);
+			return (NULL);
 		return (NULL);
 	}
 

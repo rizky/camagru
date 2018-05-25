@@ -25,7 +25,7 @@ class Like
 		if ($like instanceof Like)
 			return ($like);
 		else
-			return (-1);
+			return (NULL);
 		return (NULL);
 	}
 

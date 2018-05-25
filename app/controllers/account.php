@@ -15,7 +15,7 @@ class Account extends Controller
 			$username = $this->user->username;
 		if ($username == '')
 			$this->redirect('/account/login');
-		if (User::get(array('username' => $username)) == -1)
+		if (User::get(array('username' => $username)) == NULL)
 			$this->redirect('/');
 		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 		$photos = Photo::find(array('user' => $username), $offset);
