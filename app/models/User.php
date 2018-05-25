@@ -46,7 +46,7 @@ class User
 			if (!empty($e))
 				return ($errors);
 		}
-		$this->password = User::encrypt_password($this->password, $this->username);
+		$this->password = User::encrypt_password($this->username, $this->password);
 		$this->tokenValidated = $this->generateKey();
 		$this->insert();
 	}
