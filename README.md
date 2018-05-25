@@ -13,3 +13,4 @@ Access `http://localhost/app/config/setup.php` in the browser
 ## Resources
 - [Ruby Routing Convention](http://guides.rubyonrails.org/routing.html#crud-verbs-and-actions)
 - [Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns)
+- [Grid Justify](https://stackoverflow.com/questions/32551291/in-css-flexbox-why-are-there-no-justify-items-and-justify-self-properties)

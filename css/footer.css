@@ -1,10 +1,13 @@
 footer {
-	background-color: white;
-	display: flex;
-	height: 46px;
-	align-items: center;
-	margin-bottom: 30px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	border: 1px solid #eeeeee;
 	color: #757575;
+	background-color: white;
+	text-align: center;
 }
 
 footer div {
