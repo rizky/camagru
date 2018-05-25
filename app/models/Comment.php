@@ -18,6 +18,8 @@ class Comment
 	public function delete()
 	{
 		$comment = ORM::getInstance()->findOne('comment', array('id' => $this->id));
+		if (!$this->authenticate($comment->user))
+			return (false);
 		if ($comment instanceof Comment)
 			return ORM::getInstance()->delete_s('comment', $comment->id);
 		return false;
@@ -37,6 +39,8 @@ class Comment
 	{
 		if (isset($_SESSION['user']))
 			$current_user = unserialize($_SESSION['user']);
+		else
+			return 'hidden';
 		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 

@@ -14,8 +14,9 @@ class Comments extends Controller
 		if (!isset($_POST['comment']))
 			$this->redirect('/');
 		$comment = new Comment(array('id' => $_POST['comment']));
+		if (!$this->authenticate($comment->user))
+			return (false);
 		$comment->delete();
-		echo 'OK';
 	}
 
 	public function insert()

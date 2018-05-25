@@ -44,7 +44,8 @@ class Photos extends Controller
 		if (!isset($_POST['photo']))
 			$this->redirect('/');
 		$photo = new Photo(array('id' => $_POST['photo']));
+		if (!$this->authenticate($photo->user))
+			return (false);
 		$photo->delete();
-		echo 'OK';
 	}
 }

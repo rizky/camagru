@@ -90,6 +90,8 @@ class Photo
 	{
 		if (isset($_SESSION['user']))
 			$current_user = unserialize($_SESSION['user']);
+		else
+			return 'hidden';
 		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 
@@ -139,6 +141,8 @@ class Photo
 	public function delete()
 	{
 		$photo = ORM::getInstance()->findOne('photo', array('id' => $this->id));
+		if (!$this->authenticate($photo->user))
+			return (false);
 		if ($photo instanceof Photo)
 			return ORM::getInstance()->delete_s('photo', $photo->id);
 		return false;

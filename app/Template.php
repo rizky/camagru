@@ -20,7 +20,16 @@ Class Template
 		$this->addIfn();
 		$this->addFor();
 		$this->addValue();
+	}
+
+	public function render()
+	{
 		echo $this->final;
+	}
+
+	public function dump()
+	{
+		return $this->final;
 	}
 
 	private function addInclude()

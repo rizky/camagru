@@ -23,4 +23,14 @@ class Controller
 		header('Location: ' . $url);
 		exit;
 	}
+
+	protected function authenticate($user)
+	{
+		if ($this->user == NULL)
+			return false;
+		if ($user != $this->user.username)
+			return false;
+		else
+			return true;
+	}
 }
