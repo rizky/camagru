@@ -100,7 +100,7 @@ class User
 		$user = ORM::getInstance()->findOne('user', array('tokenValidated' => $key));
 		if ($user instanceof User)
 		{
-			$user->TokenValidated = NULL;
+			$user->tokenValidated = NULL;
 			ORM::getInstance()->store('user', get_object_vars($user));
 			return (true);
 		}

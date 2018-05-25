@@ -3,7 +3,9 @@
 {#BODY}
 <div>
 	<h1>Confirmation Page</h1>
-    {{message}}<br><br>
-    <a href="/" class="button">Back to home</a>
+	<form action="/account/login" method="POST">
+		<span>{{message}}</span>
+		<button type="submit" class="btn btn-default">Back to home</button>
+	</form>
 </div>
 {#END}
