@@ -31,7 +31,7 @@ class setup extends Controller
 	{
 		$admin = new User(array(
 			'username' => 'admin',
-			'password' => User::encrypt_password('admin', 'admin'),
+			'password' => User::encrypt_password('admin'),
 			'name' => 'Admin',
 			'email' => 'camagru.rizky@gmail.com')
 		);
@@ -52,7 +52,7 @@ class setup extends Controller
 		
 		$deleted_admin = new User(array(
 			'username' => 'deleted_admin',
-			'password' => User::encrypt_password('deleted_admin', 'admin'),
+			'password' => User::encrypt_password('admin'),
 			'name' => 'Admin',
 			'email' => 'deleted_admin@gmail.com')
 		);
@@ -61,7 +61,7 @@ class setup extends Controller
 		
 		$user = new User(array(
 			'username' => 'rizkyario',
-			'password' => User::encrypt_password('rizkyario', 'admin'),
+			'password' => User::encrypt_password('admin'),
 			'name' => 'Rizky Ario',
 			'email' => 'rizkyario@gmail.com')
 		);

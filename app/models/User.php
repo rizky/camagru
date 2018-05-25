@@ -21,14 +21,14 @@ class User
 		array_key_exists('email', $params) ? $this->email = $params['email'] : 0;
 	}
 
-	static public function encrypt_password($username, $password)
+	static public function encrypt_password($password)
 	{
-		return sha1("c4m4gru" . $username . $password);
+		return sha1("c4m4gru" . $password);
 	}
 
 	static public function login($username, $password)
 	{
-		$user = ORM::getInstance()->findOne('user', array('username' => $username, 'password' => User::encrypt_password($username, $password)));
+		$user = ORM::getInstance()->findOne('user', array('username' => $username, 'password' => User::encrypt_password($password)));
 		if ($user instanceof User) {
 			if (empty($user->tokenValidated))
 				return ($user);
@@ -47,7 +47,7 @@ class User
 			if (!empty($e))
 				return ($errors);
 		}
-		$this->password = User::encrypt_password($this->username, $this->password);
+		$this->password = User::encrypt_password($this->password);
 		$this->tokenValidated = $this->generateKey();
 		$this->insert();
 	}
@@ -113,17 +113,17 @@ class User
 	public function change_password(User $user, $password_old)
 	{
 		$errors = [];
-		$user = User::Login($user->username, $password_old);
-		if ($user == NULL)
+		$u = User::Login($user->username, $password_old);
+		if ($u == NULL)
 			$errors[] = "Old Password is incorrect";
 		$errors[] = $user->checkPassword();
 		foreach ($errors as $e) {
 			if (!empty($e))
 				return ($errors);
 		}
+		$user->password = User::encrypt_password($user->password);
 		$user->insert();
 	}
-
 
 	static public function validateEmail($key)
 	{

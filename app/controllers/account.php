@@ -101,11 +101,11 @@ class Account extends Controller
 			$user->email = isset($_POST['email']) ? $_POST['email'] : $user->email;
 			$user->name = isset($_POST['name']) ? $_POST['name'] : $user->name;
 			$user->username = isset($_POST['username']) ? $_POST['username'] : $user->username;
-			$password_old = isset($_POST['password_old']) ? $_POST['password_old'] : '';
-			$user->password = isset($_POST['password']) ? $_POST['password'] : $user->username;
-			$user->password2 = isset($_POST['password2']) ? $_POST['password2'] : $user->password2;
 			$user->subscribed = isset($_POST['subscribed']) && $_POST['subscribed'] ? true : false;
 			$errors = $this->user->update($user);
+			$password_old = isset($_POST['password_old']) ? $_POST['password_old'] : '';
+			$user->password = isset($_POST['password']) ? $_POST['password'] : '';
+			$user->password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 			if ($password_old != '')
 				$errors = $this->user->change_password($user, $password_old);
 			if (empty($errors))
