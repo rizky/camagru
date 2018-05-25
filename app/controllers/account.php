@@ -15,6 +15,8 @@ class Account extends Controller
 			$username = $this->user->username;
 		if ($username == '')
 			$this->redirect('/account/login');
+		if (User::get(array('username' => $username)) == -1)
+			$this->redirect('/');
 		$photos = Photo::find(array('user' => $username));
 		$this->view = $this->view('photos/index', array('photos' => $photos));
 		$this->view->render();
@@ -37,6 +39,13 @@ class Account extends Controller
 	public function register()
 	{
 		$this->view('account/register')->render();
+	}
+
+	public function settings()
+	{
+		if ($this->user == NULL)
+			$this->redirect('/account/login');
+		$this->view('/account/settings')->render();
 	}
 
 	public function logout()

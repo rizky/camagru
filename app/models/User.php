@@ -45,7 +45,7 @@ class User
 			else
 				return (-1);
 		}
-		return (NULL);
+		return (-1);
 	}
 
 	public function delete()
