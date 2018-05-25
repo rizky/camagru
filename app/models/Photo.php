@@ -28,11 +28,9 @@ class Photo
 
 	static private function like_text($likes)
 	{
-		if (isset($_SESSION['user']))
-			$user = unserialize($_SESSION['user']);
 		foreach ($likes as &$like)
 		{
-			if ($like['user'] == $user->username)
+			if (Like::ownedBy($like['user']))
 			{
 				$like['user'] = 'you';
 				break ;
@@ -72,9 +70,9 @@ class Photo
 		$comments = Comment::find(array('photo' => $p['id']));
 		$comment_nbr = count($comments);
 		$p['description_id'] = $comment_nbr > 0 ? $comments[0]['id'] : 0;
-		$p['description_username'] = $comment_nbr > 0 ?  $comments[0]['user'] : 0;
-		$p['description_message'] = $comment_nbr > 0 ?  $comments[0]['message'] : 0;
-		$p['description_delete_v'] = $comment_nbr > 0 ?   Comment::ownedBy($p['description_username']) : 0;
+		$p['description_username'] = $comment_nbr > 0 ? $comments[0]['user'] : 0;
+		$p['description_message'] = $comment_nbr > 0 ? $comments[0]['message'] : 0;
+		$p['description_delete_v'] = $comment_nbr > 0 ? Comment::ownedBy($p['description_username']) : 0;
 		$p['description_v'] = ($p['description_message'] == NULL) ? 'hidden' : 'show';
 		$p['comment_id'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['id'] : 0;
 		$p['comment_username'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['user'] : 0;
@@ -83,7 +81,15 @@ class Photo
 		$p['comment_v'] = $comment_nbr <= 1 ? 'hidden' : 'show';
 		$p['comment_more_v'] = $comment_nbr <= 2 ? 'hidden' : 'show';
 		$p['comment_count'] = $comment_nbr;
+		$p['owned'] = Photo::ownedBy($p['user']);
 		return $p;
+	}
+
+	static public function ownedBy($user)
+	{
+		if (isset($_SESSION['user']))
+			$current_user = unserialize($_SESSION['user']);
+		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 
 	static public function find(array $params = [])

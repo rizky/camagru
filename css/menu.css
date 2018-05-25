@@ -30,3 +30,8 @@
 	padding: 3px;
 	display: block;
 }
+
+.stop-scrolling {
+	height: 100%;
+	overflow: hidden;
+  }

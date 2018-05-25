@@ -57,6 +57,6 @@
 		<input
 			onkeypress="insertComment(event, '{{session.user.username}}', '{{photo.id}}')" 
 			id="comment_text_{{photo.id}}" placeholder="Add a comment..." class="comment_text"></input>
-		<i class="fa fa-ellipsis-v" style="float: right;"></i>
+		<i class="fa fa-ellipsis-v" style="float: right;" onclick="showMenu('{{photo.owned}}', '{{photo.id}}')"></i>
 	</div>
 </div>

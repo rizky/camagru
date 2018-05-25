@@ -2,10 +2,12 @@
 	<div class="background">
 	</div>
 	<ul class="options">
-		<li><a href="/account/">Delete</a></li>
+		<div id="menuDelete">
+			<li><a onclick="closeMenu()">Delete</a></li>
+			<hr>
+		</div>
+		<li><a onclick="closeMenu()">Share to Twitter</a></li>
 		<hr>
-		<li><a href="/account/settings">Share to Twitter</a></li>
-		<hr>
-		<li><a href="/account/logout">Cancel</a></li>
+		<li><a onclick="closeMenu()">Cancel</a></li>
 	</ul>
 </div>

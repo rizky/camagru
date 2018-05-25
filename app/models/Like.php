@@ -57,12 +57,19 @@ class Like
 			$user = unserialize($_SESSION['user']);
 		foreach ($likes as $like)
 		{
-			if ($like['user'] == $user->username)
+			if (Like::ownedBy($like['user']))
 			{
 				$like['user'] = 'you';
 				return (1);
 			}
 		}
 		return (0);
+	}
+
+	static public function ownedBy($user)
+	{
+		if (isset($_SESSION['user']))
+			$current_user = unserialize($_SESSION['user']);
+		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 }

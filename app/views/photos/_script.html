@@ -43,4 +43,24 @@
 			xhr.send(encodeURI('user=' + user + '&photo=' + photo + '&comment=' + comment.value));
 		}
 	}
+
+	function showMenu(visibility, photo) {
+		var x = document.getElementsByClassName('menu')[0];
+		x.style.display = 'block';
+		var body = document.getElementsByTagName('body')[0];
+    	body.classList.add('stop-scrolling');
+		var menuDelete = document.getElementById('menuDelete');
+		if (visibility == 'show')
+			menuDelete.style.display = 'block';
+		else
+			menuDelete.style.display = 'none';
+	}
+
+	function closeMenu() {
+		var x = document.getElementsByClassName('menu')[0];
+		x.style.display = 'none';
+		var body = document.getElementsByTagName('body')[0];
+    	body.classList.remove('stop-scrolling');
+	}
+	
 </script>
