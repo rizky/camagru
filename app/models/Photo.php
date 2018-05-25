@@ -19,8 +19,9 @@ class Photo
 		$photo = ORM::getInstance()->findOne('photo', $params);
 		if ($photo instanceof Photo)
 		{
-			$photo = Photo::populate((array)$photo);
-			return ($photo);
+			$p = Photo::populate((array)$photo);
+			$p['object'] = $photo;
+			return ($p);
 		}
 		else
 			return (NULL);

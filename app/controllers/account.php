@@ -13,10 +13,11 @@ class Account extends Controller
 			$username = $this->user->username;
 		if ($username == '')
 			$this->redirect('/account/login');
-		if (User::get(array('username' => $username)) == NULL)
+		$user = User::get(array('username' => $username));
+		if ($user == NULL)
 			$this->redirect('/');
 		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
-		$photos = Photo::find(array('user' => $username), $offset);
+		$photos = Photo::find(array('user' => $user->id), $offset);
 		$more_v = count($photos) == 0 ? 'hidden' : 'show';
 		$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset, 'more_v' => $more_v));
 		$this->view->render();

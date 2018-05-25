@@ -48,9 +48,20 @@ class Comment
 		
 		foreach ($comments as &$c)
 		{
-			$c['delete_v'] = Comment::ownedBy($c['user'] );
 			$c['user'] = USER::get(array('id' => $c['user']))->username;
+			$c['delete_v'] = Comment::ownedBy($c['user'] );
 		}
 		return $comments;
+	}
+
+	static public function get(array $params=[])
+	{
+		$comment = ORM::getInstance()->findOne('comment', $params);
+		$comment->user = USER::get(array('id' => $comment->user))->username;
+		if ($comment instanceof Comment)
+			return ($comment);
+		else
+			return (NULL);
+		return (NULL);
 	}
 }

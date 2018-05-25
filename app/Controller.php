@@ -31,7 +31,7 @@ class Controller
 	{
 		if ($this->user == NULL)
 			return false;
-		if ($user != $this->user.username)
+		if ($user != $this->user->username)
 			return false;
 		else
 			return true;
