@@ -9,7 +9,11 @@
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
 				if (xhr.status === 200)
-				photo.parentNode.removeChild(photo);
+				{
+					photo.parentNode.removeChild(photo);
+					if (document.getElementsByClassName('photos')[0].innerHTML.trim() === "")
+						window.location.href = '/';
+				}
 				else
 					alert('Request failed.  Returned status of ' + xhr.status);
 			};
