@@ -31,7 +31,7 @@ class Photo
 	{
 		foreach ($likes as &$like)
 		{
-			if (Like::ownedBy($like['user']))
+			if (Like::ownedBy($like['user']) == 'show')
 			{
 				$like['user'] = 'you';
 				break ;
@@ -86,15 +86,6 @@ class Photo
 		return $p;
 	}
 
-	static public function ownedBy($user)
-	{
-		if (isset($_SESSION['user']))
-			$current_user = unserialize($_SESSION['user']);
-		else
-			return 'hidden';
-		return 	($user != $current_user->username) ? 'hidden' : 'show';
-	}
-
 	static public function find(array $params = [], $offset = 0)
 	{
 		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), [$offset, 3]);
@@ -144,5 +135,14 @@ class Photo
 		if ($photo instanceof Photo)
 			return ORM::getInstance()->delete_s('photo', $photo->id);
 		return false;
+	}
+
+	static public function ownedBy($user)
+	{
+		if (isset($_SESSION['user']))
+			$current_user = unserialize($_SESSION['user']);
+		else
+			return 'hidden';
+		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 }

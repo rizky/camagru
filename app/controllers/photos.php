@@ -34,7 +34,6 @@ class Photos extends Controller
 		if ($id == '' || $this->user == NULL)
 			$this->redirect('/account/login');
 		$photo = Photo::get(array ('id' => $id));
-		$comments = Comment::find(array ('photo' => $photo['id']));
 		$this->user->like($photo);
 		$this->redirect('/photos/' . $photo['id']);
 	}

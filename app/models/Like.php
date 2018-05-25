@@ -38,34 +38,21 @@ class Like
 			$this->photo = $photo['id'];
 		$like = Like::get(array('photo' => $this->photo, 'user' => $this->user));
 		if ($like == NULL)
-			return 'hidden';
-		$this->id = $like->id;
-		if ($like->user != $user->username)
 			$this->id = ORM::getInstance()->store('like', get_object_vars($this));
 		else
-			$this->delete();
+		{
+			$this->id = $like->id;
+			if ($like->user != $user->username)
+				$this->id = ORM::getInstance()->store('like', get_object_vars($this));
+			else
+				$this->delete();
+		}
 	}
 
 	static public function find(array $params = [])
 	{
 		$likes = ORM::getInstance()->findAll('like', $params, array('createdAt', 'ASC'), []);
 		return $likes;
-	}
-
-	static public function is_user_like($likes)
-	{
-		$result = 0;
-		if (isset($_SESSION['user']))
-			$user = unserialize($_SESSION['user']);
-		foreach ($likes as $like)
-		{
-			if (Like::ownedBy($like['user']))
-			{
-				$like['user'] = 'you';
-				return (1);
-			}
-		}
-		return (0);
 	}
 
 	static public function ownedBy($user)
