@@ -21,7 +21,7 @@ class Photos extends Controller
 		else
 		{
 			$photo = Photo::get(array ('id' => $id));
-			if ($photo == -1)
+			if ($photo == NULL)
 				$this->redirect('/');
 			$comments = Comment::find(array ('photo' => $photo['id']));
 			$this->view = $this->view('photos/show', array('photo' => $photo, 'comments' => $comments));

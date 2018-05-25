@@ -37,7 +37,7 @@ class Like
 		else
 			$this->photo = $photo['id'];
 		$like = Like::get(array('photo' => $this->photo, 'user' => $this->user));
-		if ($like == -1)
+		if ($like == NULL)
 			return 'hidden';
 		$this->id = $like->id;
 		if ($like->user != $user->username)
