@@ -105,7 +105,8 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				$req_field .= '`'.$k.'`=:'.$k.', ';
+				if ($k != 'deleted')
+					$req_field .= '`'.$k.'`=:'.$k.', ';
 			}
 		}
 		$req = 'UPDATE '.$this->sqlDB.'.'.$table.' SET '.rtrim($req_field, ', ').' WHERE id = :id';
