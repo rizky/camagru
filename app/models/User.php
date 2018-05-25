@@ -66,8 +66,6 @@ class User
 	public function delete()
 	{
 		$user = ORM::getInstance()->findOne('user', array('username' => $this->username));
-		if (!$this->authenticate($user->username))
-			return (false);
 		if ($user instanceof User)
 			return ORM::getInstance()->delete_s('user', $user->id);
 		return (false);

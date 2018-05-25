@@ -15,8 +15,6 @@ class Like
 	public function delete()
 	{
 		$like = ORM::getInstance()->findOne('like', array('id' => $this->id));
-		if (!$this->authenticate($like->user))
-			return (false);
 		if ($like instanceof Like)
 			return ORM::getInstance()->delete_s('like', $like->id);
 		return false;

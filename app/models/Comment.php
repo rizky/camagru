@@ -18,8 +18,6 @@ class Comment
 	public function delete()
 	{
 		$comment = ORM::getInstance()->findOne('comment', array('id' => $this->id));
-		if (!$this->authenticate($comment->user))
-			return (false);
 		if ($comment instanceof Comment)
 			return ORM::getInstance()->delete_s('comment', $comment->id);
 		return false;

@@ -141,8 +141,6 @@ class Photo
 	public function delete()
 	{
 		$photo = ORM::getInstance()->findOne('photo', array('id' => $this->id));
-		if (!$this->authenticate($photo->user))
-			return (false);
 		if ($photo instanceof Photo)
 			return ORM::getInstance()->delete_s('photo', $photo->id);
 		return false;
