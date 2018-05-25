@@ -79,3 +79,7 @@ hr {
 	width: 100%;
 	opacity: 0.2;
 }
+
+.hidden {
+	display: none;
+}

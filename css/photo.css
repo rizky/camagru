@@ -37,10 +37,6 @@
 	font-weight: bold;
 }
 
-.photo .hidden {
-	display: none;
-}
-
 @media screen and (max-width: 500px) {
 	.photo img {
 		width: 380px;

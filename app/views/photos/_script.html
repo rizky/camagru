@@ -47,6 +47,8 @@
 	function showMenu(visibility, photo) {
 		var x = document.getElementsByClassName('menu')[0];
 		x.style.display = 'block';
+		var footer = document.getElementsByTagName('footer')[0];
+		footer.style.display = 'none';
 		var body = document.getElementsByTagName('body')[0];
     	body.classList.add('stop-scrolling');
 		var menuDelete = document.getElementById('menuDelete');
@@ -61,6 +63,8 @@
 		x.style.display = 'none';
 		var body = document.getElementsByTagName('body')[0];
     	body.classList.remove('stop-scrolling');
+		var footer = document.getElementsByTagName('footer')[0];
+		footer.style.display = 'block';
 	}
 	
 </script>
