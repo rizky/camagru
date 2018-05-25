@@ -25,7 +25,7 @@ class Comment
 
 	public function insert(User $user, $photo)
 	{
-		$this->user = $user->username;
+		$this->user = $user->id;
 		if ($photo instanceof Photo)
 			$this->photo = $photo->id;
 		else
@@ -47,7 +47,10 @@ class Comment
 		$comments = ORM::getInstance()->findAll('comment', $params, array('createdAt', 'ASC'), []);
 		
 		foreach ($comments as &$c)
+		{
 			$c['delete_v'] = Comment::ownedBy($c['user'] );
+			$c['user'] = USER::get(array('id' => $c['user']))->username;
+		}
 		return $comments;
 	}
 }

@@ -31,7 +31,7 @@ class Like
 
 	public function insert(User $user, $photo)
 	{
-		$this->user = $user->username;
+		$this->user = $user->id;
 		if ($photo instanceof Photo)
 			$this->photo = $photo->id;
 		else
@@ -42,7 +42,7 @@ class Like
 		else
 		{
 			$this->id = $like->id;
-			if ($like->user != $user->username)
+			if ($like->user != $user->id)
 				$this->id = ORM::getInstance()->store('like', get_object_vars($this));
 			else
 				$this->delete();
@@ -52,6 +52,8 @@ class Like
 	static public function find(array $params = [])
 	{
 		$likes = ORM::getInstance()->findAll('like', $params, array('createdAt', 'ASC'), []);
+		foreach ($likes as &$l)
+			$l['user'] = USER::get(array('id' => $l['user']))->username;
 		return $likes;
 	}
 

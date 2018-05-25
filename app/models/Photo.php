@@ -59,6 +59,7 @@ class Photo
 
 	static private function populate($p)
 	{
+		$p['user'] = USER::get(array('id' => $p['user']))->username;		
 		$user = USER::get(array('username' => $p['user']));
 		$p['user_name'] = $user->name;
 		$p['user_id'] = $user->id;
@@ -98,7 +99,7 @@ class Photo
 
 	public function insert(User $user)
 	{
-		$this->user = $user->username;
+		$this->user = $user->id;
 		$this->id = ORM::getInstance()->store('photo', get_object_vars($this));
 	}
 

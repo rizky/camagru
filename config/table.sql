@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camagru`.`photo` (
   `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(45) NOT NULL,
+  `user` INT(10) zerofill NOT NULL,
   `url` VARCHAR(255) NOT NULL,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
@@ -53,7 +53,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camagru`.`comment` (
   `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(45) NOT NULL,
+  `user` INT(10) zerofill NOT NULL,
   `photo` INT(10) zerofill NOT NULL,
   `message` VARCHAR(255) NULL,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -68,7 +68,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camagru`.`like` (
   `id` INT(10) zerofill NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(45) NOT NULL,
+  `user` INT(10) zerofill NOT NULL,
   `photo` INT(10) zerofill NOT NULL,
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL,
