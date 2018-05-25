@@ -9,13 +9,24 @@ class ORM
 	private function __construct()
 	{
 		try {
-			require_once('config/database.php');
+			require('config/database.php');
 			$this->sqlDB = $DB_BASE;
 			$this->PDOInstance = new \PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 			$this->PDOInstance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();
 		}
+	}
+
+	public static function testConnection()
+	{
+		try {
+			require('config/database.php');
+			$PDO = new \PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		} catch (PDOException $e) {
+			return (false);
+		}
+		return (true);
 	}
 
 	public static function getInstance()

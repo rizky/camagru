@@ -13,7 +13,7 @@ class Controller
 			$this->user = unserialize($_SESSION['user']);
 	}
 
-	protected function view($view, $params = [])
+	public function view($view, $params = [])
 	{
 		return new View($view, $params);
 	}
