@@ -3,21 +3,21 @@
 {#BODY}
 <div>
 	<h1>Registration</h1>
-	<form action="/account/register" method="POST">
-		<input type="text" name="username" placeholder="Username" value="{{post.username}}">
+	<form action='/account/register' method='POST'>
+		<input type='text' name='username' placeholder='Username' value='{{post.username}}'>
 		<hr>
-		<input type="password" name="password" placeholder="Password">
+		<input type='password' name='password' placeholder='Password'>
 		<hr>
-		<input type="password" name="password2" placeholder="Retype Password">
+		<input type='password' name='password2' placeholder='Retype Password'>
 		<hr>
-		<input type="email" name="email" placeholder="Email" value="{{post.email}}">
+		<input type='email' name='email' placeholder='Email' value='{{post.email}}'>
 		<hr>
-		<input type="text" name="name" placeholder="Name" value="{{post.name}}">
+		<input type='text' name='name' placeholder='Name' value='{{post.name}}'>
 		<hr>
-		<button type="submit" class="btn btn-default">Register</button>
-		<input type="hidden" name="from" value="register">
-		<input type="hidden" name="success" value="login">
-		<p>Already registered? <a href="/account/login">Login</a></p>
+		<button type='submit'>Register</button>
+		<input type='hidden' name='from' value='register'>
+		<input type='hidden' name='success' value='login'>
+		<p>Already registered? <a href='/account/login'>Login</a></p>
 		{*FOR errors AS error}
 			{#INCLUDE:account/_error}
 		{*END}

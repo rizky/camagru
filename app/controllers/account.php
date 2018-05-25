@@ -94,7 +94,7 @@ class Account extends Controller
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		$this->view('/account/settings')->render();
+		$this->view('/account/settings', array('user' => (array)$this->user))->render();
 	}
 
 	public function logout()
