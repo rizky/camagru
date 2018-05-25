@@ -90,7 +90,40 @@ class Account extends Controller
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		$this->view('/account/settings', array('user' => (array)$this->user))->render();
+		if ($this->method === 'POST')
+		{
+			$user = new User;
+			$user->id = isset($_POST['id']) ? $_POST['id'] : NULL;
+			$user = User::get(array('id' => $user->id));
+			if ($user == NULL)
+				$this->redirect('/');
+			$user->email = isset($_POST['email']) ? $_POST['email'] : $user->email;
+			$user->name = isset($_POST['name']) ? $_POST['name'] : $user->name;
+			$user->username = isset($_POST['username']) ? $_POST['username'] : $user->username;
+			$password_old = isset($_POST['password_old']) ? $_POST['password_old'] : '';
+			$user->password = isset($_POST['password']) ? $_POST['password'] : $user->username;
+			$user->password2 = isset($_POST['password2']) ? $_POST['password2'] : $user->password2;
+			$user->subscribed = isset($_POST['subscribed']) && $_POST['subscribed'] ? true : false;
+			$errors = $this->user->update($user);
+			if ($password_old != '')
+				$errors = $this->user->change_password($user, $password_old);
+			if (empty($errors))
+			{
+				$this->user = $user;
+				$_SESSION['user'] = serialize($this->user);
+				$user = (array)$this->user;
+				$user['checked'] = $this->user->subscribed ? 'checked' : '';
+				$this->view('account/settings', array('user' => $user))->render();
+			}
+			else
+				$this->view('account/settings', array('user' => $user, 'errors' => $errors))->render();
+		}
+		else
+		{
+			$user = (array)$this->user;
+			$user['checked'] = $this->user->subscribed ? 'checked' : '';
+			$this->view('account/settings', array('user' => $user))->render();
+		}
 	}
 
 	public function logout()

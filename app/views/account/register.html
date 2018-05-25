@@ -18,9 +18,7 @@
 		<input type='hidden' name='from' value='register'>
 		<input type='hidden' name='success' value='login'>
 		<p>Already registered? <a href='/account/login'>Login</a></p>
-		{*FOR errors AS error}
-			{#INCLUDE:account/_error}
-		{*END}
+		{#INCLUDE:account/_errors}
 	</form>
 </div>
 {#END}

@@ -22,12 +22,12 @@
 		<br>
 		<h2>Notification</h2>
 		<div style='display: flex;'>
-			<input type='checkbox' style='width: 1em; height: 1em;' name='subscribed' checked='true' value='true'>
+			<input type='checkbox' style='width: 1em; height: 1em;' name='subscribed' {{user.checked}} value='true'>
 			<label for='subscribeNews'>Subscribe to notification</label>
 		</div>
 		<button type='submit'>Update</button>
-		<input type='hidden' name='from' value='settings'>
-		<input type='hidden' name='success' value='index'>
+		<input type='hidden' name='id' value='{{user.id}}'>
+		{#INCLUDE:account/_errors}
 	</form>
 </div>
 {#END}

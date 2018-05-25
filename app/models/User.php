@@ -10,6 +10,7 @@ class User
 	public $email;
 	public $tokenValidated;
 	public $tokenLost;
+	public $subscribed = 1;
 
 	public function __construct(array $params = [])
 	{
@@ -94,6 +95,35 @@ class User
 		$like = new Like;
 		$like->insert($this, $photo);
 	}
+
+	public function update(User $user)
+	{
+		$errors = [];
+		if ($user->username != $this->username)
+			$errors[] = $user->checkUsername();
+		if ($user->email != $this->email)
+			$errors[] = $user->checkEmail();
+		foreach ($errors as $e) {
+			if (!empty($e))
+				return ($errors);
+		}
+		$user->insert();
+	}
+
+	public function change_password(User $user, $password_old)
+	{
+		$errors = [];
+		$user = User::Login($user->username, $password_old);
+		if ($user == NULL)
+			$errors[] = "Old Password is incorrect";
+		$errors[] = $user->checkPassword();
+		foreach ($errors as $e) {
+			if (!empty($e))
+				return ($errors);
+		}
+		$user->insert();
+	}
+
 
 	static public function validateEmail($key)
 	{
