@@ -66,7 +66,7 @@ class User
 		$photo->insert($this);
 	}
 
-	public function insert_comment(Photo $photo, $comment)
+	public function insert_comment($photo, $comment)
 	{
 		$comment = new Comment(array(
 			'message' => $comment)

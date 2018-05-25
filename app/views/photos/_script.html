@@ -4,6 +4,7 @@
 		commentObj.focus();
 		return false;
 	}
+
 	function deleteComment(id) {
 		var xhr = new XMLHttpRequest();
 		var comment = document.getElementById('comment_' + id);
@@ -14,13 +15,32 @@
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
 				if (xhr.status === 200)
-				{
 					comment.parentNode.removeChild(comment);
-				}
 				else
 					alert('Request failed.  Returned status of ' + xhr.status);
 			};
 			xhr.send(encodeURI('comment=' + id));
+		}
+	}
+
+	function insertComment(event, user, photo) {
+		var xhr = new XMLHttpRequest();
+		var comment = document.getElementById('comment_text_' + photo);
+	
+		if (event.keyCode == 13)
+		{
+			xhr.open('POST', '/comments/insert');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				if (xhr.status === 200)
+				{
+					comment.value = '';
+					window.location.href = '/photos/' + photo;
+				}
+				else
+					alert('Request failed.  Returned status of ' + xhr.status);
+			};
+			xhr.send(encodeURI('user=' + user + '&photo=' + photo + '&comment=' + comment.value));
 		}
 	}
 </script>

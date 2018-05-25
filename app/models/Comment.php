@@ -23,10 +23,13 @@ class Comment
 		return false;
 	}
 
-	public function insert(User $user, Photo $photo)
+	public function insert(User $user, $photo)
 	{
 		$this->user = $user->username;
-		$this->photo = $photo->id;
+		if ($photo instanceof Photo)
+			$this->photo = $photo->id;
+		else
+			$this->photo = $photo['id'];
 		$this->id = ORM::getInstance()->store('comment', get_object_vars($this));
 	}
 
