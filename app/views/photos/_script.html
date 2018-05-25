@@ -1,4 +1,22 @@
 <script>
+	function deletePhoto(id) {
+		var xhr = new XMLHttpRequest();
+		var photo = document.getElementById('photo_' + id);
+	
+		if (confirm("Do you really want to delete this photo?"))
+		{
+			xhr.open('POST', '/photo/delete');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				if (xhr.status === 200)
+				photo.parentNode.removeChild(photo);
+				else
+					alert('Request failed.  Returned status of ' + xhr.status);
+			};
+			xhr.send(encodeURI('photo=' + id));
+		}
+	}
+
 	function focusComment(id) {
 		var commentObj = document.getElementById(id)
 		commentObj.focus();
@@ -56,6 +74,13 @@
 			menuDelete.style.display = 'block';
 		else
 			menuDelete.style.display = 'none';
+		var delete_photo_btn = document.getElementById('delete_photo_btn');
+		delete_photo_btn.addEventListener("click", 
+			function me() {
+				closeMenu();
+				deletePhoto(photo);
+				delete_photo_btn.removeEventListener("click", me, false);
+			});
 	}
 
 	function closeMenu() {
@@ -64,7 +89,6 @@
 		var body = document.getElementsByTagName('body')[0];
     	body.classList.remove('stop-scrolling');
 		var footer = document.getElementsByTagName('footer')[0];
-		footer.style.display = 'block';
+		footer.style.display = 'block';		
 	}
-	
 </script>

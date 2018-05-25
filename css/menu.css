@@ -29,9 +29,15 @@
 .menu .options a {
 	padding: 3px;
 	display: block;
+	cursor: pointer;
+}
+
+.menu .options div {
+	width: 100%;
+	text-align: center;
 }
 
 .stop-scrolling {
 	height: 100%;
 	overflow: hidden;
-  }
+}

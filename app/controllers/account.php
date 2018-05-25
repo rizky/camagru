@@ -17,8 +17,9 @@ class Account extends Controller
 			$this->redirect('/account/login');
 		if (User::get(array('username' => $username)) == -1)
 			$this->redirect('/');
-		$photos = Photo::find(array('user' => $username));
-		$this->view = $this->view('photos/index', array('photos' => $photos));
+		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+		$photos = Photo::find(array('user' => $username), $offset);
+		$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset));
 		$this->view->render();
 	}
 

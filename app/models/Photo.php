@@ -9,6 +9,7 @@ class Photo
 
 	public function __construct(array $params = [])
 	{
+		array_key_exists('id', $params) ? $this->id = $params['id'] : 0;
 		array_key_exists('user', $params) ? $this->user = $params['user'] : 0;
 		array_key_exists('url', $params) ? $this->url = $params['url'] : 0;
 	}
@@ -92,9 +93,9 @@ class Photo
 		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 
-	static public function find(array $params = [])
+	static public function find(array $params = [], $offset = 0)
 	{
-		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), []);
+		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), [$offset, 3]);
 		foreach ($photos as &$p)
 		{
 			$p = Photo::populate($p);
@@ -133,5 +134,13 @@ class Photo
 		}
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? implode(', ', $string) . ' ago' : 'just now';
+	}
+
+	public function delete()
+	{
+		$photo = ORM::getInstance()->findOne('photo', array('id' => $this->id));
+		if ($photo instanceof Photo)
+			return ORM::getInstance()->delete_s('photo', $photo->id);
+		return false;
 	}
 }

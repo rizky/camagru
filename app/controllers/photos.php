@@ -13,8 +13,9 @@ class Photos extends Controller
 	{
 		if ($id == '')
 		{
-			$photos = Photo::find();
-			$this->view = $this->view('photos/index', array('photos' => $photos));
+			$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+			$photos = Photo::find([], $offset);
+			$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset));
 		}
 		else
 		{
@@ -35,5 +36,14 @@ class Photos extends Controller
 		$comments = Comment::find(array ('photo' => $photo['id']));
 		$this->user->like($photo);
 		$this->redirect('/photos/' . $photo['id']);
+	}
+
+	public function delete()
+	{
+		if (!isset($_POST['photo']))
+			$this->redirect('/');
+		$photo = new Photo(array('id' => $_POST['photo']));
+		$photo->delete();
+		echo 'OK';
 	}
 }
