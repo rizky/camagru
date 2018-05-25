@@ -15,7 +15,7 @@ class setup extends Controller
 		require_once('database.php');
 		$DB_DSN = 'mysql:host=db';
 		$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-		$sql = file_get_contents('app/config/table.sql');
+		$sql = file_get_contents('config/table.sql');
 		$qr = $db->exec($sql);
 		$message = "Populate Data";
 		$this->view('setup/index', array('message' => $message, 'next' => '/setup/data'))->render();
