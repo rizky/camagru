@@ -26,7 +26,7 @@ class Account extends Controller
 
 	public function login()
 	{
-		if ($this->method === 'POST')
+		if ($this->method === 'POST' && isset($_POST['username']) && $_POST['password'])
 		{
 			$user = User::Login($_POST['username'], $_POST['password']);
 			if ($user instanceof User)

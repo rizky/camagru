@@ -101,6 +101,7 @@ class User
 		if ($user instanceof User)
 		{
 			$user->tokenValidated = NULL;
+			$user->deleted = false;
 			ORM::getInstance()->store('user', get_object_vars($user));
 			return (true);
 		}
