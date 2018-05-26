@@ -18,9 +18,17 @@
             reader.onload = function (e) {
 				document.getElementById('img').setAttribute('src', e.target.result);
 				document.getElementById('img').classList.remove('hidden');
+				document.getElementById('img-cancel').classList.remove('hidden');
+				document.getElementById('img-save').classList.remove('hidden');
             }
             reader.readAsDataURL(input.files[0]);
         }
+	}
+
+	function cancelImage() {
+		document.getElementById('img').classList.add('hidden');
+		document.getElementById('img-cancel').classList.add('hidden');
+		document.getElementById('img-save').classList.add('hidden');
 	}
 
 	function loadUrl() {
@@ -30,7 +38,7 @@
 			document.getElementById('img').classList.remove('hidden');
         }
 	}
-	
+
 	function dragMouseDown(e) {
 		e = e || window.event;
 		pos3 = e.clientX;
