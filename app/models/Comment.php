@@ -1,8 +1,7 @@
 <?php
 
-class Comment
+class Comment extends Model
 {
-	public $id;
 	public $user;
 	public $photo;
 	public $message;
@@ -15,14 +14,6 @@ class Comment
 		array_key_exists('message', $params) ? $this->message = $params['message'] : 0;
 	}
 
-	public function delete()
-	{
-		$comment = ORM::getInstance()->findOne('comment', array('id' => $this->id));
-		if ($comment instanceof Comment)
-			return ORM::getInstance()->delete_s('comment', $comment->id);
-		return false;
-	}
-
 	public function insert(User $user, $photo)
 	{
 		$this->user = $user->id;
@@ -30,7 +21,7 @@ class Comment
 			$this->photo = $photo->id;
 		else
 			$this->photo = $photo['id'];
-		$this->id = ORM::getInstance()->store('comment', get_object_vars($this));
+		$this->id = Comment::store(get_object_vars($this));
 	}
 
 	static public function ownedBy($user)
@@ -44,7 +35,7 @@ class Comment
 
 	static public function find(array $params = [])
 	{
-		$comments = ORM::getInstance()->findAll('comment', $params, array('createdAt', 'ASC'), []);
+		$comments = Comment::findAll($params, array('createdAt', 'ASC'), []);
 		
 		foreach ($comments as &$c)
 		{
@@ -56,7 +47,7 @@ class Comment
 
 	static public function get(array $params=[])
 	{
-		$comment = ORM::getInstance()->findOne('comment', $params);
+		$comment = Comment::findOne($params);
 		$comment->user = USER::get(array('id' => $comment->user))->username;
 		if ($comment instanceof Comment)
 			return ($comment);

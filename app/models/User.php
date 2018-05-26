@@ -1,8 +1,7 @@
 <?php
 
-class User
+class User extends Model
 {
-	public $id;
 	public $username;
 	public $password;
 	public $password2;
@@ -28,7 +27,7 @@ class User
 
 	static public function login($username, $password)
 	{
-		$user = ORM::getInstance()->findOne('user', array('username' => $username, 'password' => User::encrypt_password($password)));
+		$user = User::findOne(array('username' => $username, 'password' => User::encrypt_password($password)));
 		if ($user instanceof User) {
 			if (empty($user->tokenValidated))
 				return ($user);
@@ -54,7 +53,7 @@ class User
 
 	static public function get(array $params=[])
 	{
-		$user = ORM::getInstance()->findOne('user', $params);
+		$user = User::findOne($params);
 		if ($user instanceof User) {
 			if (empty($user->tokenValidated))
 				return ($user);
@@ -64,17 +63,9 @@ class User
 		return (NULL);
 	}
 
-	public function delete()
-	{
-		$user = ORM::getInstance()->findOne('user', array('username' => $this->username));
-		if ($user instanceof User)
-			return ORM::getInstance()->delete_s('user', $user->id);
-		return (false);
-	}
-
 	public function insert()
 	{
-		$this->id = ORM::getInstance()->store('user', get_object_vars($this));
+		$this->id = User::store(get_object_vars($this));
 	}
 
 	public function insert_photo(Photo $photo)
@@ -127,11 +118,11 @@ class User
 
 	static public function validateEmail($key)
 	{
-		$user = ORM::getInstance()->findOne('user', array('tokenValidated' => $key));
+		$user = User::findOne(array('tokenValidated' => $key));
 		if ($user instanceof User)
 		{
 			$user->tokenValidated = NULL;
-			ORM::getInstance()->store('user', get_object_vars($user));
+			User::store(get_object_vars($user));
 			return (true);
 		}
 		return (false);
@@ -149,7 +140,7 @@ class User
 	}
 	private function checkUsername()
 	{
-		if (ORM::getInstance()->findOne('user', array('username' => $this->username)) instanceof User)
+		if (User::findOne(array('username' => $this->username)) instanceof User)
 			return 'Username is taken';
 		if (!preg_match('/^([a-zA-Z0-9-_.]){3,20}$/', $this->username))
 			return 'Username should consist of 3 to 20 character of alpha numeric';
@@ -165,7 +156,7 @@ class User
 	}
 	private function checkEmail()
 	{
-		if (ORM::getInstance()->findOne('user', array('email' => $this->email)) instanceof User)
+		if (User::findOne(array('email' => $this->email)) instanceof User)
 			return 'Email address has been used';
 		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL))
 			return 'Email address is not valid';

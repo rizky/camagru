@@ -1,8 +1,7 @@
 <?php
 
-class Like
+class Like extends Model
 {
-	public $id;
 	public $user;
 	public $photo;
 
@@ -12,16 +11,9 @@ class Like
 		array_key_exists('photo', $params) ? $this->photo = $params['photo'] : 0;
 	}
 
-	public function delete()
-	{
-		$like = ORM::getInstance()->findOne('like', array('id' => $this->id));
-		if ($like instanceof Like)
-			return ORM::getInstance()->delete_s('like', $like->id);
-		return false;
-	}
 	static public function get(array $params=[])
 	{
-		$like = ORM::getInstance()->findOne('like', $params);
+		$like = Like::findOne($params);
 		if ($like instanceof Like)
 			return ($like);
 		else
@@ -38,12 +30,12 @@ class Like
 			$this->photo = $photo['id'];
 		$like = Like::get(array('photo' => $this->photo, 'user' => $this->user));
 		if ($like == NULL)
-			$this->id = ORM::getInstance()->store('like', get_object_vars($this));
+			$this->id = Like::store(get_object_vars($this));
 		else
 		{
 			$this->id = $like->id;
 			if ($like->user != $user->id)
-				$this->id = ORM::getInstance()->store('like', get_object_vars($this));
+				$this->id = Like::store(get_object_vars($this));
 			else
 				$this->delete();
 		}
@@ -51,7 +43,7 @@ class Like
 
 	static public function find(array $params = [])
 	{
-		$likes = ORM::getInstance()->findAll('like', $params, array('createdAt', 'ASC'), []);
+		$likes = Like::findAll($params, array('createdAt', 'ASC'), []);
 		foreach ($likes as &$l)
 			$l['user'] = USER::get(array('id' => $l['user']))->username;
 		return $likes;

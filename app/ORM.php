@@ -11,8 +11,8 @@ class ORM
 		try {
 			require('config/database.php');
 			$this->sqlDB = $DB_BASE;
-			$this->PDOInstance = new \PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$this->PDOInstance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			$this->PDOInstance = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$this->PDOInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();
 		}
@@ -22,7 +22,7 @@ class ORM
 	{
 		try {
 			require('config/database.php');
-			$PDO = new \PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$PDO = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		} catch (PDOException $e) {
 			return (false);
 		}
@@ -45,9 +45,9 @@ class ORM
 		$statement = $this->PDOInstance->prepare($req);
 		foreach ($where as $k => $v)
 			$statement->bindValue(':' . $k, $v);
-		$statement->setFetchMode(\PDO::FETCH_CLASS, ucfirst($table));
+		$statement->setFetchMode(PDO::FETCH_CLASS, ucfirst($table));
 		$statement->execute();
-		return $statement->fetch(\PDO::FETCH_CLASS);
+		return $statement->fetch(PDO::FETCH_CLASS);
 	}
 
 	public function findAll($table, $where, $order = null, $limit = null)
@@ -63,7 +63,7 @@ class ORM
 		foreach ($where as $k => $v)
 			$statement->bindValue(':' . $k, $v);
 		$statement->execute();
-		return $statement->fetchAll(\PDO::FETCH_ASSOC);
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function getFields($table)
@@ -72,7 +72,7 @@ class ORM
 		$statement->bindValue(':table', $table);
 		$statement->bindValue(':base', $this->sqlDB);
 		$statement->execute();
-		return ($statement->fetchAll(\PDO::FETCH_COLUMN));
+		return ($statement->fetchAll(PDO::FETCH_COLUMN));
 	}
 
 	private function insert($table, $fields, $value)
@@ -155,7 +155,7 @@ class ORM
 			return ($this->update($table, $fields, $value));
 	}
 
-	public function delete_s($table, $id)
+	public function delete($table, $id)
 	{
 		$req = 'UPDATE '.$this->sqlDB.'.'.$table.' SET deleted = true WHERE id = :id';
 		$statement = $this->PDOInstance->prepare($req);
@@ -163,7 +163,7 @@ class ORM
 		$statement->execute();
 	}
 
-	public function delete($table, $id)
+	public function destroy($table, $id)
 	{
 		$req = 'DELETE FROM '.$this->sqlDB.'.'.$table.' WHERE id = :id';
 		$statement = $this->PDOInstance->prepare($req);

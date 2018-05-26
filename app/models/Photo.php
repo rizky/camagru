@@ -1,8 +1,7 @@
 <?php
 
-class Photo
+class Photo extends Model
 {
-	public $id;
 	public $user;
 	public $url;
 	public $time_elapse;
@@ -16,7 +15,7 @@ class Photo
 
 	static public function get(array $params=[])
 	{
-		$photo = ORM::getInstance()->findOne('photo', $params);
+		$photo = Photo::findOne($params);
 		if ($photo instanceof Photo)
 		{
 			$p = Photo::populate((array)$photo);
@@ -90,7 +89,7 @@ class Photo
 
 	static public function find(array $params = [], $offset = 0)
 	{
-		$photos = ORM::getInstance()->findAll('photo', $params, array('createdAt', 'DESC'), [$offset, 3]);
+		$photos = Photo::findAll($params, array('createdAt', 'DESC'), [$offset, 3]);
 		foreach ($photos as &$p)
 		{
 			$p = Photo::populate($p);
@@ -101,7 +100,7 @@ class Photo
 	public function insert(User $user)
 	{
 		$this->user = $user->id;
-		$this->id = ORM::getInstance()->store('photo', get_object_vars($this));
+		$this->id = Photo::store(get_object_vars($this));
 	}
 
 	static private function time_elapsed_string($datetime, $full = false)
@@ -129,14 +128,6 @@ class Photo
 		}
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? implode(', ', $string) . ' ago' : 'just now';
-	}
-
-	public function delete()
-	{
-		$photo = ORM::getInstance()->findOne('photo', array('id' => $this->id));
-		if ($photo instanceof Photo)
-			return ORM::getInstance()->delete_s('photo', $photo->id);
-		return false;
 	}
 
 	static public function ownedBy($user)
