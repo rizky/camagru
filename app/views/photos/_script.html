@@ -21,6 +21,14 @@
 		}
 	}
 
+	function sharePhoto(id) {
+		host = 'http://twitter.com/share?';
+		url = '&url=http://localhost/photos/' + id;
+		text = 'text=Check this photo!';
+		hashtag = '&hashtags=camagru,photo,sharing';
+		window.location.href = host+text+url+hashtag;
+	}
+
 	function focusComment(id) {
 		var commentObj = document.getElementById(id)
 		commentObj.focus();
@@ -84,6 +92,13 @@
 				closeMenu();
 				deletePhoto(photo);
 				delete_photo_btn.removeEventListener("click", me, false);
+			});
+		var share_photo_btn = document.getElementById('share_photo_btn');
+		share_photo_btn.addEventListener("click", 
+			function me() {
+				closeMenu();
+				sharePhoto(photo);
+				share_photo_btn.removeEventListener("click", me, false);
 			});
 	}
 
