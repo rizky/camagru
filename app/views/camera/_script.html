@@ -22,6 +22,14 @@
             reader.readAsDataURL(input.files[0]);
         }
 	}
+
+	function loadUrl() {
+		var url = prompt("Add link of image online?", '');
+		if (url !== '') {
+			document.getElementById('img').setAttribute('src', url);
+			document.getElementById('img').classList.remove('hidden');
+        }
+	}
 	
 	function dragMouseDown(e) {
 		e = e || window.event;
