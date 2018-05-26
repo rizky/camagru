@@ -79,6 +79,7 @@ class User extends Model
 			'message' => $comment)
 		);
 		$comment->insert($this, $photo);
+		return $comment;
 	}
 
 	public function like($photo)

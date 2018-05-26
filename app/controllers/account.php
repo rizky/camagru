@@ -62,7 +62,7 @@ class Account extends Controller
 			$errors = $user->register();
 			if (empty($errors))
 			{
-				$this->sendEmail($user);
+				$this->sendConfirmation($user);
 				$message = 'Thank you for your registration<br>Check your email to confirm your registration';
 				$this->view('account/confirmation', array('message' => $message))->render();
 			}
@@ -73,7 +73,7 @@ class Account extends Controller
 			$this->view('account/register')->render();
 	}
 
-	public function sendEmail(User $user)
+	public function sendConfirmation(User $user)
 	{
 		$to = $user->email;
 		$subject = 'Registration Confirmation';
@@ -83,7 +83,7 @@ class Account extends Controller
 			'MIME-Version' => '1.0',
 			'Content-Type' => 'text/html; charset=UTF-8',
 		);
-		$message = $this->view('account/email', array('user' => $user))->dump();
+		$message = $this->view('email/confirmation', array('user' => $user))->dump();
 		mail($to, $subject, $message, $headers);
 	}
 

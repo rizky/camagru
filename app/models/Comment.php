@@ -48,11 +48,16 @@ class Comment extends Model
 	static public function get(array $params=[])
 	{
 		$comment = Comment::findOne($params);
-		$comment->user = USER::get(array('id' => $comment->user))->username;
+		$comment->populate();
 		if ($comment instanceof Comment)
 			return ($comment);
 		else
 			return (NULL);
 		return (NULL);
+	}
+
+	public function populate()
+	{
+		$this->user = USER::get(array('id' => $this->user))->username;
 	}
 }

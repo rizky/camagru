@@ -1,15 +1,8 @@
-
 {TEMPLATE}templates/email{END}
-{#BODY}
-Hello {{user.name}}
-<br>
+{#MESSAGE}
 To confirm your registration, <br>
 click this link : 
 <a href="localhost/account/conformation?key={{user.tokenValidated}}">
 	localhost/account/conformation?key={{user.tokenValidated}}
 </a>
-<br>
-Best regards,
-<br>
-camagru
 {#END}

@@ -49,6 +49,11 @@ class Like extends Model
 		return $likes;
 	}
 
+	public function populate()
+	{
+		$this->user = USER::get(array('id' => $this->user))->username;
+	}
+
 	static public function is_user_like($likes)
 	{
 		$result = 0;
