@@ -15,7 +15,7 @@
 						window.location.href = '/';
 				}
 				else
-					alert('Request failed.  Returned status of ' + xhr.status);
+					window.location.href = '/account/login';
 			};
 			xhr.send(encodeURI('photo=' + id));
 		}
@@ -47,7 +47,7 @@
 				if (xhr.status === 200)
 					comment.parentNode.removeChild(comment);
 				else
-					alert('Request failed.  Returned status of ' + xhr.status);
+					window.location.href = '/account/login';
 			};
 			xhr.send(encodeURI('comment=' + id));
 		}
@@ -68,7 +68,7 @@
 					window.location.href = '/photos/' + photo;
 				}
 				else
-					alert('Request failed.  Returned status of ' + xhr.status);
+					window.location.href = '/account/login';
 			};
 			xhr.send(encodeURI('user=' + user + '&photo=' + photo + '&comment=' + comment.value));
 		}

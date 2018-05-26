@@ -10,12 +10,12 @@ class Comments extends Controller
 	public function delete()
 	{
 		if (!isset($_POST['comment']))
-			$this->redirect('/');
+			http_response_code(400);
 		$comment = Comment::get(array('id' => $_POST['comment']));
 		if ($comment == NULL)
-			$this->redirect('/');
+			http_response_code(400);
 		if (!$this->authenticate($comment->user))
-			return (false);
+			http_response_code(401);
 		$comment->delete();
 	}
 
@@ -23,9 +23,9 @@ class Comments extends Controller
 	{
 
 		if (!isset($_POST['comment']) || !isset($_POST['user']) || !isset($_POST['photo']))
-			$this->redirect('/');
+			http_response_code(400);
 		if (!$this->authenticate($_POST['user']))
-			return (false);
+			http_response_code(401);
 		$sender = User::get(array('username' => $_POST['user']));
 		$photo = Photo::get(array ('id' => $_POST['photo']));
 		$recipient = User::get(array('username' => $photo['user']));
