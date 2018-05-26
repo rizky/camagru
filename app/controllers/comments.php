@@ -21,8 +21,11 @@ class Comments extends Controller
 
 	public function insert()
 	{
+
 		if (!isset($_POST['comment']) || !isset($_POST['user']) || !isset($_POST['photo']))
 			$this->redirect('/');
+		if (!$this->authenticate($_POST['user']))
+			return (false);
 		$sender = User::get(array('username' => $_POST['user']));
 		$photo = Photo::get(array ('id' => $_POST['photo']));
 		$recipient = User::get(array('username' => $photo['user']));
