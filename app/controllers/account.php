@@ -45,15 +45,6 @@ class Account extends Controller
 		$this->view('account/login', array('errors' => $errors))->render();
 	}
 
-	public function conformation()
-	{
-		if (isset($_GET['key']) && User::validateEmail($_GET['key']))
-			$message = 'Your account has been validated';
-        else
-			$message = 'Invalid key';
-		$this->view('account/confirmation', array('message' => $message))->render();
-	}
-
 	public function register()
 	{
 		if ($this->method === 'POST')
@@ -78,18 +69,13 @@ class Account extends Controller
 			$this->view('account/register')->render();
 	}
 
-	public function sendConfirmation(User $user)
+	public function conformation()
 	{
-		$to = $user->email;
-		$subject = 'Registration Confirmation';
-		$headers = array(
-			'From' => 'Admin Camagru <camagru.rizky@gmail.com>',
-			'Reply-To' => 'Admin Camagru <camagru.rizky@gmail.com>',
-			'MIME-Version' => '1.0',
-			'Content-Type' => 'text/html; charset=UTF-8',
-		);
-		$message = $this->view('email/confirmation', array('user' => $user))->dump();
-		mail($to, $subject, $message, $headers);
+		if (isset($_GET['key']) && User::validateEmail($_GET['key']))
+			$message = 'Your account has been validated';
+        else
+			$message = 'Invalid key';
+		$this->view('account/confirmation', array('message' => $message))->render();
 	}
 
 	public function settings()
@@ -207,6 +193,20 @@ class Account extends Controller
 			'Content-Type' => 'text/html; charset=UTF-8',
 		);
 		$message = $this->view('email/password', array('user' => $user))->dump();
+		mail($to, $subject, $message, $headers);
+	}
+
+	public function sendConfirmation(User $user)
+	{
+		$to = $user->email;
+		$subject = 'Registration Confirmation';
+		$headers = array(
+			'From' => 'Admin Camagru <camagru.rizky@gmail.com>',
+			'Reply-To' => 'Admin Camagru <camagru.rizky@gmail.com>',
+			'MIME-Version' => '1.0',
+			'Content-Type' => 'text/html; charset=UTF-8',
+		);
+		$message = $this->view('email/confirmation', array('user' => $user))->dump();
 		mail($to, $subject, $message, $headers);
 	}
 }

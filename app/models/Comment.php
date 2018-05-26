@@ -14,23 +14,15 @@ class Comment extends Model
 		array_key_exists('message', $params) ? $this->message = $params['message'] : 0;
 	}
 
-	public function insert(User $user, $photo)
+	static public function get(array $params=[])
 	{
-		$this->user = $user->id;
-		if ($photo instanceof Photo)
-			$this->photo = $photo->id;
+		$comment = Comment::findOne($params);
+		$comment->populate();
+		if ($comment instanceof Comment)
+			return ($comment);
 		else
-			$this->photo = $photo['id'];
-		$this->id = Comment::store(get_object_vars($this));
-	}
-
-	static public function ownedBy($user)
-	{
-		if (isset($_SESSION['user']))
-			$current_user = unserialize($_SESSION['user']);
-		else
-			return 'hidden';
-		return 	($user != $current_user->username) ? 'hidden' : 'show';
+			return (NULL);
+		return (NULL);
 	}
 
 	static public function find(array $params = [])
@@ -45,19 +37,27 @@ class Comment extends Model
 		return $comments;
 	}
 
-	static public function get(array $params=[])
+	public function insert(User $user, $photo)
 	{
-		$comment = Comment::findOne($params);
-		$comment->populate();
-		if ($comment instanceof Comment)
-			return ($comment);
+		$this->user = $user->id;
+		if ($photo instanceof Photo)
+			$this->photo = $photo->id;
 		else
-			return (NULL);
-		return (NULL);
+			$this->photo = $photo['id'];
+		$this->id = Comment::store(get_object_vars($this));
 	}
 
 	public function populate()
 	{
 		$this->user = USER::get(array('id' => $this->user))->username;
+	}
+
+	static public function ownedBy($user)
+	{
+		if (isset($_SESSION['user']))
+			$current_user = unserialize($_SESSION['user']);
+		else
+			return 'hidden';
+		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 }
