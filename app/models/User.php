@@ -50,13 +50,10 @@ class User extends Model
 	static public function get(array $params=[])
 	{
 		$user = User::findOne($params);
-		if ($user instanceof User) {
-			if (empty($user->tokenValidated))
-				return ($user);
-			else
-				return (NULL);
-		}
-		return (NULL);
+		if ($user)
+			return ($user);
+		else
+			return (NULL);
 	}
 
 	public function insert()

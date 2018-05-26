@@ -37,7 +37,7 @@ class Account extends Controller
 					$this->redirect('/');
 				}
 				else
-					$errors[] = 'Your account has not been validated. Check your email!';
+					$errors[] = 'Your account has not been validated. Check your email to confirm!<br>You can resend the confirmation <a href="/account/confirmation">here</a>';
 			}
 			else
 				$errors[] = 'Sorry, your password was incorrect';
@@ -69,13 +69,47 @@ class Account extends Controller
 			$this->view('account/register')->render();
 	}
 
-	public function conformation()
+	public function confirmation()
 	{
-		if (isset($_GET['key']) && User::validateEmail($_GET['key']))
-			$message = 'Your account has been validated';
+		if (isset($_GET['key']))
+		{
+			if (User::validateEmail($_GET['key']))
+				$message = 'Your account has been validated';
+			else
+				$message = 'Invalid key';
+			$this->view('account/confirmation', array('message' => $message))->render();
+		}
         else
-			$message = 'Invalid key';
-		$this->view('account/confirmation', array('message' => $message))->render();
+			$this->view('account/confirmation', array('message' => $message, 'resend' => true))->render();
+	}
+
+	public function reconfirm()
+	{
+		if ($this->method === 'POST')
+		{
+			$user = new User;
+			$user->email = isset($_POST['email']) ? $_POST['email'] : NULL;
+			$user = User::get(array('email' => $user->email));
+			if ($user)
+			{
+				if ($user->tokenValidated != NULL)
+				{
+					$this->sendConfirmation($user);
+					$message = 'Confirmation has been resent<br>Check your email to confirm your registration';
+				}
+				else
+					$message = 'Your account has been validated';
+				$this->view('account/confirmation', array('message' => $message))->render();
+			}
+			else
+			{
+				$message = 'Email address is not found';
+				$this->view('account/confirmation', array('message' => $message, 'resend' => true))->render();
+			}
+			
+		}
+		else
+			$this->redirect('/');
 	}
 
 	public function settings()
