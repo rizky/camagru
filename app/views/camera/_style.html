@@ -29,32 +29,38 @@
 		height: 350px;
 	}
 
-	.camera {
+	.camera, .img {
+		position: absolute;
+		left: 0;
+		top: 0;
 		width: 350px;
 		height: 350px;
 		background: #c4c1c1;
 		margin: 0px;
 	}
 
+	#capture {
+		position: absolute;
+		left: 145px;
+		top: 280px;
+		color: #fafafa;
+	}
+
 	.draggable {
 		position: absolute;
 	}
 
-	/* Flex Style */
-
-	.stackLayout {
-		display: flex;
+	.upload-btn-wrapper {
+		position: relative;
+		overflow: hidden;
+		display: inline-block;
 	}
 
-	.flow-horizontal {
-		flex-flow: row;
-	}
-
-	.flow-vertical {
-		flex-flow: column;
-	}
-
-	.horizontal-option-end {
-		justify-content: flex-end;
+	.upload-btn-wrapper input[type=file] {
+		font-size: 100px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		opacity: 0;
 	}
 </style>

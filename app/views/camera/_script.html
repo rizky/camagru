@@ -9,6 +9,19 @@
 		img.onmousedown = dragMouseDown;
 		document.getElementById('canvas').appendChild(img);
 	}
+
+	function loadImage(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            console.log(input);
+			
+            reader.onload = function (e) {
+				document.getElementById('img').setAttribute('src', e.target.result);
+				document.getElementById('img').classList.remove('hidden');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
 	
 	function dragMouseDown(e) {
 		e = e || window.event;
