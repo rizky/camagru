@@ -89,7 +89,7 @@ class Photo extends Model
 
 	static public function find(array $params = [], $offset = 0)
 	{
-		$photos = Photo::findAll($params, array('createdAt', 'DESC'), [$offset, 3]);
+		$photos = Photo::findAll($params, array('createdAt', 'DESC'), [$offset, 5]);
 		foreach ($photos as &$p)
 		{
 			$p = Photo::populate($p);
