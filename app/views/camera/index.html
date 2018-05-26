@@ -7,9 +7,8 @@
 <div class='forms'>
 	<form action='/camera' method='POST' id='save'>
 		<h2>Your Webcam</h2>
-		<div id='image' style='position: relative;'>
-			<video autoplay='true' id='cam' class='camera'></video>
-			<img src='' id='img-upload' style='position: absolute;top: 0;left: 0;'>
+		<div id='canvas'>
+			<video autoplay='true' id='camera' class='camera'></video>
 		</div>
 		<input type='hidden' name='img' id='img'>
 		<button type='submit'>Capture</button>
@@ -18,8 +17,8 @@
 		<h2>Stickers</h2>
 		<div class='stickers'>
 			{*FOR stickers AS sticker}
-				<div class='sticker' style='position: relative;'>
-					<img onclick='addSticker(this)' src='/img/stickers/{{sticker}}'>
+				<div class='sticker' style='position: relative;' onclick='addSticker(this)'>
+					<img draggable="false" style="bottom:0px;left:0px" src='/img/stickers/{{sticker}}'>
 				</div>
 			{*END}
 		</div>
