@@ -117,6 +117,23 @@ class User extends Model
 		$user->insert();
 	}
 
+	public function reset_password(User $user)
+	{
+
+		$errors = [];
+		$u = User::validateTokenLost($user->tokenLost);
+		if ($u == NULL)
+			$errors[] = "Old Password is incorrect";
+		$errors[] = $user->checkPassword();
+		foreach ($errors as $e) {
+			if (!empty($e))
+				return ($errors);
+		}
+		$user->password = User::encrypt_password($user->password);
+		$user->tokenLost = NULL;
+		$user->insert();
+	}
+
 	static public function validateEmail($key)
 	{
 		$user = User::findOne(array('tokenValidated' => $key));
@@ -129,7 +146,15 @@ class User extends Model
 		return (false);
 	}
 
-	private function generateKey()
+	static public function validateTokenLost($key)
+	{
+		$user = User::findOne(array('tokenLost' => $key));
+		if ($user)
+			return (true);
+		return (false);
+	}
+
+	public function generateKey()
 	{
 		$key = "";
 		$alpha = "abcdefghijklmnpqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

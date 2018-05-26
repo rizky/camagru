@@ -72,6 +72,8 @@ class Like extends Model
 	{
 		if (isset($_SESSION['user']))
 			$current_user = unserialize($_SESSION['user']);
+		else
+			return 'hidden';
 		return 	($user != $current_user->username) ? 'hidden' : 'show';
 	}
 }

@@ -39,13 +39,10 @@ class Account extends Controller
 
 	public function conformation()
 	{
-		if (isset($_GET['key'])) {
-            if(User::validateEmail($_GET['key'])) {
-                $message = 'Your account has been validated';
-            }else{
-                $message = 'Invalid key';
-            }
-		}
+		if (isset($_GET['key']) && User::validateEmail($_GET['key']))
+			$message = 'Your account has been validated';
+        else
+			$message = 'Invalid key';
 		$this->view('account/confirmation', array('message' => $message))->render();
 	}
 
@@ -131,5 +128,76 @@ class Account extends Controller
 	{
 		unset($_SESSION['user']);
 		$this->redirect('/');
+	}
+
+	public function recover()
+	{
+		if ($this->method === 'POST')
+		{
+			$user = new User;
+			$user->email = isset($_POST['email']) ? $_POST['email'] : NULL;
+			$user = User::get(array('email' => $user->email));
+			if ($user)
+			{
+				$message = 'Password is being recovered check your email!';
+				$user->tokenLost = $user->generateKey();
+				$user->insert();
+				$this->recoverPassword($user);
+			}
+			else
+			{
+				$message = 'Email address is not found';
+			}
+		}
+		$this->view('password/recover', array('message' => $message))->render();
+	}
+
+	public function reset()
+	{
+		if ($this->method === 'POST' && User::validateTokenLost($_POST['key']))
+		{
+			$user = new User;
+			$user->id = isset($_POST['id']) ? $_POST['id'] : NULL;
+			$user = User::get(array('id' => $user->id));
+			$user->password = isset($_POST['password']) ? $_POST['password'] : '';
+			$user->password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
+			$user->tokenLost = $_POST['key'];
+			$errors = $user->reset_password($user);
+			if (empty($errors))
+			{
+
+				$this->view('account/login')->render();
+			}
+			else
+			{
+				$message = 'Type your new password';
+				$this->view('password/reset', array('user' => $user, 'message' => $message, 'password' => true, 'errors' => $errors))->render();
+			}
+		}
+		else if (isset($_GET['key']) && User::validateTokenLost($_GET['key']))
+		{
+			$message = 'Type your new password';
+			$user = User::get(array('tokenLost' => $_GET['key']));
+			$this->view('password/reset', array('user' => $user, 'message' => $message, 'password' => true))->render();
+		}
+		else
+		{
+			$message = 'Invalid key';
+			$this->view('password/reset', array('message' => $message))->render();
+		}
+	}
+
+	public function recoverPassword(User $user)
+	{
+		$to = $user->email;
+		$subject = 'Password Reset';
+		$headers = array(
+			'From' => 'Admin Camagru <camagru.rizky@gmail.com>',
+			'Reply-To' => 'Admin Camagru <camagru.rizky@gmail.com>',
+			'MIME-Version' => '1.0',
+			'Content-Type' => 'text/html; charset=UTF-8',
+		);
+		$message = $this->view('email/password', array('user' => $user))->dump();
+		mail($to, $subject, $message, $headers);
 	}
 }
