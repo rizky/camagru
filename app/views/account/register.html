@@ -1,7 +1,7 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}{#END}
 {#BODY}
-<div>
+<div class="forms">
 	<h1>Registration</h1>
 	<form action='/account/register' method='POST'>
 		<input type='text' name='username' placeholder='Username' value='{{post.username}}'>
@@ -14,10 +14,10 @@
 		<hr>
 		<input type='text' name='name' placeholder='Name' value='{{post.name}}'>
 		<hr>
-		<button type='submit'>Register</button>
+		<button type='submit'>Sign Up</button>
 		<input type='hidden' name='from' value='register'>
 		<input type='hidden' name='success' value='login'>
-		<p>Already registered? <a href='/account/login'>Login</a></p>
+		<p>Have an account? <a href='/account/login'>Log in</a></p>
 		{#INCLUDE:account/_errors}
 	</form>
 </div>

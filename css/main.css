@@ -48,12 +48,12 @@ main form {
 	width: 360px;
 }
 
-main h1 {
-	text-align: center;
+main form * {
+	margin: 5px;
 }
 
-main form * {
-    margin: 5px;
+main .forms {
+	text-align: center;
 }
 
 input {
