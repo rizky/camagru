@@ -1,13 +1,15 @@
 {TEMPLATE}templates/layout{END}
-{#SCRIPT}{#END}
+{#SCRIPT}
+{#INCLUDE:camera/_script}
+{#INCLUDE:camera/_style}
+{#END}
 {#BODY}
 <div class='forms'>
 	<form action='/camera' method='POST' id='save'>
 		<h2>Your Webcam</h2>
-		<div id='image'>
-			<video autoplay='true' id='cam' class='camera'>
-			</video>
-			<img src='' id='img-upload'>
+		<div id='image' style='position: relative;'>
+			<video autoplay='true' id='cam' class='camera'></video>
+			<img src='' id='img-upload' style='position: absolute;top: 0;left: 0;'>
 		</div>
 		<input type='hidden' name='img' id='img'>
 		<button type='submit'>Capture</button>
@@ -16,8 +18,8 @@
 		<h2>Stickers</h2>
 		<div class='stickers'>
 			{*FOR stickers AS sticker}
-				<div class='sticker'>
-					<img src='/img/stickers/{{sticker}}' alt=''>
+				<div class='sticker' style='position: relative;'>
+					<img onclick='addSticker(this)' src='/img/stickers/{{sticker}}'>
 				</div>
 			{*END}
 		</div>
