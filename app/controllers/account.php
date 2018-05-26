@@ -25,16 +25,24 @@ class Account extends Controller
 
 	public function login()
 	{
-		if ($this->method === 'POST' && isset($_POST['username']) && $_POST['password'])
+		$errors = [];
+		if ($this->method === 'POST' && isset($_POST['username']) && isset($_POST['password']))
 		{
 			$user = User::Login($_POST['username'], $_POST['password']);
-			if ($user instanceof User)
+			if ($user)
 			{
-				$_SESSION['user'] = serialize($user);
-				$this->redirect('/');
+				if (empty($user->tokenValidated))
+				{
+					$_SESSION['user'] = serialize($user);
+					$this->redirect('/');
+				}
+				else
+					$errors[] = 'Your account has not been validated. Check your email!';
 			}
+			else
+				$errors[] = 'Sorry, your password was incorrect';
 		}
-		$this->view('account/login')->render();
+		$this->view('account/login', array('errors' => $errors))->render();
 	}
 
 	public function conformation()

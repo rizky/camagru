@@ -28,12 +28,8 @@ class User extends Model
 	static public function login($username, $password)
 	{
 		$user = User::findOne(array('username' => $username, 'password' => User::encrypt_password($password)));
-		if ($user instanceof User) {
-			if (empty($user->tokenValidated))
-				return ($user);
-			else
-				return (NULL);
-		}
+		if ($user)
+			return ($user);
 		return (NULL);
 	}
 
