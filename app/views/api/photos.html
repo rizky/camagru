@@ -1,12 +1,6 @@
-{TEMPLATE}templates/layout{END}
-{#SCRIPT}
-{#INCLUDE:photos/_script}
-{#END}
+{TEMPLATE}api/layout{END}
 {#BODY}
 	<div class="photos">
-		{%IFN photos}
-			<h5>No Photo</h5>
-		{%END}
 		{*FOR photos AS photo}
 			{#INCLUDE:photos/_photo}
 		{*END}

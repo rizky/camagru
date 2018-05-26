@@ -3,7 +3,7 @@
 		var xhr = new XMLHttpRequest();
 		var photo = document.getElementById('photo_' + id);
 	
-		if (confirm("Do you really want to delete this photo?"))
+		if (confirm('Do you really want to delete this photo?'))
 		{
 			xhr.open('POST', '/photo/delete');
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -11,7 +11,7 @@
 				if (xhr.status === 200)
 				{
 					photo.parentNode.removeChild(photo);
-					if (document.getElementsByClassName('photos')[0].innerHTML.trim() === "")
+					if (document.getElementsByClassName('photos')[0].innerHTML.trim() === '')
 						window.location.href = '/';
 				}
 				else
@@ -39,7 +39,7 @@
 		var xhr = new XMLHttpRequest();
 		var comment = document.getElementById('comment_' + id);
 	
-		if (confirm("Do you really want to delete this comment?"))
+		if (confirm('Do you really want to delete this comment?'))
 		{
 			xhr.open('POST', '/comments/delete');
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -87,18 +87,18 @@
 		else
 			menuDelete.style.display = 'none';
 		var delete_photo_btn = document.getElementById('delete_photo_btn');
-		delete_photo_btn.addEventListener("click", 
+		delete_photo_btn.addEventListener('click', 
 			function me() {
 				closeMenu();
 				deletePhoto(photo);
-				delete_photo_btn.removeEventListener("click", me, false);
+				delete_photo_btn.removeEventListener('click', me, false);
 			});
 		var share_photo_btn = document.getElementById('share_photo_btn');
-		share_photo_btn.addEventListener("click", 
+		share_photo_btn.addEventListener('click', 
 			function me() {
 				closeMenu();
 				sharePhoto(photo);
-				share_photo_btn.removeEventListener("click", me, false);
+				share_photo_btn.removeEventListener('click', me, false);
 			});
 	}
 
@@ -109,5 +109,21 @@
     	body.classList.remove('stop-scrolling');
 		var footer = document.getElementsByTagName('footer')[0];
 		footer.style.display = 'block';		
+	}
+
+	function loadPhotos(offset, username) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var more = document.getElementsByClassName('more_photos')[0];
+				more.parentNode.removeChild(more);
+				document.getElementsByClassName('photos')[0].innerHTML +=
+				this.responseText;
+			}
+		};
+		xhr.open('GET', '/api/photos?offset=' + offset + '&username=' + username, true);
+		xhr.send();
 	}
 </script>

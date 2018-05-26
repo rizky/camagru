@@ -18,8 +18,8 @@ class Account extends Controller
 			$this->redirect('/');
 		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 		$photos = Photo::find(array('user' => $user->id), $offset);
-		$more_v = count($photos) == 0 ? 'hidden' : 'show';
-		$this->view = $this->view('photos/index', array('photos' => $photos, 'offset' => count($photos) + $offset, 'more_v' => $more_v));
+		$more_v = count($photos) < 5 ? 'hidden' : 'show';
+		$this->view = $this->view('photos/index', array('photos' => $photos, 'username' => $username, 'offset' => count($photos) + $offset, 'more_v' => $more_v));
 		$this->view->render();
 	}
 
