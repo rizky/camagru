@@ -59,6 +59,7 @@
 	
 		if (event.keyCode == 13)
 		{
+			comment.disabled = true;
 			xhr.open('POST', '/comments/insert');
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
@@ -69,6 +70,7 @@
 				}
 				else
 					window.location.href = '/account/login';
+				comment.disabled = false;
 			};
 			xhr.send(encodeURI('user=' + user + '&photo=' + photo + '&comment=' + comment.value));
 		}
