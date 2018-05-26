@@ -11,9 +11,16 @@
 			<video autoplay='true' id='camera' class='camera'></video>
 		</div>
 		<input type='hidden' name='img' id='img'>
-		<button type='submit'>Capture</button>
-		<button type='submit'>Choose File</button>
-		<button type='submit'>Insert Url</button>
+		<a id="capture">
+			<i class="far fa-circle" style="font-size: 3em; position: relative;">
+				<i class="fas fa-camera" style="font-size: 0.5em;position: absolute; top: 0.3em; left: 0.3em;"></i>
+			</i>
+		</a>
+		<button type='submit'>Save</button>
+		<div class="stackLayout flow-horizontal horizontal-option-end">
+			<a><i class="fas fa-upload"></i>Choose File</a>
+			<a><i class="fas fa-link"></i>Insert Url</a>
+		</div>
 		<h2>Stickers</h2>
 		<div class='stickers'>
 			{*FOR stickers AS sticker}
