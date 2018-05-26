@@ -86,3 +86,11 @@ hr {
 .hidden {
 	display: none;
 }
+
+.errors {
+	display: flex;
+	align-items: center;
+	padding: 10px 10px;
+	flex-direction: column;
+	color: red;
+}

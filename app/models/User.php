@@ -171,7 +171,7 @@ class User extends Model
 	private function checkPassword()
 	{
 		if ($this->password !== $this->password2)
-			return 'Password is not match';
+			return 'Passwords are not equal';
 		if (strlen($this->password) < 6 || strlen($this->password) > 40)
 			return 'Password should consist of 6 to 40 character';
 		return;

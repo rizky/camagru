@@ -140,6 +140,7 @@ class Account extends Controller
 
 	public function recover()
 	{
+		$message = '';
 		if ($this->method === 'POST')
 		{
 			$user = new User;
