@@ -1,0 +1,27 @@
+{TEMPLATE}templates/layout{END}
+{#SCRIPT}{#END}
+{#BODY}
+<div class="forms">
+	{%IFN password}
+	<h1>Reset Password</h1>
+	<form action='/' method='POST'>
+		<span style='text-align: center'>{{message}}</span>
+		<button type='submit'>Back to home</button>
+	</form>
+	{%END}
+	{%IF password}
+	<h1>Set New Password</h1>
+	<form action='/account/reset' method='POST'>
+		<span style='text-align: center'>{{message}}</span>
+		<input type='password' name='password' placeholder='Password'>
+		<hr>
+		<input type='password' name='password2' placeholder='Retype Password'>
+		<hr>
+		<button type='submit'>Save</button>
+		<input type='hidden' name='id' value='{{user.id}}'>
+		<input type='hidden' name='key' value='{{user.tokenLost}}'>
+		{#INCLUDE:account/_errors}
+	</form>
+	{%END}
+</div>
+{#END}

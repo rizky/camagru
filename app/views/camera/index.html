@@ -1,8 +1,27 @@
 {TEMPLATE}templates/layout{END}
-{#SCRIPT}{#END}
+{#SCRIPT}
+{#INCLUDE:camera/_script}
+{#INCLUDE:camera/_style}
+{#END}
 {#BODY}
-<div class="row">
-	This is Camera <br/>
-	Hello {{session.user.name}}
+<div class='forms'>
+	<form action='/camera' method='POST' id='save'>
+		<h2>Your Webcam</h2>
+		<div id='canvas'>
+			<video autoplay='true' id='camera' class='camera'></video>
+		</div>
+		<input type='hidden' name='img' id='img'>
+		<button type='submit'>Capture</button>
+		<button type='submit'>Choose File</button>
+		<button type='submit'>Insert Url</button>
+		<h2>Stickers</h2>
+		<div class='stickers'>
+			{*FOR stickers AS sticker}
+				<div class='sticker' style='position: relative;' onclick='addSticker(this)'>
+					<img draggable="false" style="bottom:0px;left:0px" src='/img/stickers/{{sticker}}'>
+				</div>
+			{*END}
+		</div>
+	</form>
 </div>
 {#END}

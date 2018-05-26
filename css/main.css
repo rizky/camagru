@@ -1,18 +1,33 @@
 html {
-	font-family: Arial, Helvetica, sans-serif
+	font-family: Arial, Helvetica, sans-serif;
+	height: 100%;
+  	box-sizing: border-box;
 }
 
-.wrapper {
-    height: 100vh;
-    display: flex;
-	flex-direction: column;
-	background-color: #fafafa;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
+
+body {
+    display: inline-grid;
+	grid-auto-rows: min-content;
+	align-items: center;
+	width: 100%;
+	background-color: #fafafa;
+	min-height: 100%;
+	position: relative;
+	margin: 0px;
+	padding-bottom: 3rem;
+}
+
 a {
 	text-decoration: none;
 	color: #757575;
 }
-header, footer {
+
+header {
 	height: 30px;
 	z-index: 10;
 }
@@ -21,16 +36,61 @@ main {
 	flex: 1;
 	display: flex;
 	justify-content: center;
-	padding-top: 60px;
+	padding-top: 40px;
 	padding-bottom: 5px;
-	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
 }
 
 main form {
     display: flex;
-    flex-direction: column;
+	flex-direction: column;
+	width: 360px;
 }
 
 main form * {
-    margin: 5px;
+	margin: 5px;
+}
+
+main .forms {
+	text-align: center;
+}
+
+input {
+	width: 100%;
+	outline: none; 
+	font-size: 1em;
+	padding: 0px;
+	border-width: 0px;
+	height: 100%;
+	background: transparent;
+}
+
+button {
+	width: 100%;
+	outline: none; 
+	font-size: 1em;
+	padding: 0px;
+	border-width: 1px;
+	height: 100%;
+	padding: 10px;
+	
+	background: transparent;
+}
+
+hr {
+	width: 100%;
+	opacity: 0.2;
+}
+
+.hidden {
+	display: none;
+}
+
+.errors {
+	display: flex;
+	align-items: center;
+	padding: 10px 10px;
+	flex-direction: column;
+	color: red;
 }

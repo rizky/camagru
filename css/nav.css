@@ -6,12 +6,12 @@ ul {
 .nav {
 	display: grid;
 	grid-template: 1fr / min-content min-content auto min-content min-content;
-	height: 46px;
 	align-items: center;
 	padding: 10px 10px;
 	border: 1px solid #eeeeee;
 	color: #757575;
 	background-color: white;
+	margin: 0px;
 }
 
 .nav li {

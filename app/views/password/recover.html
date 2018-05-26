@@ -1,0 +1,13 @@
+{TEMPLATE}templates/layout{END}
+{#SCRIPT}{#END}
+{#BODY}
+<div class="forms">
+	<h1>Recover Password</h1>
+	<form action='/account/recover' method='POST'>
+		<span style='text-align: center'>{{message}}</span>
+		<input type='email' name='email' placeholder='Email' value='{{post.email}}'>
+		<hr>
+		<button type='submit'>Reset</button>
+	</form>
+</div>
+{#END}

@@ -1,0 +1,22 @@
+{TEMPLATE}templates/layout{END}
+{#SCRIPT}{#END}
+{#BODY}
+<div class="forms">
+	{%IFN resend}
+	<h1>Confirmation Page</h1>
+	<form action='/account/login' method='POST'>
+		<span style='text-align: center'>{{message}}</span>
+		<button type='submit'>Log in</button>
+	</form>
+	{%END}
+	{%IF resend}
+	<h1>Confirmation Page</h1>
+	<form action='/account/reconfirm' method='POST'>
+		<span style='text-align: center'>{{message}}</span>
+		<input type='email' name='email' placeholder='Email' value='{{post.email}}'>
+		<hr>
+		<button type='submit'>Send</button>
+	</form>
+	{%END}
+</div>
+{#END}

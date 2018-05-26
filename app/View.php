@@ -15,8 +15,22 @@ class View
 	public function render()
 	{
 		$this->params['session'] = $_SESSION;
+		if (isset($_SESSION['user']))
+			$this->params['session']['user'] = (array)unserialize($_SESSION['user']);
 		$this->params['get'] = $_GET;
 		$this->params['post'] = $_POST;
-        new Template($this->view, $this->params);
+		$template = new Template($this->view, $this->params);
+		$template->render();
+	}
+
+	public function dump()
+	{
+		$this->params['session'] = $_SESSION;
+		if (isset($_SESSION['user']))
+			$this->params['session']['user'] = (array)unserialize($_SESSION['user']);
+		$this->params['get'] = $_GET;
+		$this->params['post'] = $_POST;
+		$template = new Template($this->view, $this->params);
+		return $template->dump();
 	}
 }

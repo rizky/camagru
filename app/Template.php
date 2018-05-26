@@ -14,22 +14,35 @@ Class Template
 		$this->final = '';
 		$this->html = file_get_contents("app/views/" . $this->view . '.html');
 		$this->addTemplate();
-		$this->addInclude();
 		$this->merge();
+		$this->addInclude();
 		$this->addIf();
 		$this->addIfn();
 		$this->addFor();
 		$this->addValue();
+	}
+
+	public function render()
+	{
 		echo $this->final;
+	}
+
+	public function dump()
+	{
+		return $this->final;
 	}
 
 	private function addInclude()
 	{
 		preg_match_all('/{#INCLUDE:(.*?)}/s', $this->final, $matchesFinal);
-		foreach ($matchesFinal[1] as $k => $v)
+		while (count($matchesFinal[1]) > 0)
 		{
-			$include = file_get_contents("app/views/" . $v . '.html');
-			$this->final = preg_replace("/{#INCLUDE:" . preg_quote($v, '/') . "}/", $include, $this->final);
+			foreach ($matchesFinal[1] as $k => $v)
+			{
+				$include = file_get_contents("app/views/" . $v . '.html');
+				$this->final = preg_replace("/{#INCLUDE:" . preg_quote($v, '/') . "}/", $include, $this->final);
+			}
+			preg_match_all('/{#INCLUDE:(.*?)}/s', $this->final, $matchesFinal);
 		}
 	}
 

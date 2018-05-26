@@ -1,7 +1,8 @@
 .photos {
-	display: inline-flex;
-	flex-direction: row;
+	display: flex;
 	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: center;
 }
 
 .photo {
@@ -13,12 +14,18 @@
 	border: 1px solid #eeeeee;
 	color: #757575;
 	background-color: white;
-	grid-gap: 1em;
+	grid-gap: 0.5em;
+	align-self:flex-start;
 }
 
-.photo .far, .photo .fas{
+.photo .far, .photo .fas {
 	font-size: 1.2em;
 	padding-right: 0.5em;
+	cursor: pointer;
+}
+
+.photo .fa {
+	cursor: pointer;
 }
 
 .photo img {
@@ -30,13 +37,29 @@
 	font-weight: bold;
 }
 
-.photo .hidden {
-	display: none;
-}
-
 @media screen and (max-width: 500px) {
 	.photo img {
 		width: 380px;
 		height: 380px;
 	}
+}
+
+.comment_text {
+	width: 96%;
+	outline: none; 
+	font-size: 1em;
+	padding: 0px;
+	border-width: 0px;
+	height: 100%;
+}
+
+.time_text {
+	opacity: 0.6;
+	font-size: 0.8em;
+}
+
+.more_photos {
+	width: 100%;
+	text-align: center;
+	margin: 0.8em;
 }

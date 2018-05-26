@@ -1,8 +1,9 @@
 {TEMPLATE}templates/layout{END}
-{#SCRIPT}{#END}
+{#SCRIPT}
+{#INCLUDE:photos/_script}
+{#END}
 {#BODY}
-<div class="row">
-	This is Photo Page <br/>
-	Hello {{session.user.name}}
-</div>
+	<div class="photos">
+		{#INCLUDE:photos/_photo}
+	</div>
 {#END}

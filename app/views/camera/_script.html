@@ -1,0 +1,42 @@
+<script>
+	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	var element;
+
+	function addSticker(sticker) {
+		var img = sticker.firstElementChild;
+		img = img.cloneNode(true);
+		img.classList.add('draggable');
+		img.onmousedown = dragMouseDown;
+		document.getElementById('canvas').appendChild(img);
+	}
+	
+	function dragMouseDown(e) {
+		e = e || window.event;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		
+		img = this.cloneNode(true);
+		img.classList.add('draggable');
+		img.onmousedown = dragMouseDown;
+		document.getElementById('canvas').appendChild(img);
+		this.parentNode.removeChild(this);
+		element = img;
+		document.onmouseup = function(){closeDragElement()}
+		document.onmousemove = function(){elementDrag(event);}
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		element.style.bottom = parseInt(element.style.bottom, 10) + pos2 + "px";
+		element.style.left = parseInt(element.style.left, 10) - pos1 + "px";
+	}
+
+	function closeDragElement() {
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
+</script>

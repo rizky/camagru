@@ -7,14 +7,16 @@
 	<link rel="stylesheet" href="/css/main.css">	
 	<link rel="stylesheet" href="/css/footer.css">
 	<link rel="stylesheet" href="/css/photo.css">
+	<link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	{#SCRIPT}
 </head>
-<body class="wrapper">
+<body>
+	{#INCLUDE:templates/_menu}
 	{#INCLUDE:templates/_nav}
 	<main>
 	{#BODY}
 	</main>
-	<!-- {#INCLUDE:templates/_footer} -->
+	{#INCLUDE:templates/_footer}
 </body>
 </html>

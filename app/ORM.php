@@ -9,13 +9,24 @@ class ORM
 	private function __construct()
 	{
 		try {
-			require_once('config/database.php');
+			require('config/database.php');
 			$this->sqlDB = $DB_BASE;
-			$this->PDOInstance = new \PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$this->PDOInstance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			$this->PDOInstance = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$this->PDOInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();
 		}
+	}
+
+	public static function testConnection()
+	{
+		try {
+			require('config/database.php');
+			$PDO = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		} catch (PDOException $e) {
+			return (false);
+		}
+		return (true);
 	}
 
 	public static function getInstance()
@@ -28,20 +39,20 @@ class ORM
 
 	public function findOne($table, $where)
 	{
-		$req = "SELECT * FROM " . $table . " WHERE deleted = false";
+		$req = 'SELECT * FROM '.$this->sqlDB.'.'.$table.' WHERE deleted = false';
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		$statement = $this->PDOInstance->prepare($req);
 		foreach ($where as $k => $v)
 			$statement->bindValue(':' . $k, $v);
-		$statement->setFetchMode(\PDO::FETCH_CLASS, ucfirst($table));
+		$statement->setFetchMode(PDO::FETCH_CLASS, ucfirst($table));
 		$statement->execute();
-		return $statement->fetch(\PDO::FETCH_CLASS);
+		return $statement->fetch(PDO::FETCH_CLASS);
 	}
 
 	public function findAll($table, $where, $order = null, $limit = null)
 	{
-		$req = "SELECT * FROM " . $table . " WHERE deleted = false";
+		$req = 'SELECT * FROM '.$this->sqlDB.'.'.$table.' WHERE deleted = false';
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		if (!empty($order))
@@ -52,7 +63,7 @@ class ORM
 		foreach ($where as $k => $v)
 			$statement->bindValue(':' . $k, $v);
 		$statement->execute();
-		return $statement->fetchAll(\PDO::FETCH_ASSOC);
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function getFields($table)
@@ -61,7 +72,7 @@ class ORM
 		$statement->bindValue(':table', $table);
 		$statement->bindValue(':base', $this->sqlDB);
 		$statement->execute();
-		return ($statement->fetchAll(\PDO::FETCH_COLUMN));
+		return ($statement->fetchAll(PDO::FETCH_COLUMN));
 	}
 
 	private function insert($table, $fields, $value)
@@ -77,7 +88,7 @@ class ORM
 				$req_value .= ':'.$k.', ';
 			}
 		}
-		$req = 'INSERT INTO '.$table.' ('.rtrim($req_field, ', ').') VALUES ('.rtrim($req_value, ', ').')';
+		$req = 'INSERT INTO '.$this->sqlDB.'.'.$table.' ('.rtrim($req_field, ', ').') VALUES ('.rtrim($req_value, ', ').')';
 		$statement = $this->PDOInstance->prepare($req);
 		foreach ($value as $k => $v)
 		{
@@ -105,10 +116,11 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				$req_field .= '`'.$k.'`=:'.$k.', ';
+				if ($k != 'deleted')
+					$req_field .= '`'.$k.'`=:'.$k.', ';
 			}
 		}
-		$req = 'UPDATE '.$table.' SET '.rtrim($req_field, ', ').' WHERE id = :id';
+		$req = 'UPDATE '.$this->sqlDB.'.'.$table.' SET '.rtrim($req_field, ', ').' WHERE id = :id';
 		$statement = $this->PDOInstance->prepare($req);
 		foreach ($value as $k => $v)
 		{
@@ -123,7 +135,7 @@ class ORM
 	}
 
 	public function count($table, $where){
-		$req = "SELECT count(*) FROM " . $table . " WHERE deleted = false";
+		$req = 'SELECT count(*) FROM '.$this->sqlDB.'.'.$table.' WHERE deleted = false';
 		foreach ($where as $k => $v)
 			$req .= " AND " . $k . " = :" . $k;
 		$statement = $this->PDOInstance->prepare($req);
@@ -143,17 +155,17 @@ class ORM
 			return ($this->update($table, $fields, $value));
 	}
 
-	public function delete_s($table, $id)
+	public function delete($table, $id)
 	{
-		$req = 'UPDATE '.$table.' SET deleted = true WHERE id = :id';
+		$req = 'UPDATE '.$this->sqlDB.'.'.$table.' SET deleted = true WHERE id = :id';
 		$statement = $this->PDOInstance->prepare($req);
 		$statement->bindValue(':id', $id);
 		$statement->execute();
 	}
 
-	public function delete($table, $id)
+	public function destroy($table, $id)
 	{
-		$req = 'DELETE FROM '.$table.' WHERE id = :id';
+		$req = 'DELETE FROM '.$this->sqlDB.'.'.$table.' WHERE id = :id';
 		$statement = $this->PDOInstance->prepare($req);
 		$statement->bindValue(':id', $id);
 		$statement->execute();

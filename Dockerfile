@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.2-apache
 RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
@@ -21,6 +21,7 @@ RUN echo "AuthPass=Paris2018" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
 
 # Set up php sendmail config
 RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini

@@ -1,0 +1,9 @@
+{TEMPLATE}api/layout{END}
+{#BODY}
+	<div class="photos">
+		{*FOR photos AS photo}
+			{#INCLUDE:photos/_photo}
+		{*END}
+	</div>
+	{#INCLUDE:photos/_more}
+{#END}

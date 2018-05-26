@@ -1,15 +1,17 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}{#END}
 {#BODY}
-<div>
+<div class="forms">
 	<h1>Login</h1>
-	<form action="/account/login" method="POST">
-		<input type="text" name="username" placeholder="Username" value="{{post.username}}">
-		<input type="password" name="password" placeholder="Password" value="">
-		<button type="submit" class="btn btn-default">Login</button>
-		<input type="hidden" name="from" value="login">
-		<input type="hidden" name="success" value="index">
-		<p>Have not registered? <a href="/account/register">Register here</a></p>
+	<form action='/account/login' method='POST'>
+		<input type='text' name='username' placeholder='Username' value='{{post.username}}'>
+		<hr>
+		<input type='password' name='password' placeholder='Password' value=''>
+		<hr>
+		<button type='submit'>Login</button>
+		<a href='/account/recover'>Forgot password?</a>
+		<div>Don't have an account? <a href='/account/register'>Sign Up</a></div>
+		{#INCLUDE:account/_errors}
 	</form>
 </div>
 {#END}

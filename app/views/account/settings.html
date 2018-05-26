@@ -1,0 +1,33 @@
+{TEMPLATE}templates/layout{END}
+{#SCRIPT}{#END}
+{#BODY}
+<div>
+	<h1>Settings</h1>
+	<form action='/account/settings' method='POST'>
+		<h2>Personal</h2>
+		<input type='text' name='name' placeholder='Name' value='{{user.name}}'>
+		<hr>
+		<input type='text' name='username' placeholder='Username' value='{{user.username}}'>
+		<hr>
+		<input type='email' name='email' placeholder='Email' value='{{user.email}}'>
+		<hr>
+		<br>
+		<h2>Password</h2>
+		<input type='password' name='password_old' placeholder='Old Password'>
+		<hr>
+		<input type='password' name='password' placeholder='New Password'>
+		<hr>
+		<input type='password' name='password2' placeholder='Retype New Password'>
+		<hr>
+		<br>
+		<h2>Notification</h2>
+		<div style='display: flex;'>
+			<input type='checkbox' style='width: 1em; height: 1em;' name='subscribed' {{user.checked}} value='true'>
+			<label for='subscribeNews'>Subscribe to notification</label>
+		</div>
+		<button type='submit'>Update</button>
+		<input type='hidden' name='id' value='{{user.id}}'>
+		{#INCLUDE:account/_errors}
+	</form>
+</div>
+{#END}
