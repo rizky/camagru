@@ -11,6 +11,8 @@ class Camera extends Controller
 	{
 		if ($this->user == NULL)
 			$this->redirect('/account/login');
-		$this->view = $this->view('camera/index')->render();
+		$stickers = scandir("img/stickers/");
+		unset($stickers[0], $stickers[1]);
+		$this->view = $this->view('camera/index', array('stickers' => $stickers))->render();
 	}
 }

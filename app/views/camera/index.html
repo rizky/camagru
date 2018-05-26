@@ -1,8 +1,26 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}{#END}
 {#BODY}
-<div class="row">
-	This is Camera <br/>
-	Hello {{session.user.name}}
+<div class='forms'>
+	<form action='/camera' method='POST' id='save'>
+		<h2>Your Webcam</h2>
+		<div id='selfie'>
+			<video autoplay='true' id='cam' class='camera'>
+			</video>
+			<img src='' alt='' id='img-upload'>
+		</div>
+		<input type='hidden' name='img' id='img'>
+		<button type='submit'>Capture</button>
+		<button type='submit'>Choose File</button>
+		<button type='submit'>Insert Url</button>
+		<h2>Stickers</h2>
+		<div class='stickers'>
+			{*FOR stickers AS sticker}
+				<div class='sticker'>
+					<img src='/img/stickers/{{sticker}}' alt=''>
+				</div>
+			{*END}
+		</div>
+	</form>
 </div>
 {#END}
