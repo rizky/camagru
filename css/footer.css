@@ -15,3 +15,7 @@ footer {
 footer .github a {
 	float: right;
 }
+
+footer .author {
+	font-size: 0.9em;
+}
