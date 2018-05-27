@@ -21,16 +21,6 @@ function loadImage(input) {
 	}
 }
 
-function cancelImage() {
-	$('#img').classList.add('hidden');
-	$('#img-cancel').classList.add('hidden');
-	$('#img-save').classList.add('hidden');
-	$('#img-capture').classList.remove('hidden');
-	$('#camera').classList.remove('hidden');
-	$('#camera_form').reset();
-	cam.div.play();
-}
-
 function loadUrl() {
 	var url = prompt("Add link of image online?", '');
 	if (url !== '' && url !== null) {
