@@ -101,6 +101,7 @@ class Photo extends Model
 	{
 		$this->user = $user->id;
 		$this->id = Photo::store(get_object_vars($this));
+		return $this;
 	}
 
 	static private function time_elapsed_string($datetime, $full = false)

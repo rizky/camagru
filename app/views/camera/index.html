@@ -1,19 +1,36 @@
 {TEMPLATE}templates/layout{END}
 {#SCRIPT}
 {#INCLUDE:camera/_script}
+{#INCLUDE:camera/_camera}
 {#INCLUDE:camera/_style}
+{#INCLUDE:templates/_style}
 {#END}
 {#BODY}
 <div class='forms'>
-	<form action='/camera' method='POST' id='save'>
-		<h2>Your Webcam</h2>
+	<form action='/photos/insert' method='POST' id='camera_form'>
+		<h2>Add New Photo</h2>
 		<div id='canvas'>
-			<video autoplay='true' id='camera' class='camera'></video>
+			<video id='camera' autoplay='true' class='camera'></video>
+			<img id='img' class='img hidden'/>
+			<div id='overlay'></div>
+			<a id="img-capture">
+				<i class="far fa-circle" style="font-size: 3em; position: relative;">
+					<i class="fas fa-camera" style="font-size: 0.5em;position: absolute; top: 0.3em; left: 0.3em;"></i>
+				</i>
+			</a>
+			<a id="img-cancel" class="hidden" onclick="cancelImage()">
+				<i class="fas fa-trash" style="font-size: 2em; position: relative;">
+				</i>
+			</a>
 		</div>
-		<input type='hidden' name='img' id='img'>
-		<button type='submit'>Capture</button>
-		<button type='submit'>Choose File</button>
-		<button type='submit'>Insert Url</button>
+		<input type='hidden' name='img-file' id='img-file'>
+		<div class="stackLayout flow-horizontal horizontal-option-end">
+			<div class="upload-btn-wrapper">
+				<a><i class="fas fa-upload size-medium"></i></a>
+				<input type="file" name="upload" id="upload" onchange="loadImage(this)"/>
+			</div>
+			<a onclick="loadUrl()"><i class="fas fa-link size-medium"></i></a>
+		</div>
 		<h2>Stickers</h2>
 		<div class='stickers'>
 			{*FOR stickers AS sticker}
@@ -22,6 +39,7 @@
 				</div>
 			{*END}
 		</div>
+		<button id="img-upload" onclick="saveImage()" disabled>Upload</button>
 	</form>
 </div>
 {#END}

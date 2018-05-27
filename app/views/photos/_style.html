@@ -1,8 +1,10 @@
+<style>
+
 .photos {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(325px,1fr));
+	width: 100%;
+	padding: 10px;
 }
 
 .photo {
@@ -10,12 +12,13 @@
 	grid-auto-rows: min-content;
 	align-items: center;
 	padding: 10px;
-	margin: 10px;
+	margin: 5px auto;
 	border: 1px solid #eeeeee;
 	color: #757575;
 	background-color: white;
 	grid-gap: 0.5em;
 	align-self:flex-start;
+	width: 325px;
 }
 
 .photo .far, .photo .fas {
@@ -38,6 +41,14 @@
 }
 
 @media screen and (max-width: 500px) {
+	.photos {
+		grid-template-columns: repeat(auto-fill, minmax(405px,1fr));
+	}
+
+	.photo {
+		width: 405px;
+	}
+
 	.photo img {
 		width: 380px;
 		height: 380px;
@@ -63,3 +74,5 @@
 	text-align: center;
 	margin: 0.8em;
 }
+
+</style>

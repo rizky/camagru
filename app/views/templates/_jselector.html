@@ -1,0 +1,35 @@
+<script>
+
+var domElement = function(selector) {
+	this.selector = selector || null;
+	this.element = null;
+};
+
+domElement.prototype.init = function() {
+	switch (this.selector[0]) {
+	case '.':
+		this.element = document.querySelectorAll(this.selector);
+		break;
+	case '#':
+		this.element = document.querySelector(this.selector);
+		break;
+	default:
+		this.element = document.querySelectorAll(this.selector);
+	}
+};
+
+domElement.prototype.append = function(html) {
+	this.element.innerHTML = this.element.innerHTML + html;
+};
+
+domElement.prototype.prepend = function(html) {
+	this.element.innerHTML = html + this.element.innerHTML;
+};
+
+$ = function(selector) {
+	var el = new domElement(selector);
+	el.init();
+	return el.element;
+}
+
+</script>

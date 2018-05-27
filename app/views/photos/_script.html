@@ -1,7 +1,7 @@
 <script>
 	function deletePhoto(id) {
 		var xhr = new XMLHttpRequest();
-		var photo = document.getElementById('photo_' + id);
+		var photo = $('#photo_' + id);
 	
 		if (confirm('Do you really want to delete this photo?'))
 		{
@@ -11,7 +11,7 @@
 				if (xhr.status === 200)
 				{
 					photo.parentNode.removeChild(photo);
-					if (document.getElementsByClassName('photos')[0].innerHTML.trim() === '')
+					if ($('.photos')[0].innerHTML.trim() === '')
 						window.location.href = '/';
 				}
 				else
@@ -26,18 +26,21 @@
 		url = '&url=http://localhost/photos/' + id;
 		text = 'text=Check this photo!';
 		hashtag = '&hashtags=camagru,photo,sharing';
-		window.location.href = host+text+url+hashtag;
+		window.open(
+			host+text+url+hashtag,
+			'_blank'
+		);
 	}
 
 	function focusComment(id) {
-		var commentObj = document.getElementById(id)
+		var commentObj = $('#' + id)
 		commentObj.focus();
 		return false;
 	}
 
 	function deleteComment(id) {
 		var xhr = new XMLHttpRequest();
-		var comment = document.getElementById('comment_' + id);
+		var comment = $('#comment_' + id);
 	
 		if (confirm('Do you really want to delete this comment?'))
 		{
@@ -55,7 +58,7 @@
 
 	function insertComment(event, user, photo) {
 		var xhr = new XMLHttpRequest();
-		var comment = document.getElementById('comment_text_' + photo);
+		var comment = $('#comment_text_' + photo);
 	
 		if (event.keyCode == 13)
 		{
@@ -77,25 +80,25 @@
 	}
 
 	function showMenu(visibility, photo) {
-		var x = document.getElementsByClassName('menu')[0];
+		var x = $('.menu')[0];
 		x.style.display = 'block';
 		var footer = document.getElementsByTagName('footer')[0];
 		footer.style.display = 'none';
-		var body = document.getElementsByTagName('body')[0];
-    	body.classList.add('stop-scrolling');
-		var menuDelete = document.getElementById('menuDelete');
+		var body = $('body')[0];
+    	body.classList.add('.stop-scrolling');
+		var menuDelete = $('#menuDelete');
 		if (visibility == 'show')
 			menuDelete.style.display = 'block';
 		else
 			menuDelete.style.display = 'none';
-		var delete_photo_btn = document.getElementById('delete_photo_btn');
+		var delete_photo_btn = $('#delete_photo_btn');
 		delete_photo_btn.addEventListener('click', 
 			function me() {
 				closeMenu();
 				deletePhoto(photo);
 				delete_photo_btn.removeEventListener('click', me, false);
 			});
-		var share_photo_btn = document.getElementById('share_photo_btn');
+		var share_photo_btn = $('#share_photo_btn');
 		share_photo_btn.addEventListener('click', 
 			function me() {
 				closeMenu();
@@ -105,26 +108,38 @@
 	}
 
 	function closeMenu() {
-		var x = document.getElementsByClassName('menu')[0];
+		var x = $('.menu')[0];
 		x.style.display = 'none';
-		var body = document.getElementsByTagName('body')[0];
+		var body = $('body')[0];
     	body.classList.remove('stop-scrolling');
 		var footer = document.getElementsByTagName('footer')[0];
 		footer.style.display = 'block';		
 	}
 
-	function loadPhotos(offset, username) {
+	var responseHTML;
+	function loadPhotos(username) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var more = document.getElementsByClassName('more_photos')[0];
-				more.parentNode.removeChild(more);
-				document.getElementsByClassName('photos')[0].innerHTML +=
-				this.responseText;
+				var loading_text = $('.loading_text')[0];
+				loading_text.classList.add('hidden');
+				var loading_gif = $('.loading_gif')[0];
+				loading_gif.classList.remove('hidden');
+				var delayInMilliseconds = 1000;
+				responseHTML = this.responseText;
+				var photoHTML = responseHTML.match(/<div class="photos">(.+)<\/div class="photos">/s);
+				var moreHTML = responseHTML.match(/<div class="more_photos(.+)<\/div>/s);
+				setTimeout(function() {
+					var more = $('.more_photos')[0];
+					more.parentNode.removeChild(more);
+					$('.photos')[0].innerHTML += photoHTML[1];
+					$('main')[0].innerHTML += moreHTML[0];
+				}, delayInMilliseconds);
 			}
 		};
+		offset = $('.photos')[0].children.length;
 		xhr.open('GET', '/api/photos?offset=' + offset + '&username=' + username, true);
 		xhr.send();
 	}

@@ -1,42 +1,81 @@
 <style>
-	.stickers {
-		display: flex;
-		align-items: flex-start;
-		width: 100%;
-		min-width: 100%;
-		overflow-x: auto;
-	}
 
-	.sticker {
-		padding: 5px;
-		margin: 5px;
-		border: 1px solid #eeeeee;
-		color: #757575;
-		background-color: white;
-		grid-gap: 0.5em;
-		margin: 5px;
-	}
+.stickers {
+	display: flex;
+	align-items: flex-start;
+	width: 100%;
+	min-width: 100%;
+	overflow-x: auto;
+}
 
-	.sticker img {
-		width: 100px;
-		height: 100px;
-	}
+.sticker {
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid #eeeeee;
+	color: #757575;
+	background-color: white;
+	grid-gap: 0.5em;
+	margin: 5px;
+}
 
-	#canvas {
-		position: relative;
-		overflow: hidden;
-		width: 350px;
-		height: 350px;
-	}
+.sticker img {
+	width: 100px;
+	height: 100px;
+}
 
-	.camera {
-		width: 350px;
-		height: 350px;
-		background: #c4c1c1;
-		margin: 0px;
-	}
+#canvas {
+	position: relative;
+	overflow: hidden;
+	width: 350px;
+	height: 350px;
+}
 
-	.draggable {
-		position: absolute;
-	}
+#camera, #img, #overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 350px;
+	height: 350px;
+	margin: 0px;
+}
+
+#camera {
+	background: #c4c1c1;
+	-webkit-transform: scaleX(-1);
+  	transform: scaleX(-1);
+}
+
+#img-capture {
+	position: absolute;
+	left: 145px;
+	top: 280px;
+	color: #fafafa;
+}
+
+#img-cancel {
+	position: absolute;
+	left: 155px;
+	top: 290px;
+	color: #ff6464;
+}
+
+.draggable {
+	position: absolute;
+	margin: 0px;
+}
+
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+
 </style>

@@ -8,9 +8,14 @@ footer {
 	color: #757575;
 	background-color: white;
 	text-align: center;
+	display: grid;
+	grid-template: 1fr / 1fr 1fr 1fr;
 }
 
-footer div {
-	margin-left: auto;
-	margin-right: auto;
+footer .github a {
+	float: right;
+}
+
+footer .author {
+	font-size: 0.9em;
 }

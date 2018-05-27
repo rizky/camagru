@@ -63,7 +63,7 @@ class User extends Model
 
 	public function insert_photo(Photo $photo)
 	{
-		$photo->insert($this);
+		return $photo->insert($this);
 	}
 
 	public function insert_comment($photo, $comment)
