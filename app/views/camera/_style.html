@@ -18,6 +18,10 @@
 	margin: 5px;
 }
 
+.img {
+	z-index: 2;
+}
+
 .sticker img {
 	width: 100px;
 	height: 100px;
@@ -40,12 +44,17 @@
 	margin: 0px;
 }
 
+.camera {
+	-webkit-transform: scaleX(-1);
+  	transform: scaleX(-1);
+}
+
 #capture {
 	position: absolute;
 	left: 145px;
 	top: 280px;
 	color: #fafafa;
-	z-index: 1000;
+	z-index: 1;
 }
 
 #img-cancel {
@@ -53,7 +62,7 @@
 	left: 175px;
 	top: 295px;
 	color: #ff6464;
-	z-index: 1000;
+	z-index: 3;
 }
 
 #img-save {
@@ -61,11 +70,12 @@
 	left: 125px;
 	top: 295px;
 	color: #fafafa;
-	z-index: 1000;
+	z-index: 3;
 }
 
 .draggable {
 	position: absolute;
+	z-index: 2;
 }
 
 .upload-btn-wrapper {

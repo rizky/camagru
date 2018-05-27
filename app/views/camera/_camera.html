@@ -1,0 +1,76 @@
+<script>
+
+var cam = {
+    count: 0,
+    iconSelect: 0,
+    mouseIcon: 0,
+    mouseIconZoom: 1,
+    div: "",
+    form: "",
+    upload: "",
+    mediaOption: {
+        audio: false,
+        video: {
+            width: 350,
+            height: 350
+        }
+    }
+};
+
+window.onload = function () {
+    initCam();
+	$('#capture').addEventListener("click", capture);
+}
+
+function initCam() {
+    cam.div = $("#camera");
+    navigator.getMedia = (
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia
+    );
+    if (navigator.getMedia) {
+        navigator.getMedia(cam.mediaOption,
+            function (stream) {
+				try {
+					cam.div.srcObject = stream;
+				} catch (error) {
+					cam.div.src = URL.createObjectURL(stream);
+				}
+                cam.div.play();
+            },
+            function (error) {
+                console.log("Error on getMedia " + error.name);
+            }
+        );
+    } else {
+        console.log('error Ho');
+    }
+
+    cam.div.addEventListener('canplay', function (ev) {
+        cam.mediaOption.video.height = cam.div.videoHeight / (cam.div.videoWidth / cam.mediaOption.video.width);
+        cam.div.setAttribute('width', cam.mediaOption.video.width);
+        cam.div.setAttribute('height', cam.mediaOption.video.height);
+        $("#canvas").style.width = cam.mediaOption.video.width + 'px';
+        $("#canvas").style.height = cam.mediaOption.video.height + 'px';
+    }, false);
+}
+
+function capture(event) {
+    var img = document.createElement("canvas");
+    var file = $("#img-file");
+	cam.div.pause();
+	img.width = cam.mediaOption.video.width;
+	img.height = cam.mediaOption.video.height;
+	img.getContext('2d').drawImage(cam.div, 0, 0, img.width, img.height);
+	img.scale(-1, 1);
+	file.value = img.toDataURL("image/png", 1);
+	$('#img').setAttribute('src', file.value);
+	$('#img').classList.remove('hidden');
+	$('#img-cancel').classList.remove('hidden');
+	$('#img-save').classList.remove('hidden');
+    return true;
+}
+
+</script>
