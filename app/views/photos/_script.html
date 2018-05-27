@@ -116,6 +116,7 @@
 		footer.style.display = 'block';		
 	}
 
+	var responseHTML;
 	function loadPhotos(offset, username) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function()
@@ -127,11 +128,14 @@
 				var loading_gif = $('.loading_gif')[0];
 				loading_gif.classList.remove('hidden');
 				var delayInMilliseconds = 1000;
-				var responseHTML = this.responseText;
+				responseHTML = this.responseText;
+				var photoHTML = responseHTML.match(/<div class="photos">(.+)<\/div class="photos">/s);
+				var moreHTML = responseHTML.match(/<div class="more_photos(.+)<\/div>/s);
 				setTimeout(function() {
 					var more = $('.more_photos')[0];
 					more.parentNode.removeChild(more);
-					$('.photos')[0].innerHTML += responseHTML;
+					$('.photos')[0].innerHTML += photoHTML[1];
+					$('main')[0].innerHTML += moreHTML[0];
 				}, delayInMilliseconds);
 			}
 		};
