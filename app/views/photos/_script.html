@@ -117,7 +117,7 @@
 	}
 
 	var responseHTML;
-	function loadPhotos(offset, username) {
+	function loadPhotos(username) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function()
 		{
@@ -139,6 +139,7 @@
 				}, delayInMilliseconds);
 			}
 		};
+		offset = $('.photos')[0].children.length;
 		xhr.open('GET', '/api/photos?offset=' + offset + '&username=' + username, true);
 		xhr.send();
 	}
