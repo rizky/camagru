@@ -19,7 +19,7 @@ var cam = {
 
 window.onload = function () {
     initCam();
-	$('#capture').addEventListener("click", capture);
+	$('#img-capture').addEventListener("click", capture);
 }
 
 function initCam() {
@@ -38,7 +38,11 @@ function initCam() {
 				} catch (error) {
 					cam.div.src = URL.createObjectURL(stream);
 				}
-                cam.div.play();
+				var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
+					&& cam.div.readyState > 2;
+				if (!isPlaying) {
+					cam.div.play();
+				}
             },
             function (error) {
                 console.log("Error on getMedia " + error.name);
@@ -70,10 +74,17 @@ function capture(event) {
 
 	file.value = canvas.toDataURL("image/png", 1);
 	$('#img').setAttribute('src', file.value);
+	imgMode();
+    return true;
+}
+
+function imgMode()
+{
 	$('#img').classList.remove('hidden');
 	$('#img-cancel').classList.remove('hidden');
 	$('#img-save').classList.remove('hidden');
-    return true;
+	$('#img-capture').classList.add('hidden');
+	$('#camera').classList.add('hidden');
 }
 
 </script>
