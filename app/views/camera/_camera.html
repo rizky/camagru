@@ -58,14 +58,17 @@ function initCam() {
 }
 
 function capture(event) {
-    var img = document.createElement("canvas");
+    var canvas = document.createElement("canvas");
     var file = $("#img-file");
 	cam.div.pause();
-	img.width = cam.mediaOption.video.width;
-	img.height = cam.mediaOption.video.height;
-	img.getContext('2d').drawImage(cam.div, 0, 0, img.width, img.height);
-	img.scale(-1, 1);
-	file.value = img.toDataURL("image/png", 1);
+	canvas.width = cam.mediaOption.video.width;
+	canvas.height = cam.mediaOption.video.height;
+	var ctx = canvas.getContext('2d');
+	ctx.translate(canvas.width, 0);
+	ctx.scale(-1, 1);
+	ctx.drawImage(cam.div, 0, 0, canvas.width, canvas.height);
+
+	file.value = canvas.toDataURL("image/png", 1);
 	$('#img').setAttribute('src', file.value);
 	$('#img').classList.remove('hidden');
 	$('#img-cancel').classList.remove('hidden');
