@@ -47,4 +47,55 @@ class Photos extends Controller
 			return (false);
 		$photo['object']->delete();
 	}
+
+	public function insert()
+	{
+		if (!isset($_POST['img-file']))
+			http_response_code(400);
+		if ($this->user == NULL)
+			http_response_code(401);
+		$url = $this->save_photo($_POST['img-file'], $this->generateName());
+		if ($url !== NULL)
+		{
+			$photo = new Photo(array(
+				'url' => $url)
+			);
+			$photo = $this->user->insert_photo($photo);
+			$this->redirect('/photos/' . $photo->id);
+		}
+		else
+			$this->redirect('/');
+	}
+
+	public function save_photo($image, $name)
+	{
+		$filename = 'img/photos/' . $name . '.jpg';
+		$comma = strpos($image, ',') + 1;
+		$slash = strpos($image, '/') + 1;
+
+		$image_type = substr($image, $slash, strpos($image, ';') - $slash);
+		$image = substr($image, $comma);
+
+		$decoded_image = base64_decode($image);
+
+		if (file_exists($filename)) unlink($filename);
+
+		$successful = file_put_contents($filename, $decoded_image);
+		if ($successful)
+			$url = '/img/photos/' . $name . '.jpg';
+		else
+			$url = NULL;
+		return $url;
+	}
+
+	private function generateName()
+	{
+		$key = "";
+		$chaine = "abcdefghijklmnpqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		srand((double)microtime() * 1000000);
+		for ($i = 0; $i < 50; $i++) {
+			$key .= $chaine[rand() % strlen($chaine)];
+		}
+		return $key;
+	}
 }
