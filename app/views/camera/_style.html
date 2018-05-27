@@ -1,82 +1,84 @@
 <style>
-	.stickers {
-		display: flex;
-		align-items: flex-start;
-		width: 100%;
-		min-width: 100%;
-		overflow-x: auto;
-	}
 
-	.sticker {
-		padding: 5px;
-		margin: 5px;
-		border: 1px solid #eeeeee;
-		color: #757575;
-		background-color: white;
-		grid-gap: 0.5em;
-		margin: 5px;
-	}
+.stickers {
+	display: flex;
+	align-items: flex-start;
+	width: 100%;
+	min-width: 100%;
+	overflow-x: auto;
+}
 
-	.sticker img {
-		width: 100px;
-		height: 100px;
-	}
+.sticker {
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid #eeeeee;
+	color: #757575;
+	background-color: white;
+	grid-gap: 0.5em;
+	margin: 5px;
+}
 
-	#canvas {
-		position: relative;
-		overflow: hidden;
-		width: 350px;
-		height: 350px;
-	}
+.sticker img {
+	width: 100px;
+	height: 100px;
+}
 
-	.camera, .img {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 350px;
-		height: 350px;
-		background: #c4c1c1;
-		margin: 0px;
-	}
+#canvas {
+	position: relative;
+	overflow: hidden;
+	width: 350px;
+	height: 350px;
+}
 
-	#capture {
-		position: absolute;
-		left: 145px;
-		top: 280px;
-		color: #fafafa;
-	}
+.camera, .img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 350px;
+	height: 350px;
+	background: #c4c1c1;
+	margin: 0px;
+}
 
-	#img-cancel {
-		position: absolute;
-		left: 175px;
-		top: 295px;
-		color: #ff6464;
-		z-index: 1000;
-	}
+#capture {
+	position: absolute;
+	left: 145px;
+	top: 280px;
+	color: #fafafa;
+}
 
-	#img-save {
-		position: absolute;
-		left: 125px;
-		top: 295px;
-		color: #fafafa;
-		z-index: 1000;
-	}
+#img-cancel {
+	position: absolute;
+	left: 175px;
+	top: 295px;
+	color: #ff6464;
+	z-index: 1000;
+}
 
-	.draggable {
-		position: absolute;
-	}
+#img-save {
+	position: absolute;
+	left: 125px;
+	top: 295px;
+	color: #fafafa;
+	z-index: 1000;
+}
 
-	.upload-btn-wrapper {
-		position: relative;
-		overflow: hidden;
-		display: inline-block;
-	}
+.draggable {
+	position: absolute;
+}
 
-	.upload-btn-wrapper input[type=file] {
-		font-size: 100px;
-		position: absolute;
-		left: 0;
-		top: 0;
-		opacity: 0;
-	}
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+
 </style>

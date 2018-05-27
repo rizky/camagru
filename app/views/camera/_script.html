@@ -1,73 +1,75 @@
 <script>
-	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-	var element;
 
-	function addSticker(sticker) {
-		var img = sticker.firstElementChild;
-		img = img.cloneNode(true);
-		img.classList.add('draggable');
-		img.onmousedown = dragMouseDown;
-		document.getElementById('canvas').appendChild(img);
-	}
+var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+var element;
 
-	function loadImage(input) {
-		if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            console.log(input);
-			
-            reader.onload = function (e) {
-				document.getElementById('img').setAttribute('src', e.target.result);
-				document.getElementById('img').classList.remove('hidden');
-				document.getElementById('img-cancel').classList.remove('hidden');
-				document.getElementById('img-save').classList.remove('hidden');
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-	}
+function addSticker(sticker) {
+	var img = sticker.firstElementChild;
+	img = img.cloneNode(true);
+	img.classList.add('draggable');
+	img.onmousedown = dragMouseDown;
+	document.getElementById('canvas').appendChild(img);
+}
 
-	function cancelImage() {
-		document.getElementById('img').classList.add('hidden');
-		document.getElementById('img-cancel').classList.add('hidden');
-		document.getElementById('img-save').classList.add('hidden');
-	}
-
-	function loadUrl() {
-		var url = prompt("Add link of image online?", '');
-		if (url !== '') {
-			document.getElementById('img').setAttribute('src', url);
+function loadImage(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		console.log(input);
+		
+		reader.onload = function (e) {
+			document.getElementById('img').setAttribute('src', e.target.result);
 			document.getElementById('img').classList.remove('hidden');
 			document.getElementById('img-cancel').classList.remove('hidden');
 			document.getElementById('img-save').classList.remove('hidden');
-        }
+		}
+		reader.readAsDataURL(input.files[0]);
 	}
+}
 
-	function dragMouseDown(e) {
-		e = e || window.event;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		
-		img = this.cloneNode(true);
-		img.classList.add('draggable');
-		img.onmousedown = dragMouseDown;
-		document.getElementById('canvas').appendChild(img);
-		this.parentNode.removeChild(this);
-		element = img;
-		document.onmouseup = function(){closeDragElement()}
-		document.onmousemove = function(){elementDrag(event);}
-	}
+function cancelImage() {
+	document.getElementById('img').classList.add('hidden');
+	document.getElementById('img-cancel').classList.add('hidden');
+	document.getElementById('img-save').classList.add('hidden');
+}
 
-	function elementDrag(e) {
-		e = e || window.event;
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		element.style.bottom = parseInt(element.style.bottom, 10) + pos2 + "px";
-		element.style.left = parseInt(element.style.left, 10) - pos1 + "px";
+function loadUrl() {
+	var url = prompt("Add link of image online?", '');
+	if (url !== '') {
+		document.getElementById('img').setAttribute('src', url);
+		document.getElementById('img').classList.remove('hidden');
+		document.getElementById('img-cancel').classList.remove('hidden');
+		document.getElementById('img-save').classList.remove('hidden');
 	}
+}
 
-	function closeDragElement() {
-		document.onmouseup = null;
-		document.onmousemove = null;
-	}
+function dragMouseDown(e) {
+	e = e || window.event;
+	pos3 = e.clientX;
+	pos4 = e.clientY;
+	
+	img = this.cloneNode(true);
+	img.classList.add('draggable');
+	img.onmousedown = dragMouseDown;
+	document.getElementById('canvas').appendChild(img);
+	this.parentNode.removeChild(this);
+	element = img;
+	document.onmouseup = function(){closeDragElement()}
+	document.onmousemove = function(){elementDrag(event);}
+}
+
+function elementDrag(e) {
+	e = e || window.event;
+	pos1 = pos3 - e.clientX;
+	pos2 = pos4 - e.clientY;
+	pos3 = e.clientX;
+	pos4 = e.clientY;
+	element.style.bottom = parseInt(element.style.bottom, 10) + pos2 + "px";
+	element.style.left = parseInt(element.style.left, 10) - pos1 + "px";
+}
+
+function closeDragElement() {
+	document.onmouseup = null;
+	document.onmousemove = null;
+}
+
 </script>

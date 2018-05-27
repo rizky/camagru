@@ -119,10 +119,17 @@
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var more = document.getElementsByClassName('more_photos')[0];
-				more.parentNode.removeChild(more);
-				document.getElementsByClassName('photos')[0].innerHTML +=
-				this.responseText;
+				var loading_text = document.getElementsByClassName('loading_text')[0];
+				loading_text.classList.add('hidden');
+				var loading_gif = document.getElementsByClassName('loading_gif')[0];
+				loading_gif.classList.remove('hidden');
+				var delayInMilliseconds = 1000;
+				var responseHTML = this.responseText;
+				setTimeout(function() {
+					var more = document.getElementsByClassName('more_photos')[0];
+					more.parentNode.removeChild(more);
+					document.getElementsByClassName('photos')[0].innerHTML += responseHTML;
+				}, delayInMilliseconds);
 			}
 		};
 		xhr.open('GET', '/api/photos?offset=' + offset + '&username=' + username, true);
