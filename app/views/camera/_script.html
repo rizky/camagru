@@ -1,14 +1,13 @@
 <script>
 
 var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-var element;
 
 function addSticker(sticker) {
 	var img = sticker.firstElementChild;
 	img = img.cloneNode(true);
 	img.classList.add('draggable');
 	img.onmousedown = dragMouseDown;
-	document.getElementById('canvas').appendChild(img);
+	$('#canvas').appendChild(img);
 }
 
 function loadImage(input) {
@@ -17,29 +16,29 @@ function loadImage(input) {
 		console.log(input);
 		
 		reader.onload = function (e) {
-			document.getElementById('img').setAttribute('src', e.target.result);
-			document.getElementById('img').classList.remove('hidden');
-			document.getElementById('img-cancel').classList.remove('hidden');
-			document.getElementById('img-save').classList.remove('hidden');
+			$('#img').setAttribute('src', e.target.result);
+			$('#img').classList.remove('hidden');
+			$('#img-cancel').classList.remove('hidden');
+			$('#img-save').classList.remove('hidden');
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
 }
 
 function cancelImage() {
-	document.getElementById('img').classList.add('hidden');
-	document.getElementById('img-cancel').classList.add('hidden');
-	document.getElementById('img-save').classList.add('hidden');
-	document.getElementById('camera_form').reset();
+	$('#img').classList.add('hidden');
+	$('#img-cancel').classList.add('hidden');
+	$('#img-save').classList.add('hidden');
+	$('#camera_form').reset();
 }
 
 function loadUrl() {
 	var url = prompt("Add link of image online?", '');
 	if (url !== '') {
-		document.getElementById('img').setAttribute('src', url);
-		document.getElementById('img').classList.remove('hidden');
-		document.getElementById('img-cancel').classList.remove('hidden');
-		document.getElementById('img-save').classList.remove('hidden');
+		$('#img').setAttribute('src', url);
+		$('#img').classList.remove('hidden');
+		$('#img-cancel').classList.remove('hidden');
+		$('#img-save').classList.remove('hidden');
 	}
 }
 
@@ -47,18 +46,16 @@ function dragMouseDown(e) {
 	e = e || window.event;
 	pos3 = e.clientX;
 	pos4 = e.clientY;
-	
 	img = this.cloneNode(true);
 	img.classList.add('draggable');
 	img.onmousedown = dragMouseDown;
-	document.getElementById('canvas').appendChild(img);
+	$('#canvas').appendChild(img);
 	this.parentNode.removeChild(this);
-	element = img;
 	document.onmouseup = function(){closeDragElement()}
-	document.onmousemove = function(){elementDrag(event);}
+	document.onmousemove = function(){elementDrag(event, img);}
 }
 
-function elementDrag(e) {
+function elementDrag(e, element) {
 	e = e || window.event;
 	pos1 = pos3 - e.clientX;
 	pos2 = pos4 - e.clientY;
