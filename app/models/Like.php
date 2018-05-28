@@ -45,13 +45,13 @@ class Like extends Model
 	{
 		$likes = Like::findAll($params, array('createdAt', 'ASC'), []);
 		foreach ($likes as &$l)
-			$l['user'] = USER::get(array('id' => $l['user']))->username;
+			$l['user'] = User::get(array('id' => $l['user']))->username;
 		return $likes;
 	}
 
 	public function populate()
 	{
-		$this->user = USER::get(array('id' => $this->user))->username;
+		$this->user = User::get(array('id' => $this->user))->username;
 	}
 
 	static public function is_user_like($likes)

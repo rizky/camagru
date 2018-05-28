@@ -59,8 +59,8 @@ class Photo extends Model
 
 	static private function populate($p)
 	{
-		$p['user'] = USER::get(array('id' => $p['user']))->username;		
-		$user = USER::get(array('username' => $p['user']));
+		$p['user'] = User::get(array('id' => $p['user']))->username;		
+		$user = User::get(array('username' => $p['user']));
 		$p['user_name'] = $user->name;
 		$p['user_id'] = $user->id;
 		$p['user_username'] = $user->username;

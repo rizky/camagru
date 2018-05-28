@@ -31,7 +31,7 @@ class Comment extends Model
 		
 		foreach ($comments as &$c)
 		{
-			$c['user'] = USER::get(array('id' => $c['user']))->username;
+			$c['user'] = User::get(array('id' => $c['user']))->username;
 			$c['delete_v'] = Comment::ownedBy($c['user'] );
 		}
 		return $comments;
@@ -49,7 +49,7 @@ class Comment extends Model
 
 	public function populate()
 	{
-		$this->user = USER::get(array('id' => $this->user))->username;
+		$this->user = User::get(array('id' => $this->user))->username;
 	}
 
 	static public function ownedBy($user)
