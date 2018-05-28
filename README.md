@@ -10,6 +10,10 @@ docker build -t rizkyario/42-camagru .; docker-compose up;
 
 Access `http://localhost/` in the browser and follow the instructions
 
+## Troubleshooting
+
+- [Application can't write files #26 (Solved)](https://github.com/rizkyario/42-camagru/issues/26)
+
 ## Resources
 - [Ruby Routing Convention](http://guides.rubyonrails.org/routing.html#crud-verbs-and-actions)
 - [Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns)
