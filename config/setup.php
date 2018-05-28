@@ -39,7 +39,7 @@ class setup extends Controller
 		
 		$photo = new Photo(array(
 			'createdAt' => '2018-05-22T06:46:39.000Z',
-			'url' => 'https://user-images.githubusercontent.com/6814254/40547073-32d77e60-6031-11e8-8f8c-5e9429224498.jpg')
+			'url' => '/img/photos/40547073-32d77e60-6031-11e8-8f8c-5e9429224498.jpg')
 		);
 		$admin->insert_photo($photo);
 		$admin->insert_comment($photo, 'cosmos cubic wall');
