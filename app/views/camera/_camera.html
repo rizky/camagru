@@ -45,7 +45,10 @@ function initCam() {
 				}
             },
             function (error) {
-                console.log("Error on getMedia " + error.name);
+				if (error.name == 'NotFoundError')
+					alert('No camera is found');
+				else
+					alert("Error on getMedia " + error.name);
             }
         );
     } else {
