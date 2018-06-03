@@ -172,7 +172,7 @@ class User extends Model
 			return 'Passwords are not equal';
 		if (strlen($this->password) < 6 || strlen($this->password) > 40 ||
 			!preg_match('/[0-9]+/', $this->password))
-			return 'Password should consist of 6 to 40 characters with at least 1 numeric characters';
+			return 'Password should consist of 6 to 40 characters with at least 1 numeric character';
 		return;
 	}
 	private function checkEmail()
