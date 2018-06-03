@@ -32,6 +32,7 @@ class Comment extends Model
 		foreach ($comments as &$c)
 		{
 			$c['user'] = USER::get(array('id' => $c['user']))->username;
+			$c['message'] =  htmlspecialchars($c['message']);
 			$c['delete_v'] = Comment::ownedBy($c['user'] );
 		}
 		return $comments;

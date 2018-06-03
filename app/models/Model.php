@@ -31,8 +31,8 @@ class Model
 
 	public function delete()
 	{
-		$object = static::getClass()::findOne(array('id' => $this->id));
 		$class = static::getClass();
+		$object = $class::findOne(array('id' => $this->id));
 		if ($object instanceof $class)
 			return ORM::getInstance()->delete(static::getTableName(), $this->id);
 		return false;
