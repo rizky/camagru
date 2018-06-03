@@ -38,6 +38,7 @@ class User extends Model
 		$errors[] = $this->checkUsername();
 		$errors[] = $this->checkPassword();
 		$errors[] = $this->checkEmail();
+		$errors = array_filter($errors);
 		foreach ($errors as $e) {
 			if (!empty($e))
 				return ($errors);
@@ -162,15 +163,16 @@ class User extends Model
 		if (User::findOne(array('username' => $this->username)) instanceof User)
 			return 'Username is taken';
 		if (!preg_match('/^([a-zA-Z0-9-_.]){3,20}$/', $this->username))
-			return 'Username should consist of 3 to 20 character of alpha numeric';
+			return 'Username should consist of 3 to 20 of alpha numeric characters';
 		return;
 	}
 	private function checkPassword()
 	{
 		if ($this->password !== $this->password2)
 			return 'Passwords are not equal';
-		if (strlen($this->password) < 6 || strlen($this->password) > 40)
-			return 'Password should consist of 6 to 40 character';
+		if (strlen($this->password) < 6 || strlen($this->password) > 40 ||
+			!preg_match('/[0-9]+/', $this->password))
+			return 'Password should consist of 6 to 40 characters with at least 1 numeric characters';
 		return;
 	}
 	private function checkEmail()
