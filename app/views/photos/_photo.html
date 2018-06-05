@@ -14,14 +14,14 @@
 	</div>
 	<span class="{{photo.likes_v}}">{{photo.likes}}</span>
 	{%IFN comments}
-		<div class="{{photo.description_v}}" id="comment_{{photo.description_id}}">
+		<div class="{{photo.description_v}}" id="comment_{{photo.description_id}}" style="position: relative;">
 				<a href="/account/{{photo.description_username}}">
 					<span class="user">{{photo.description_username}}</span>
 				</a>
 				<span style="width: 96%;">{{photo.description_message}}</span>
 				<div
 					onclick="deleteComment('{{photo.description_id}}')"  
-					class="{{photo.description_delete_v}}" style="float: right; opacity: 0.3;">
+					class="{{photo.description_delete_v}}" style="position: absolute;right: 0; top: 0; opacity: 0.3;">
 					<i class="fa fa-times"></i>
 				</div>
 		</div>
@@ -30,14 +30,14 @@
 				<span class="time_text">view all {{photo.comment_count}} comments</span>
 			</a>
 		</div>
-		<div class="{{photo.comment_v}}" id="comment_{{photo.comment_id}}">
+		<div class="{{photo.comment_v}}" id="comment_{{photo.comment_id}}" style="position: relative;">
 			<a href="/account/{{photo.comment_username}}">
 				<span class="user">{{photo.comment_username}}</span>
 			</a>
 			<span style="width: 96%;">{{photo.comment_message}}</span>
 			<div
 				onclick="deleteComment('{{photo.comment_id}}')"   
-				class="{{photo.comment_delete_v}}" style="float: right; opacity: 0.3;">
+				class="{{photo.comment_delete_v}}" style="position: absolute;right: 0; top: 0; opacity: 0.3;">
 				<i class="fa fa-times"></i>
 			</div>
 		</div>
@@ -57,6 +57,7 @@
 		<input
 			onkeypress="insertComment(event, '{{session.user.username}}', '{{photo.id}}')" 
 			id="comment_text_{{photo.id}}" placeholder="Add a comment..." class="comment_text"></input>
-		<i class="fa fa-ellipsis-v" style="float: right;" onclick="showMenu('{{photo.owned}}', '{{photo.id}}')"></i>
+		<i id="comment_menu_{{photo.id}}" class="fa fa-ellipsis-v" style="float: right;" onclick="showMenu('{{photo.owned}}', '{{photo.id}}')"></i>
+		<img id="comment_loading_{{photo.id}}" src="/img/loading.gif" style="width: 20px; height: 20px; float: right;" class="hidden" />
 	</div>
 </div>
