@@ -16,7 +16,13 @@ class View
 	{
 		$this->params['session'] = $_SESSION;
 		if (isset($_SESSION['user']))
+		{
 			$this->params['session']['user'] = (array)unserialize($_SESSION['user']);
+			if (strlen($this->params['session']['user']['username']) > 8)
+				$this->params['session']['user']['username_cut'] = substr($this->params['session']['user']['username'], 0, 5) . '...';
+			else
+				$this->params['session']['user']['username_cut'] = $this->params['session']['user']['username'];
+		}
 		$this->params['get'] = $_GET;
 		$this->params['post'] = $_POST;
 		$template = new Template($this->view, $this->params);

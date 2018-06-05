@@ -117,7 +117,7 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				if ($k != 'deleted')
+				if ($k != 'deleted' && $k != 'id')
 					$req_field .= '`'.$k.'`=:'.$k.', ';
 			}
 		}
@@ -127,7 +127,8 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				$statement->bindValue(':' . $k, $v);
+				if ($k != 'deleted' && $k != 'id')
+					$statement->bindValue(':' . $k, $v);
 			}
 		}
 		$statement->bindValue(':id', $value['id']);
