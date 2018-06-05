@@ -1,132 +1,134 @@
 <script>
 
-var cam = {
-    count: 0,
-    iconSelect: 0,
-    mouseIcon: 0,
-    mouseIconZoom: 1,
-    div: "",
-    form: "",
-    upload: "",
-    mediaOption: {
-        audio: false,
-        video: {
-            width: 350,
-            height: 350
-        }
-    }
-};
-
-window.onload = function () {
-    initCam();
-	$('#img-capture').addEventListener("click", captureImage);
-}
-
-function initCam() {
-    cam.div = $("#camera");
-    navigator.getMedia = (
-        navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia
-    );
-    if (navigator.getMedia) {
-        navigator.getMedia(cam.mediaOption,
-            function (stream) {
-				try {
-					cam.div.srcObject = stream;
-				} catch (error) {
-					cam.div.src = URL.createObjectURL(stream);
-				}
-				var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
-					&& cam.div.readyState > 2;
-				if (!isPlaying) {
-					cam.div.play();
-				}
-            },
-            function (error) {
-				if (error.name == 'NotFoundError')
-					alert('No camera is found');
-				else
-					alert("Error on getMedia " + error.name);
-            }
-        );
-    } else {
-        console.log('error Ho');
-    }
-
-    cam.div.addEventListener('canplay', function (ev) {
-        cam.mediaOption.video.height = cam.div.videoHeight / (cam.div.videoWidth / cam.mediaOption.video.width);
-        cam.div.setAttribute('width', cam.mediaOption.video.width);
-        cam.div.setAttribute('height', cam.mediaOption.video.height);
-        $("#canvas").style.width = cam.mediaOption.video.width + 'px';
-        $("#canvas").style.height = cam.mediaOption.video.height + 'px';
-    }, false);
-}
-
-function captureImage() {
-    var canvas = document.createElement("canvas");
-	cam.div.pause();
-	canvas.width = cam.mediaOption.video.width;
-	canvas.height = cam.mediaOption.video.height;
-	var ctx = canvas.getContext('2d');
-	ctx.translate(canvas.width, 0);
-	ctx.scale(-1, 1);
-	ctx.drawImage(cam.div, 0, 0, canvas.width, canvas.height);
-
-	$('#img').setAttribute('src', canvas.toDataURL("image/png", 1));
-	imgMode();
-    return true;
-}
-
-function saveImage() {
-    var canvas = document.createElement("canvas");
-    var file = $("#img-file");
-	cam.div.pause();
-	canvas.width = cam.mediaOption.video.width;
-	canvas.height = cam.mediaOption.video.height;
-	var ctx = canvas.getContext('2d');
-	// ctx.translate(canvas.width, 0);
-	// ctx.scale(-1, 1);
-	ctx.drawImage($('#img'), 0, 0, canvas.width, canvas.height);
-	var children = [].slice.call($('#overlay').children);
-	if (children.length > 0)
-	{
-		// ctx.translate(canvas.width, 0);
-		// ctx.scale(-1, 1);
-		children.forEach(element => {
-			left = parseInt(element.style.left, 10);
-			_top = canvas.height - parseInt(element.style.bottom, 10) - element.height;
-			ctx.drawImage(element, left, _top, element.width, element.height);
-		});
-		// ctx.translate(canvas.width, 0);
-		// ctx.scale(-1, 1);
+	var cam = {
+		count: 0,
+		iconSelect: 0,
+		mouseIcon: 0,
+		mouseIconZoom: 1,
+		div: "",
+		form: "",
+		upload: "",
+		mediaOption: {
+			audio: false,
+			video: {
+				width: 350,
+				height: 350
+			}
+		}
+	};
+	
+	window.onload = function () {
+		initCam();
+		$('#img-capture').addEventListener("click", captureImage);
 	}
-	file.value = canvas.toDataURL("image/png", 1);
-	$('#img').setAttribute('src', file.value);
-	$('#overlay').classList.add('hidden');
-	imgMode();
-    return true;
-}
-
-function imgMode()
-{
-	$('#img').classList.remove('hidden');
-	$('#img-cancel').classList.remove('hidden');
-	$('#img-capture').classList.add('hidden');
-	$('#camera').classList.add('hidden');
-	$('#img-upload').disabled = false;
-}
-
-function cancelImage() {
-	$('#img').classList.add('hidden');
-	$('#img-cancel').classList.add('hidden');
-	$('#img-capture').classList.remove('hidden');
-	$('#camera').classList.remove('hidden');
-	$('#overlay').classList.remove('hidden');
-	$('#img-upload').disabled = true;
-	$('#camera_form').reset();
-	cam.div.play();
-}
-
-</script>
+	
+	function initCam() {
+		cam.div = $("#camera");
+		navigator.getMedia = (
+			navigator.getUserMedia ||
+			navigator.webkitGetUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia
+		);
+		if (navigator.getMedia) {
+			navigator.getMedia(cam.mediaOption,
+				function (stream) {
+					try {
+						cam.div.srcObject = stream;
+					} catch (error) {
+						cam.div.src = URL.createObjectURL(stream);
+					}
+					var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
+						&& cam.div.readyState > 2;
+					if (!isPlaying) {
+						cam.div.play();
+					}
+				},
+				function (error) {
+					if (error.name == 'NotFoundError')
+						alert('No camera is found');
+					else if (error.name == 'NotAllowedError')
+						alert('Does not have permission to access camera');
+					else
+						alert("Cannot access camera");
+				}
+			);
+		} else {
+			console.log('error Ho');
+		}
+	
+		cam.div.addEventListener('canplay', function (ev) {
+			cam.mediaOption.video.height = cam.div.videoHeight / (cam.div.videoWidth / cam.mediaOption.video.width);
+			cam.div.setAttribute('width', cam.mediaOption.video.width);
+			cam.div.setAttribute('height', cam.mediaOption.video.height);
+			$("#canvas").style.width = cam.mediaOption.video.width + 'px';
+			$("#canvas").style.height = cam.mediaOption.video.height + 'px';
+		}, false);
+	}
+	
+	function captureImage() {
+		var canvas = document.createElement("canvas");
+		cam.div.pause();
+		canvas.width = cam.mediaOption.video.width;
+		canvas.height = cam.mediaOption.video.height;
+		var ctx = canvas.getContext('2d');
+		ctx.translate(canvas.width, 0);
+		ctx.scale(-1, 1);
+		ctx.drawImage(cam.div, 0, 0, canvas.width, canvas.height);
+	
+		$('#img').setAttribute('src', canvas.toDataURL("image/png", 1));
+		imgMode();
+		return true;
+	}
+	
+	function saveImage() {
+		var canvas = document.createElement("canvas");
+		var file = $("#img-file");
+		cam.div.pause();
+		canvas.width = cam.mediaOption.video.width;
+		canvas.height = cam.mediaOption.video.height;
+		var ctx = canvas.getContext('2d');
+		// ctx.translate(canvas.width, 0);
+		// ctx.scale(-1, 1);
+		ctx.drawImage($('#img'), 0, 0, canvas.width, canvas.height);
+		var children = [].slice.call($('#overlay').children);
+		if (children.length > 0)
+		{
+			// ctx.translate(canvas.width, 0);
+			// ctx.scale(-1, 1);
+			children.forEach(element => {
+				left = parseInt(element.style.left, 10);
+				_top = canvas.height - parseInt(element.style.bottom, 10) - element.height;
+				ctx.drawImage(element, left, _top, element.width, element.height);
+			});
+			// ctx.translate(canvas.width, 0);
+			// ctx.scale(-1, 1);
+		}
+		file.value = canvas.toDataURL("image/png", 1);
+		$('#img').setAttribute('src', file.value);
+		$('#overlay').classList.add('hidden');
+		imgMode();
+		return true;
+	}
+	
+	function imgMode()
+	{
+		$('#img').classList.remove('hidden');
+		$('#img-cancel').classList.remove('hidden');
+		$('#img-capture').classList.add('hidden');
+		$('#camera').classList.add('hidden');
+		$('#img-upload').disabled = false;
+	}
+	
+	function cancelImage() {
+		$('#img').classList.add('hidden');
+		$('#img-cancel').classList.add('hidden');
+		$('#img-capture').classList.remove('hidden');
+		$('#camera').classList.remove('hidden');
+		$('#overlay').classList.remove('hidden');
+		$('#img-upload').disabled = true;
+		$('#camera_form').reset();
+		cam.div.play();
+	}
+	
+	</script>
