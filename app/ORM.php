@@ -133,7 +133,7 @@ class ORM
 		}
 		$statement->bindValue(':id', $value['id']);
 		$statement->execute();
-		return (true);
+		return ($value['id']);
 	}
 
 	public function count($table, $where){
