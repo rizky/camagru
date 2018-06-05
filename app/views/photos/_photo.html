@@ -18,7 +18,7 @@
 				<a href="/account/{{photo.description_username}}">
 					<span class="user">{{photo.description_username}}</span>
 				</a>
-				<span class="comment_message">{{photo.description_message}}</span>
+				<span class="comment_message {{photo.description_break}}">{{photo.description_message}}</span>
 				<div
 					onclick="deleteComment('{{photo.description_id}}')"  
 					class="{{photo.description_delete_v}}" style="position: absolute;right: 0; top: 0; opacity: 0.3;">
@@ -34,7 +34,7 @@
 			<a href="/account/{{photo.comment_username}}">
 				<span class="user">{{photo.comment_username}}</span>
 			</a>
-			<span class="comment_message">{{photo.comment_message}}</span>
+			<span class="comment_message {{photo.comment_break}}">{{photo.comment_message}}</span>
 			<div
 				onclick="deleteComment('{{photo.comment_id}}')"   
 				class="{{photo.comment_delete_v}}" style="position: absolute;right: 0; top: 0; opacity: 0.3;">

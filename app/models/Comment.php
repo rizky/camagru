@@ -25,15 +25,27 @@ class Comment extends Model
 		return (NULL);
 	}
 
+	static public function checkMaxWord($message)
+	{
+		$words = explode(' ', $message);
+		$maxLength = 0;
+		foreach ($words as $word) {
+			if ($maxLength < strlen($word))
+				$maxLength = strlen($word);
+		}
+		return ($maxLength);
+	}
+
 	static public function find(array $params = [])
 	{
 		$comments = Comment::findAll($params, array('createdAt', 'ASC'), []);
 		
 		foreach ($comments as &$c)
 		{
-			$c['user'] = USER::get(array('id' => $c['user']))->username;
+			$c['user'] = User::get(array('id' => $c['user']))->username;
 			$c['message'] =  htmlspecialchars($c['message']);
 			$c['delete_v'] = Comment::ownedBy($c['user'] );
+			$c['break'] = Comment::checkMaxWord($c['message']) > 40 ? 'block' : 'inline';
 		}
 		return $comments;
 	}
@@ -50,7 +62,7 @@ class Comment extends Model
 
 	public function populate()
 	{
-		$this->user = USER::get(array('id' => $this->user))->username;
+		$this->user = User::get(array('id' => $this->user))->username;
 	}
 
 	static public function ownedBy($user)
