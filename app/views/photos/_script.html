@@ -122,7 +122,6 @@
 		footer.style.display = 'block';		
 	}
 
-	var responseHTML;
 	function loadPhotos(username) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function()
@@ -134,9 +133,9 @@
 				var loading_gif = $('.loading_gif')[0];
 				loading_gif.classList.remove('hidden');
 				var delayInMilliseconds = 1000;
-				responseHTML = this.responseText;
-				var photoHTML = responseHTML.match(/<div class="photos">(.+)<\/div class="photos">/s);
-				var moreHTML = responseHTML.match(/<div class="more_photos(.+)<\/div>/s);
+				var responseHTML = this.responseText;
+				var photoHTML = responseHTML.match(/<div class="photos">([\s\S]+)<\/div class="photos">/);
+				var moreHTML = responseHTML.match(/<div class="more_photos([\s\S]+)<\/div>/);
 				setTimeout(function() {
 					var more = $('.more_photos')[0];
 					more.parentNode.removeChild(more);

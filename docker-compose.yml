@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: rizkyario/42-camagru
+    build: .
     environment:
       - ALLOW_OVERRIDE=true
     ports:
