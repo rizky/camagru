@@ -11,7 +11,7 @@
 				if (xhr.status === 200)
 				{
 					photo.parentNode.removeChild(photo);
-					if ($('.photos')[0].innerHTML.trim() === '')
+					if ($('.photos')[0] == null || $('.photos')[0].innerHTML.trim() === '')
 						window.location.href = '/';
 				}
 				else

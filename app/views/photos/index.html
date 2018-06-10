@@ -4,10 +4,10 @@
 {#INCLUDE:photos/_style}
 {#END}
 {#BODY}
+	{%IFN photos}
+		<h5>No Photo</h5>
+	{%END}
 	<div class="photos">
-		{%IFN photos}
-			<h5>No Photo</h5>
-		{%END}
 		{*FOR photos AS photo}
 			{#INCLUDE:photos/_photo}
 		{*END}

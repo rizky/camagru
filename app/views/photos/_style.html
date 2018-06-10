@@ -2,7 +2,7 @@
 
 .photos {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(325px,1fr));
+	grid-template-columns: repeat(auto-fit, minmax(325px,1fr));
 	width: 100%;
 	padding: 10px;
 }
@@ -38,21 +38,6 @@
 
 .photo .user {
 	font-weight: bold;
-}
-
-@media screen and (max-width: 500px) {
-	.photos {
-		grid-template-columns: repeat(auto-fill, minmax(405px,1fr));
-	}
-
-	.photo {
-		width: 405px;
-	}
-
-	.photo img {
-		width: 380px;
-		height: 380px;
-	}
 }
 
 .comment_text {
