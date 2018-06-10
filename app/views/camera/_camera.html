@@ -88,24 +88,42 @@
 		imgMode();
 		return true;
 	}
+
+	String.prototype.interpolate = function (o) {
+    return this.replace(/{([^{}]*)}/g,
+        function (a, b) {
+            var r = o[b];
+            return typeof r === 'string' || typeof r === 'number' ? r : a;
+			}
+		);
+	};
 	
 	function saveImage() {
 		var canvas = document.createElement("canvas");
 		var file = $("#img-file");
+		var overlayInfo = $("#overlayInfo");
 		cam.div.pause();
 		canvas.width = cam.mediaOption.video.height;
 		canvas.height = cam.mediaOption.video.height;
 		var ctx = canvas.getContext('2d');
 		ctx.drawImage($('#img'), 0, 0, canvas.width, canvas.height);
 		var children = [].slice.call($('#overlay').children);
+		overlayInfo.value += '[';
 		if (children.length > 0)
 		{
+			var i = 0;
 			children.forEach(element => {
 				left = parseInt(element.style.left, 10);
 				_top = canvas.height - parseInt(element.style.bottom, 10) - element.height;
-				ctx.drawImage(element, left, _top, element.width, element.height);
+				if (i > 0) overlayInfo.value += ', ';
+				overlayInfo.value += '{"src": "' + element.getAttribute("src") + '",'
+				overlayInfo.value += '"x": ' + left + ' ,'
+				overlayInfo.value += '"y": ' + _top + '}'
+				i = i + 1;
 			});
+
 		}
+		overlayInfo.value += ']';
 		file.value = canvas.toDataURL("image/png", 1);
 		$('#img').setAttribute('src', file.value);
 		$('#overlay').classList.add('hidden');

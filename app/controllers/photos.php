@@ -50,11 +50,12 @@ class Photos extends Controller
 
 	public function insert()
 	{
-		if (!isset($_POST['img-file']))
+		if (!isset($_POST['img-file']) || !isset($_POST['overlayInfo']))
 			http_response_code(400);
 		if ($this->user == NULL)
 			http_response_code(401);
-		$url = $this->save_photo($_POST['img-file'], $this->generateName());
+		$stickers = json_decode($_POST['overlayInfo']);
+		$url = $this->save_photo($_POST['img-file'], $this->generateName(), $stickers);
 		if ($url !== NULL)
 		{
 			$photo = new Photo(array(
@@ -67,7 +68,7 @@ class Photos extends Controller
 			$this->redirect('/');
 	}
 
-	public function save_photo($image, $name)
+	private function save_photo($image, $name, $stickers)
 	{
 		$filename = 'img/photos/' . $name . '.jpg';
 		$comma = strpos($image, ',') + 1;
@@ -76,11 +77,27 @@ class Photos extends Controller
 		$image_type = substr($image, $slash, strpos($image, ';') - $slash);
 		$image = substr($image, $comma);
 
-		$decoded_image = base64_decode($image);
+		$decoded_image = imagecreatefromstring(base64_decode($image));
+		if (!empty($stickers)) {
+			foreach ($stickers as $sticker) {
+				$tmp = imagecreatefrompng(substr($sticker->src,1));
+				imagecopyresized(
+					$decoded_image,
+					$tmp,
+					$sticker->x,
+					$sticker->y,
+					0,
+					0,
+					200,
+					200,
+					200,
+					200
+				);
+			}
+		}
 
 		if (file_exists($filename)) unlink($filename);
-
-		$successful = file_put_contents($filename, $decoded_image);
+		$successful = imagepng($decoded_image, $filename, 0);
 		if ($successful)
 			$url = '/img/photos/' . $name . '.jpg';
 		else

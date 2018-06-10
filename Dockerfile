@@ -1,5 +1,4 @@
 FROM php:7.2-apache
-RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
 
@@ -9,7 +8,9 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 # Installs sendmail
-RUN apt-get update && apt-get install -q -y ssmtp mailutils && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -q -y ssmtp mailutils libpng-dev && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install gd pdo_mysql
 
 # root is the person who gets all mail for userids < 1000
 RUN echo "root=camagru.rizky@gmail.com" >> /etc/ssmtp/ssmtp.conf
