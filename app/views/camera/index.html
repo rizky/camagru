@@ -10,7 +10,9 @@
 	<form action='/photos/insert' method='POST' id='camera_form'>
 		<h2>Add New Photo</h2>
 		<div id='canvas'>
-			<video id='camera' autoplay='true' class='camera'></video>
+			<div id='camera-wrapper'>
+				<video id='camera' autoplay='true' class='camera'></video>
+			</div>
 			<img id='img' class='img hidden'/>
 			<div id='overlay'></div>
 			<a id="img-capture">
