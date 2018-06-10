@@ -30,6 +30,7 @@ function loadUrl() {
 	}
 }
 
+var element;
 function dragMouseDown(e) {
 	e = e || window.event;
 	pos3 = e.clientX;
@@ -37,13 +38,14 @@ function dragMouseDown(e) {
 	img = this.cloneNode(true);
 	img.classList.add('draggable');
 	img.onmousedown = dragMouseDown;
+	element = img;
 	$('#overlay').appendChild(img);
 	this.parentNode.removeChild(this);
-	document.onmouseup = function(){closeDragElement()}
-	document.onmousemove = function(){elementDrag(event, img);}
+	document.onmouseup = closeDragElement;
+	document.onmousemove = elementDrag;
 }
 
-function elementDrag(e, element) {
+function elementDrag(e) {
 	e = e || window.event;
 	pos1 = pos3 - e.clientX;
 	pos2 = pos4 - e.clientY;

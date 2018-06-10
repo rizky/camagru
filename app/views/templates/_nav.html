@@ -19,7 +19,7 @@
 			{%IF session.user}
 			<a href="/account/">
 				<span><i class="fas fa-user-circle"></i>
-					<span class="nav-text">{{session.user.name}}</span>
+					<span class="nav-text" style="white-space: nowrap;">{{session.user.username_cut}}</span>
 				</span>
 			</a>
 			<ul class="ani">

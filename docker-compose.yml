@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: rizkyario/42-camagru
+    build: .
     environment:
       - ALLOW_OVERRIDE=true
     ports:
@@ -12,7 +12,7 @@ services:
     volumes:
       - .:/var/www/html/
     environment:
-      XDEBUG_CONFIG: remote_host=10.0.1.18
+      XDEBUG_CONFIG: remote_host=10.11.2.8
 
   db:
     image: mysql:5.5.59

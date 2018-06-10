@@ -62,6 +62,10 @@
 	
 		if (event.keyCode == 13)
 		{
+			var loading_gif =  $('#comment_loading_' + photo);
+			loading_gif.classList.remove('hidden');
+			var comment_menu =  $('#comment_menu_' + photo);
+			comment_menu.classList.add('hidden');
 			comment.disabled = true;
 			xhr.open('POST', '/comments/insert');
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -74,6 +78,8 @@
 				else
 					window.location.href = '/account/login';
 				comment.disabled = false;
+				loading_gif.classList.add('hidden');
+				comment_menu.classList.remove('hidden');
 			};
 			xhr.send(encodeURI('user=' + user + '&photo=' + photo + '&comment=' + comment.value));
 		}
@@ -116,7 +122,6 @@
 		footer.style.display = 'block';		
 	}
 
-	var responseHTML;
 	function loadPhotos(username) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function()
@@ -128,9 +133,9 @@
 				var loading_gif = $('.loading_gif')[0];
 				loading_gif.classList.remove('hidden');
 				var delayInMilliseconds = 1000;
-				responseHTML = this.responseText;
-				var photoHTML = responseHTML.match(/<div class="photos">(.+)<\/div class="photos">/s);
-				var moreHTML = responseHTML.match(/<div class="more_photos(.+)<\/div>/s);
+				var responseHTML = this.responseText;
+				var photoHTML = responseHTML.match(/<div class="photos">([\s\S]+)<\/div class="photos">/);
+				var moreHTML = responseHTML.match(/<div class="more_photos([\s\S]+)<\/div>/);
 				setTimeout(function() {
 					var more = $('.more_photos')[0];
 					more.parentNode.removeChild(more);
