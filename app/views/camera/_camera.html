@@ -11,7 +11,6 @@
 		mediaOption: {
 			audio: false,
 			video: {
-				width: 350,
 				height: 350
 			}
 		}
@@ -54,11 +53,11 @@
 				}
 			);
 		} else {
-			console.log('error Ho');
+			console.log('Error');
 		}
 	
 		cam.div.addEventListener('canplay', function (ev) {
-			cam.mediaOption.video.height = cam.div.videoHeight / (cam.div.videoWidth / cam.mediaOption.video.width);
+			cam.mediaOption.video.width = cam.div.videoWidth / (cam.div.videoHeight / cam.mediaOption.video.height);
 			cam.div.setAttribute('width', cam.mediaOption.video.width);
 			cam.div.setAttribute('height', cam.mediaOption.video.height);
 			$("#canvas").style.width = cam.mediaOption.video.width + 'px';
@@ -69,12 +68,12 @@
 	function captureImage() {
 		var canvas = document.createElement("canvas");
 		cam.div.pause();
-		canvas.width = cam.mediaOption.video.width;
+		canvas.width = cam.mediaOption.video.height;
 		canvas.height = cam.mediaOption.video.height;
 		var ctx = canvas.getContext('2d');
-		ctx.translate(canvas.width, 0);
-		ctx.scale(-1, 1);
-		ctx.drawImage(cam.div, 0, 0, canvas.width, canvas.height);
+		// ctx.translate(350, 0);
+		// ctx.scale(-1, 1);
+		ctx.drawImage(cam.div, 0, 0, cam.div.videoHeight, cam.div.videoHeight, 0, 0, canvas.width, canvas.width);
 	
 		$('#img').setAttribute('src', canvas.toDataURL("image/png", 1));
 		imgMode();
