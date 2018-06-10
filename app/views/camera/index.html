@@ -7,10 +7,12 @@
 {#END}
 {#BODY}
 <div class='forms'>
-	<form action='/photos/insert' method='POST' id='camera_form'>
+	<form action='/photos/insert' method='POST' id='camera_form' enctype='multipart/form-data'>
 		<h2>Add New Photo</h2>
 		<div id='canvas'>
-			<video id='camera' autoplay='true' class='camera'></video>
+			<div id='camera-wrapper'>
+				<video id='camera' autoplay='true' class='camera'></video>
+			</div>
 			<img id='img' class='img hidden'/>
 			<div id='overlay'></div>
 			<a id="img-capture">
@@ -24,12 +26,13 @@
 			</a>
 		</div>
 		<input type='hidden' name='img-file' id='img-file'>
+		<input type='hidden' name='overlayInfo' id='overlayInfo'>
 		<div class="stackLayout flow-horizontal horizontal-option-end">
 			<div class="upload-btn-wrapper">
 				<a><i class="fas fa-upload size-medium"></i></a>
 				<input type="file" name="upload" id="upload" onchange="loadImage(this)"/>
 			</div>
-			<a onclick="loadUrl()"><i class="fas fa-link size-medium"></i></a>
+			<!-- <a onclick="loadUrl()"><i class="fas fa-link size-medium"></i></a> -->
 		</div>
 		<h2>Stickers</h2>
 		<div class='stickers'>
@@ -40,6 +43,20 @@
 			{*END}
 		</div>
 		<button id="img-upload" onclick="saveImage()" disabled>Upload</button>
+		<br />
+		<br />
+		<br />
+		<hr />
+		<h2>Your Photos</h2>
+		<div class="stickers">
+			{*FOR photos AS photo}
+				<a href="/photos/{{photo.id}}">
+					<div class='sticker' style='position: relative;'>
+						<img style="bottom:0px;left:0px" src='{{photo.url}}'>
+					</div>
+				</a>
+			{*END}
+		</div>	
 	</form>
 </div>
 {#END}

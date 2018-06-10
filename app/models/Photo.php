@@ -76,6 +76,7 @@ class Photo extends Model
 		$p['description_message'] = $comment_nbr > 0 ? $comments[0]['message'] : 0;
 		$p['description_delete_v'] = $comment_nbr > 0 ? Comment::ownedBy($p['description_username']) : 0;
 		$p['description_v'] = ($p['description_message'] == NULL) ? 'hidden' : 'show';
+		$p['description_break'] = Comment::checkMaxWord($p['description_message']) > 40 ? 'block' : 'inline';
 		$p['comment_id'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['id'] : 0;
 		$p['comment_username'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['user'] : 0;
 		$p['comment_message'] = $comment_nbr > 1 ? $comments[$comment_nbr - 1]['message'] : 0;
@@ -83,6 +84,7 @@ class Photo extends Model
 		$p['comment_v'] = $comment_nbr <= 1 ? 'hidden' : 'show';
 		$p['comment_more_v'] = $comment_nbr <= 2 ? 'hidden' : 'show';
 		$p['comment_count'] = $comment_nbr;
+		$p['comment_break'] = Comment::checkMaxWord($p['comment_message']) > 40 ? 'block' : 'inline';
 		$p['owned'] = Photo::ownedBy($p['user']);
 		return $p;
 	}

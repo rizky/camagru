@@ -19,13 +19,14 @@
 			{%IF session.user}
 			<a href="/account/">
 				<span><i class="fas fa-user-circle"></i>
-					<span class="nav-text">{{session.user.name}}</span>
+					<span class="nav-text" style="white-space: nowrap;">{{session.user.username_cut}}</span>
 				</span>
 			</a>
 			<ul class="ani">
 				<li><a href="/account/">Profile</a></li>
 				<li><a href="/account/settings">Settings</a></li>
 				<li><a href="/account/logout">Logout</a></li>
+				<div class='handler'></div>
 			</ul>
 			{%END}
 			{%IFN session.user}
@@ -37,6 +38,7 @@
             <ul class="ani">
 				<li><a href="/account/login">Login</a></li>
 				<li><a href="/account/register">Register</a></li>
+				<div class='handler'></div>
 			</ul>
        		{%END}
 		</li>

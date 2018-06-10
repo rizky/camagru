@@ -13,6 +13,7 @@ class ORM
 			$this->sqlDB = $DB_BASE;
 			$this->PDOInstance = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 			$this->PDOInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->PDOInstance->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();
 		}
@@ -116,7 +117,7 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				if ($k != 'deleted')
+				if ($k != 'deleted' && $k != 'id')
 					$req_field .= '`'.$k.'`=:'.$k.', ';
 			}
 		}
@@ -126,12 +127,13 @@ class ORM
 		{
 			if (in_array($k, $fields))
 			{
-				$statement->bindValue(':' . $k, $v);
+				if ($k != 'deleted' && $k != 'id')
+					$statement->bindValue(':' . $k, $v);
 			}
 		}
 		$statement->bindValue(':id', $value['id']);
 		$statement->execute();
-		return (true);
+		return ($value['id']);
 	}
 
 	public function count($table, $where){
