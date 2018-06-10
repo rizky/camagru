@@ -2,8 +2,11 @@
 
 ## Instalation
 
-```
-docker build -t rizkyario/42-camagru .; docker-compose up;
+```bash
+#Run website
+docker-compose build; docker-compose up;
+#Stop website
+docker-compose down
 ```
 
 ## Setup
