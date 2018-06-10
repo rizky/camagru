@@ -37,32 +37,15 @@
 					&& cam.div.readyState > 2;
 				if (!isPlaying) {
 					cam.div.play();
-				}	
-			})
-			.catch(function (e) { logError(e.name + ": " + e.message); });
-		}
-		else if (navigator.getMedia) {
-			navigator.getMedia(cam.mediaOption,
-				function (stream) {
-					try { cam.div.srcObject = stream;}
-					catch (error) {cam.div.src = URL.createObjectURL(stream);}
-					var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
-						&& cam.div.readyState > 2;
-					if (!isPlaying) {
-						cam.div.play();
-					}
-				},
-				function (error) {
-					if (error.name == 'NotFoundError')
-						alert('No camera is found');
-					else if (error.name == 'NotAllowedError')
-						alert('Does not have permission to access camera');
-					else
-						alert("Cannot access camera");
 				}
-			);
-		} else {
-			console.log('Error');
+				$('#img-capture').classList.remove('hidden');
+			})
+			.catch(function (e) { 
+				$('#img-capture').classList.add('hidden');
+				});
+		}
+		else {
+			$('#img-capture').classList.add('hidden');
 		}
 	
 		cam.div.addEventListener('canplay', function (ev) {
