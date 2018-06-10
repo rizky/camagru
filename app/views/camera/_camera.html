@@ -26,17 +26,26 @@
 		navigator.getMedia = (
 			navigator.getUserMedia ||
 			navigator.webkitGetUserMedia ||
-			navigator.mozGetUserMedia ||
 			navigator.msGetUserMedia
 		);
-		if (navigator.getMedia) {
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({  audio: true, video: true })
+			.then(function (stream) {
+				try { cam.div.srcObject = stream;}
+				catch (error) {cam.div.src = URL.createObjectURL(stream);}
+				var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
+					&& cam.div.readyState > 2;
+				if (!isPlaying) {
+					cam.div.play();
+				}	
+			})
+			.catch(function (e) { logError(e.name + ": " + e.message); });
+		}
+		else if (navigator.getMedia) {
 			navigator.getMedia(cam.mediaOption,
 				function (stream) {
-					try {
-						cam.div.srcObject = stream;
-					} catch (error) {
-						cam.div.src = URL.createObjectURL(stream);
-					}
+					try { cam.div.srcObject = stream;}
+					catch (error) {cam.div.src = URL.createObjectURL(stream);}
 					var isPlaying = cam.div.currentTime > 0 && !cam.div.paused && !cam.div.ended 
 						&& cam.div.readyState > 2;
 					if (!isPlaying) {
