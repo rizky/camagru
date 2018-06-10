@@ -61,7 +61,7 @@ class Photos extends Controller
 				'url' => $url)
 			);
 			$photo = $this->user->insert_photo($photo);
-			$this->redirect('/photos/' . $photo->id);
+			$this->redirect('/camera');
 		}
 		else
 			$this->redirect('/');
