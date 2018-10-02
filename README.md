@@ -1,5 +1,7 @@
 # 42-Camagru
 
+![screen shot 2018-05-27 at 11 11 12 pm](https://user-images.githubusercontent.com/6814254/40590702-7a33d9e2-6203-11e8-90b5-83c0657dea88.png)
+
 ## Instalation
 
 ```bash
